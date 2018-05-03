@@ -1,0 +1,272 @@
+<?php
+/**
+ * @file
+ * Code for the GFA Adjustments feature.
+ */
+include_once 'gfa_adjustments.features.inc';
+
+
+module_load_include('inc', 'node', 'node.pages');
+// Disable preview button from node add form.
+variable_set('node_preview_' . 'ppa', '0');
+
+/**
+ * Implements hook_menu()
+ */
+function gfa_adjustments_menu() {
+    $items = array();
+
+    $items['admin/config/content/gfa-adjustments'] = array(
+        'title' => 'GFA Adjustments',
+        'description' => 'Administrator settings for GFA Adjustments',
+        'page arguments' => array('gfa_adjustments_admin_content'),
+        'access arguments' => array('administer gfa_adjustments'),
+        'page callback' => 'drupal_get_form',
+        'file' => 'includes/gfa_adjustments.admin.inc',
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 10,
+    );
+
+    $items['add-adjustments'] = array(
+        'title' => t('Add Adjustments'),
+        'page arguments' => array(1),
+        'page callback' => 'add_adjustments_page',
+        'access callback' => TRUE,
+        'menu_name' => 'main-menu',
+        'type' => MENU_NORMAL_ITEM,
+        'access arguments' => array(
+            'administer site configuration'
+        )
+    );
+
+    $items['adjustments'] = array(
+        'title' => t('Adjustments'),
+        'page arguments' => array(1,2,3),
+        'page callback' => 'adjustments_list_page',
+        'access callback' => TRUE,
+        'menu_name' => 'main-menu',
+        'type' => MENU_CALLBACK,
+        'file' => 'includes/adjustments_list_page.inc'
+    );
+
+    $items['export-spreadsheet'] = array(
+        'title' => t('Export Spreadsheet'),
+        'page arguments' => array(1,2,3),
+        'page callback' => 'export_spreadsheet',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array(
+            'administer site configuration'
+        ),
+        'file' => 'includes/export.inc'
+    );
+
+    return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ * Fix for node_add ajax callbacks.
+ */
+function gfa_adjustments_menu_alter(&$items) {
+    $items['file/ajax']['file path']   = drupal_get_path('module', 'node');
+    $items['file/ajax']['file']        = 'node.pages.inc';
+    $items['system/ajax']['file path'] = drupal_get_path('module', 'node');
+    $items['system/ajax']['file']      = 'node.pages.inc';
+}
+
+/**
+ * Return adjustment form select list.
+ */
+function adjustment_select_form($form, &$form_state, $arg1) {
+    $options = array(
+        'ppa' => 'Prior Period Adjustments',
+        'cparn' => 'CPA - RADAR Net Accrual',
+        'pppece' => 'Prior Period PE to CE',
+        'mnat' => 'CPA - MB2 Net Accrual'
+    );
+    $form['adj_select'] = array(
+        '#type' => 'select',
+        '#title' => t('Adjustment Form type'),
+        '#description' => t('Choose which form to enter manually'),
+        '#options' => $options,
+        '#default_value' => $arg1
+
+    );
+    $form['submit']     = array(
+        '#type' => 'submit',
+        '#value' => t('Apply')
+    );
+    return $form;
+}
+
+/**
+ * PPA select form submit function.
+ */
+function adjustment_select_form_submit($form, &$form_state) {
+    $adjForm = $form_state['values']['adj_select'];
+    drupal_goto('/add-adjustments/' . $adjForm);
+}
+
+/**
+ * Return adj form.
+ */
+function adj_form($arg1) {
+    $form = array();
+    switch ($arg1) {
+        case 'ppa':
+            $form = node_add('ppa');
+            break;
+        case 'cparn':
+            $form = node_add('cparn');
+            break;
+        case 'pppece':
+            $form = node_add('pppece');
+            break;
+        case 'mnat':
+            $form = node_add('mnat');
+            break;
+        default:
+            $form = node_add('ppa');
+            break;
+    }
+    return $form;
+}
+
+/**
+ * Page callback.
+ */
+function add_adjustments_page($arg1 = NULL) {
+    $page = array(
+        'adj_select_form' => drupal_get_form('adjustment_select_form', $arg1),
+        'adj_form' => adj_form($arg1)
+    );
+    return $page;
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function gfa_adjustments_node_insert($node) {
+    if ($node->type == "ppa" || $node->type == 'cparn' || $node->type == 'pppece' || $node->type == 'mnat') {
+        drupal_set_message('You have successfully submitted this adjustment');
+        drupal_goto('/add-adjustments');
+    }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function gfa_adjustments_theme_registry_alter(&$theme_registry) {
+    $theme_registry['field_multiple_value_form']['function']   = 'gfa_adjustments_field_multiple_value_form';
+    $theme_registry['field_multiple_value_form']['includes']   = array();
+    $theme_registry['field_multiple_value_form']['theme path'] = drupal_get_path('module', 'gfa_adjustments');
+}
+
+/**
+ * Implements theme_field_multiple_value_form().
+ */
+function gfa_adjustments_field_multiple_value_form($variables) {
+    $element   = $variables['element'];
+    $output    = '';
+    // allows the disabling of the table drag for specif fields
+    $draggable = !in_array($element['#field_name'], array(
+        'field_ppa',
+        'field_cparn',
+        'field_pppece',
+        'field_mnat'
+    ));
+    if ($element['#cardinality'] > 1 || $element['#cardinality'] == FIELD_CARDINALITY_UNLIMITED) {
+        $table_id    = drupal_html_id($element['#field_name'] . '_values');
+        $order_class = $element['#field_name'] . '-delta-order';
+        $required    = !empty($element['#required']) ? theme('form_required_marker', $variables) : '';
+        $header      = array(
+            array(
+                'data' => '<label>' . t('!title !required', array(
+                    '!title' => $element['#title'],
+                    '!required' => $required
+                )) . "</label>",
+                'colspan' => 2,
+                'class' => array(
+                    'field-label'
+                )
+            )
+        );
+        if ($draggable) {
+            $header[] = t('Order');
+        }
+        $rows  = array();
+        // Sort items according to '_weight' (needed when the form comes back after
+        // preview or failed validation)
+        $items = array();
+        foreach (element_children($element) as $key) {
+            if ($key === 'add_more') {
+                $add_more_button =& $element[$key];
+            } else {
+                $items[] =& $element[$key];
+            }
+        }
+        usort($items, '_field_sort_items_value_helper');
+        // Add the items as table rows.
+        foreach ($items as $key => $item) {
+            $item['_weight']['#attributes']['class'] = array(
+                $order_class
+            );
+            if (!$draggable) {
+                $item['_weight']['#attributes']['style'][] = 'display:none;';
+            }
+            $delta_element = drupal_render($item['_weight']);
+            if ($draggable) {
+                $cells  = array(
+                    array(
+                        'data' => '',
+                        'class' => array(
+                            'field-multiple-drag'
+                        )
+                    ),
+                    drupal_render($item),
+                    array(
+                        'data' => $delta_element,
+                        'class' => array(
+                            'delta-order'
+                        )
+                    )
+                );
+                $rows[] = array(
+                    'data' => $cells,
+                    'class' => array(
+                        'draggable'
+                    )
+                );
+            } else {
+                $cells  = array(
+                    drupal_render($item) . $delta_element
+                );
+                $rows[] = array(
+                    'data' => $cells
+                );
+            }
+        }
+        $output = '<div class="form-item">';
+        $output .= theme('table', array(
+            'header' => $header,
+            'rows' => $rows,
+            'attributes' => array(
+                'id' => $table_id,
+                'class' => array(
+                    'field-multiple-table'
+                )
+            )
+        ));
+        $output .= $element['#description'] ? '<div class="description">' . $element['#description'] . '</div>' : '';
+        $output .= '<div class="clearfix">' . drupal_render($add_more_button) . '</div>';
+        $output .= '</div>';
+        if ($draggable) {
+            drupal_add_tabledrag($table_id, 'order', 'sibling', $order_class);
+        }
+    } else {
+        foreach (element_children($element) as $key) {
+            $output .= drupal_render($element[$key]);
+        }
+    }
+    return $output;
+}
