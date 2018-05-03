@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Paragraphs_updated feature.
+ */
+
+include_once 'paragraphs_updates.features.inc';

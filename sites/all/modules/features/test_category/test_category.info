@@ -1,0 +1,7 @@
+name = test category
+core = 7.x
+package = Features
+dependencies[] = features
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[taxonomy][] = test_category

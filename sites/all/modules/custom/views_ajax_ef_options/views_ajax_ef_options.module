@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function views_ajax_ef_options_menu() {
+
+  $items = array();
+
+  $items['admin/config/user-interface/views-ajax-ef-options'] = array(
+    'title' => 'Views Ajax EF Options Settings',
+    'description' => 'Administrator settings for Views Ajax EF Options.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_ajax_ef_options_admin_content'),
+    'access arguments' => array('administer viewsajaxef options'),
+    'file' => 'views_ajax_ef_options.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 10,
+  );
+
+  $items['admin/config/user-interface/views-ajax-ef-options/settings'] = array(
+    'title' => 'Main settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  return $items;
+}
+
+/**
+ * Implement hook_views_ajax_data_alter().
+ */
+function views_ajax_ef_options_views_ajax_data_alter(&$commands, $view) {
+  $scrollToTop = variable_get('scroll_to_top', 'yes');
+  if ($scrollToTop == 'no') {
+    // Remove scroll to top behaviour from views ajax
+    foreach ($commands as $key => $command) {
+      if ($command['command'] == 'viewsScrollTop') {
+        unset($commands[$key]);
+        break;
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+name = Extended Search settings
+description = Additional settings and callbacks for the Search API.
+core = 7.x
+
+
+dependencies[] = search_api
+package = Mckinsey & Company
+version = 7.x-1.0-beta

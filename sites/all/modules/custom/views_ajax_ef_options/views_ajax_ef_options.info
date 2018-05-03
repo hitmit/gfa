@@ -1,0 +1,4 @@
+name = Views Ajax EF Options
+description = Additional options for views exposed filters when using Ajax.
+core = 7.x
+package = Mckinsey & Company

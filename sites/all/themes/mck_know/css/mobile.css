@@ -1,0 +1,292 @@
+
+@media (min-width: 768px) {
+	/*homepage*/
+
+	.navigation-r3 .hamburger-nav .main-nav-inner .mck-logo-icon {
+		display: none;}
+
+	.owl-carousel:after {
+	    height: 180px;
+	    width: 180px;
+	    background-size: 100% auto;
+	}
+	/*about page*/
+	.newtrophy{
+	    max-width: 100%!important;
+	    max-height: 285px;
+	    width: auto!important;
+	    padding:0 15px;
+	    right: 0;
+	}
+	.ribbon{
+		left:40px;
+		max-height: 360px;
+		width: auto!important;
+	}
+	#green-slants .no-padding{
+	    background-image: -webkit-linear-gradient(84deg, #00A0AF 19%, rgba(199, 26, 26, 0) 19%),url(../images/blurred-1.jpg);
+	    background-image: -o-linear-gradient(84deg, #00A0AF 19%, rgba(199, 26, 26, 0) 19%),url(../images/blurred-1.jpg);
+	    background-image: -moz-linear-gradient(84deg, #00A0AF 19%, rgba(199, 26, 26, 0) 19%),url(../images/blurred-1.jpg);
+	    background-image:linear-gradient(84deg, #00A0AF 19%, rgba(199, 26, 26, 0) 19%),url(../images/blurred-1.jpg);
+	    width:50%;
+	}
+	#green-slants .blue{
+		width: 50%
+	}
+	#blue-slants .no-padding{
+      background-image: -webkit-linear-gradient(-82deg, #0065BD 18%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: -o-linear-gradient(-82deg, #0065BD 18%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: -moz-linear-gradient(-82deg, #0065BD 18%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: linear-gradient(-82deg, #0065BD 18%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+	/* about page ends*/
+	/* bio page*/
+	.fred{
+	  height: 365px;
+	}
+	.stack .text-l .headline{
+		 font-size: 34px;
+	}
+	/* bio page ends*/
+	/*selection*/
+	.mountain{
+		background-position: bottom;
+	}
+	/*selection page ends*/
+}
+@media (min-width: 1024px) {
+	/*about page*/
+	.newtrophy{
+	   /* max-width: 550px!important;*/
+	    max-width: 100%!important;
+	    max-height: 450px;
+	    width: auto!important;
+	    right: 0;
+	}
+	.ribbon{
+		max-width: 39%!important;
+		left:40px;
+		 max-height: inherit;
+	}
+	#green-slants .no-padding{
+	    background-image: -webkit-linear-gradient(85deg, #00A0AF 10%, rgba(199, 26, 26, 0) 10%),url(../images/blurred-1.jpg);
+	    background-image: -o-linear-gradient(85deg, #00A0AF 10%, rgba(199, 26, 26, 0) 10%),url(../images/blurred-1.jpg);
+	    background-image: -moz-linear-gradient(85deg, #00A0AF 10%, rgba(199, 26, 26, 0) 10%),url(../images/blurred-1.jpg);
+	    background-image:linear-gradient(85deg, #00A0AF 10%, rgba(199, 26, 26, 0) 10%),url(../images/blurred-1.jpg);
+	    width:45%;
+	}
+	#green-slants .blue{
+		width: 55%
+	}
+	#blue-slants .no-padding{
+      background-image: -webkit-linear-gradient(-80deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: -o-linear-gradient(-80deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: -moz-linear-gradient(-80deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: linear-gradient(-80deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+	/* about page ends*/
+	/* bio page*/
+	.fred{
+	  height: 450px;
+	}
+	.stack .text-l .headline{
+		 font-size: 42px;
+	}
+	/* bio page ends*/
+}
+@media (min-width: 1100px) {
+	/*about page*/
+	.newtrophy{
+		max-height: 450px;
+
+	}
+	#green-slants .no-padding{
+	  width:45%;
+	}
+	#green-slants .blue{
+		width: 55%
+	}
+	#green-slants .blue{
+		width: 55%
+	}
+	.ribbon{
+		left: initial;
+	    max-height: 445px;
+	    padding: 0 15px;
+	    
+	}
+	/* about page ends*/
+}
+@media screen and (min-width: 1180px){
+	.primary-navigation ul{
+		display:none;
+	}
+}
+@media (min-width: 1250px) {
+	.newtrophy{
+		max-height: 450px;
+		right:20px;
+	}
+	#green-slants .no-padding{
+	    background-image: -webkit-linear-gradient(82deg, #00A0AF 12%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	    background-image: -o-linear-gradient(82deg, #00A0AF 12%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	    background-image: -moz-linear-gradient(82deg, #00A0AF 12%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	    background-image:linear-gradient(82deg, #00A0AF 12%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	}
+	#green-slants .blue,#green-slants .no-padding{
+		width: 50%
+	}
+	#blue-slants .no-padding{
+      background-image: -webkit-linear-gradient(-78deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: -o-linear-gradient(-78deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: -moz-linear-gradient(-78deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+      background-image: linear-gradient(-78deg, #0065BD 15%, rgba(199, 26, 26, 0) 15%), url(../images/blurred-1.jpg);
+  }
+}
+@media screen and (min-width: 1350px){
+	.primary-navigation ul{
+		display:block;
+	}
+}
+@media (min-width:1500px){
+	#green-slants .no-padding{
+	    background-image: -webkit-linear-gradient(79deg, #00A0AF 9%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	    background-image: -o-linear-gradient(79deg, #00A0AF 9%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	    background-image: -moz-linear-gradient(79deg, #00A0AF 9%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	    background-image:linear-gradient(79deg, #00A0AF 9%, rgba(199, 26, 26, 0) 9%),url(../images/blurred-1.jpg);
+	}
+	.mountain{
+		background-position: top;
+	}
+}
+@media (max-width: 767px) {
+	/*agenda*/
+
+	.agenda .headline,.agenda .cta-holder{
+		width:100%;
+	}
+	/* homepage*/
+
+.universal-header .description {    max-width: 337px;
+    margin: .8em auto;}
+
+	.parallax-container.hotel-hero{
+		top:0;
+		transform: translate3d(0px, 0, 0px)!important;
+	}
+	.hotel .universal-hero.-light .headline, .hotel .universal-hero.-light a{
+		color:#fff;
+	}
+
+	.accordion.career-person.item {padding:20px;}
+	.accordion.career-person div.image {min-width: 100px;}
+	.owl-carousel:after
+	{
+		height:150px;
+		width:150px;
+		background-size: 100% auto;
+	}
+	/* homepage ends*/
+	/*about page*/
+	#green-slants .no-padding,#blue-slants .no-padding{
+
+	    background-image: url(../images/blurred-1.jpg);
+	    background-repeat: no-repeat;
+	    height: 227px;
+
+	}
+
+	#green-slants .blue,#blue-slants .blue{
+		width: 100%
+	}
+	.newtrophy,.ribbon{
+		position: absolute;
+	    left: 50%;
+	    -webkit-transform: translateX(-50%);
+	    transform: translateX(-50%);
+	    max-height: 267px;
+	    width: auto!important;
+	}
+
+	.newtrophy{
+		right:20px;
+	}
+	.ribbon{
+		top:-40px;
+	}
+	#green-slants .headline,#blue-slants .headline
+	{
+		width: 100%
+	}
+	#green-slants >.block-list:last-child .item,#blue-slants >.block-list:last-child .item{
+		width:100%;
+	}
+	#green-slants .text-wrapper,#blue-slants .text-wrapper{
+		padding-left: 8%;
+    	padding-right: 8%;
+	}
+
+.full-text-section .headline.-gradient-cool{
+	-webkit-text-fill-color: #00306e;
+color: #00306e;}
+
+	/* about page ends*/
+	/* bio page*/
+	.fred{
+	  height: 275px;
+	  background-position:center;
+	}
+	.bio4{
+		height:400px;
+	}
+	.bio .featured-copy{
+		width:100%;
+	}
+	.bio.hero-featured .text-hero-sm .headline {
+	    font-size: 34px;
+	    line-height: initial;
+	}
+	.bio.hero-featured .content {
+	    padding: 30px 0;
+	}
+	/* bio page ends*/
+	/*selection*/
+	.mountain-bk{
+		height:250px;
+	}
+	.mountain{
+		background-position:top;
+		max-height: 300px;
+		width: 100%;
+		background-size: cover;
+	}
+	/* selection page ends*/
+}
+@media (max-width: 480px) {
+	/*login*/
+	.page-toboggan form{
+		width: 90%
+	}
+	.homepage-hero{
+		background-size: contain;
+		min-height: 100px;
+		max-height:inherit
+	}
+	/*bio page*/
+	.fred{
+	  background-position: center;
+	  height:230px;
+	}
+	.bio4{
+		height:200px;
+	}
+	#green-slants .headline{
+		width: 89%
+	}
+	
+	/* bio page ends*/
+}

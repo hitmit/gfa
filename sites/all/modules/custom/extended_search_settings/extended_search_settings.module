@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * Implements hook_search_api_alter_callback_info().
+ */
+function extended_search_settings_search_api_alter_callback_info() {
+  $callbacks['search_api_alter_paragraph_host_status'] = array(
+    'name' => t('Paragraphs Host Status'), 
+    'description' => t('Exclude Paragraphs with an unpublished host node status.'), 
+    'class' => 'SearchApiAlterParagraphHostStatus', 
+    'weight' => 100,
+  );
+
+  return $callbacks;
+}
+
+/**
+ * Exclude paragraphs from unpublished nodes from indexes.
+ */
+class SearchApiAlterParagraphHostStatus extends SearchApiAbstractAlterCallback {
+
+  /**
+   * Check whether this data-alter callback is applicable for a certain index.
+   *
+   * Returns TRUE only for indexes on nodes.
+   *
+   * @param SearchApiIndex $index
+   *   The index to check for.
+   *
+   * @return boolean
+   *   TRUE if the callback can run on the given index; FALSE otherwise.
+   */
+  public function supportsIndex(SearchApiIndex $index) {
+    if ($this->isMultiEntityIndex($index)) {
+      return in_array('paragraphs_item', $index->options['datasource']['types']);
+    }
+    else {
+      return $index->getEntityType() == 'paragraphs_item';
+    }
+  }
+  
+  /**
+   * Alter items before indexing.
+   *
+   * Items which are removed from the array won't be indexed, but will be marked
+   * as clean for future indexing.
+   *
+   * @param array $items
+   *   An array of items to be altered, keyed by item IDs.
+   */
+  public function alterItems(array &$items) {
+    foreach ($items as $id => $item) {
+      $itemType = isset($item->item_type) && !empty($item->item_type) ? $item->item_type : NULL;
+      if($itemType == 'paragraphs_item') {
+        $paraID = isset($item->paragraphs_item) && !empty($item->paragraphs_item) ? $item->paragraphs_item->item_id : NULL;
+        $entity = entity_load_single('paragraphs_item', $paraID);
+        $host_entity = $entity->hostEntity();
+        $status = $host_entity->status;
+        if($status == 0) {
+          unset($items[$id]);
+        }
+      }
+    }
+  }
+}
