@@ -1,0 +1,3 @@
+name = GFA Feed
+description = Contains functions for feed related executions
+core = 7.x

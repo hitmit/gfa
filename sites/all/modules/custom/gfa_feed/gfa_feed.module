@@ -1,0 +1,130 @@
+<?php
+
+/**
+ * Implements hook_menu()
+ * @return mixed
+ */
+
+function gfa_feed_menu()
+{
+    $items['mnat'] = array(
+        'title' => 'MNAT',
+        'page callback' => 'gfa_feed_page',
+        'access arguments' => array('access content'),
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_theme() *
+ */
+function gfa_feed_theme($existing, $type, $theme, $path)
+{
+
+    return array(
+        'mnat' => array(
+            'template' => 'templates/mnat',
+        ),
+    );
+
+}
+
+
+function gfa_feed_page()
+{
+    return theme('mnat');
+}
+
+/**
+ * - This function handles the importing to the node and field collection
+ * - FCUID and UID in the csv need to be unique, UID corresponds to the node
+ * - FCUID is the field collection unique ID
+ *
+ * @param $importer_id
+ * @param $fid
+ */
+function import_csv($importer_id, $fid)
+{
+    if(isset($fid)){
+        $file = file_load($fid);
+        $feedSource = feeds_source($importer_id);
+        $config = $feedSource->getConfig();
+        $config['FeedsFileFetcher']['source'] = $file->uri;
+        $feedSource->setConfig($config);
+        $feedSource->save();
+
+        while (FEEDS_BATCH_COMPLETE != $feedSource->import()) ;
+    }
+
+}
+
+/**
+ * Implements hook_form()
+ * - Generate a form so that the user can upload their CSV file
+ * - It is then passed into the import_csv() function
+ */
+function gfa_feed_document_add_form($form, &$form_state)
+{
+    $doc_id = variable_get('document_variable_name');
+    $form['doc_file'] = array(
+        '#title' => t('Upload the document'),
+        '#type' => 'managed_file',
+        '#description' => t('Supports only .csv files'),
+        '#upload_location' => 'private://csv_files/',
+        '#default_value' => isset($doc_id) ? $doc_id : NULL,
+        '#upload_validators' => array(
+            'file_validate_extensions' => array('csv'),
+        ),
+    );
+
+    $form['document_submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save'),
+        '#submit' => array('gfa_feed_document_submit'),
+    );
+    return $form;
+}
+
+/**
+ * Implements hook_form_submit()
+ * - Remove old file
+ * - Save new file into the database
+ * - Callback to import_csv() to perform the import
+ */
+function gfa_feed_document_submit($form, $form_state)
+{
+    if (isset($form_state['values']['doc_file'])) {
+        //remove existing document while clicking remove button
+        if ($form_state['values']['doc_file'] == 0) {
+            //get existing file id to delete
+            $document_exist_id = variable_get('document_variable_name');
+            $document_exist_file = file_load($document_exist);
+            if (!empty($document_exist_file)) {
+                //delete file usage
+                file_usage_delete($document_exist_file, 'gfa_feed', 'TYPE', $document_exist_id);
+                // The file_delete() function takes a file object and checks to see if
+                // the file is being used by any other modules. If it is the delete
+                // operation is canceled, otherwise the file is deleted.
+                file_delete($document_exist_file, TRUE);
+                drupal_set_message(t('Old document removed.'));
+            }
+        } else {
+            //adding document
+            $current_document = file_load($form_state['values']['doc_file']);
+            if (!empty($current_document->fid)) {
+                //get currently uploaded file id
+                $file_id = $current_document->fid;
+                //setting file id to its variable
+                variable_set('document_variable_name', $file_id);
+                file_usage_add($current_document, 'gfa_feed', 'TYPE', $file_id);
+                //make file status as permanent
+                $current_document->status = FILE_STATUS_PERMANENT;
+                file_save($current_document);
+
+                $fid = $current_document->fid;
+                import_csv('cpa_mnat', $fid);
+                drupal_set_message("Documents uploaded successfully.");
+            }
+        }
+    }
+}
