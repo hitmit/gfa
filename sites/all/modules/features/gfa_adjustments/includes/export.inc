@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 /**
  * Update boolean field_downloaded from 0 to 1.
  */
-function updateDownloaded(array $entities) {
+function updateDownloaded($entities) {
     foreach($entities as $entity) {
         $fci_wrapper = entity_metadata_wrapper('field_collection_item', $entity);
         $fci_wrapper->field_downloaded->set(1);
@@ -29,34 +29,41 @@ function export_spreadsheet($arg1, $arg2, $arg3) {
         $arg2 = 'ppa';
     }
     if(!isset($arg3) || empty($arg3)) {
-        $arg = 'all';
+        $arg3 = 'new';
     }
 
     $adj = new adjustments();
     $paPeriod = $adj->getPAPeriod($arg2);
-    $paPeriodCode = reset($paPeriod);
+    $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
 
     $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCode);
     $entities = entity_load('field_collection_item', $efq);
 
     $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2, $paPeriod);
 
-    $spreadsheet = new Spreadsheet();
-    $sheet = $spreadsheet->getActiveSheet();
     if(!empty($arrayData[1])) {
+        $library = variable_get('spread_library', 'phpexcel');
+        $filename = $arg1 . '-' . $arg2 . '.xlsx"';
+
+        if($library == 'phpexcel') {
+            $spreadsheet = new PHPExcel();
+            $writer = new PHPExcel_Writer_Excel2007($spreadsheet);
+        } elseif($library == 'phpspreadsheet') {
+            $spreadsheet = new Spreadsheet();
+            $writer = new Xlsx($spreadsheet);
+        }
+
+        $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->getActiveSheet()
             ->fromArray(
                 $arrayData,  // The data to set
                 NULL,        // Array values with this value will not be set
                 'A1'         // Top left coordinate of the worksheet range where
-        );
+            );
 
-        $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.ms-excel');
-        $filename = $arg1 . '-' . $arg2;
-        header('Content-Disposition: attachment; filename="' . $filename . '.xlsx"');
+        header('Content-Disposition: attachment; filename="' . $filename);
         $writer->save("php://output");
-
         updateDownloaded($entities);
     } else {
         drupal_set_message('There are no new adjustments of type ' . $arg2 . ' since last download for the pay period.', 'status', FALSE);

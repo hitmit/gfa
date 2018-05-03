@@ -2706,46 +2706,6 @@ function gfa_adjustments_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-mnat-field_uid'.
-  $field_instances['node-mnat-field_uid'] = array(
-    'bundle' => 'mnat',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_uid',
-    'label' => 'uid',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => -3,
-    ),
-  );
-
   // Exported field_instance: 'node-pay_periods-field_pa_periods'.
   $field_instances['node-pay_periods-field_pa_periods'] = array(
     'bundle' => 'pay_periods',
@@ -2942,7 +2902,6 @@ function gfa_adjustments_field_default_field_instances() {
   t('User Name');
   t('mnat');
   t('pppece');
-  t('uid');
 
   return $field_instances;
 }
