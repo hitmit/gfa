@@ -149,6 +149,90 @@ function paragraphs_updates_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'paragraphs_item-banner_image-field_align_media_right'.
+  $field_instances['paragraphs_item-banner_image-field_align_media_right'] = array(
+    'bundle' => 'banner_image',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_align_media_right',
+    'label' => 'Display description as overlay',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'paragraphs_item-banner_image-field_heading'.
+  $field_instances['paragraphs_item-banner_image-field_heading'] = array(
+    'bundle' => 'banner_image',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_heading',
+    'label' => 'Overlay Description Heading',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'paragraphs_item-banner_image-field_image'.
   $field_instances['paragraphs_item-banner_image-field_image'] = array(
     'bundle' => 'banner_image',
@@ -195,7 +279,57 @@ function paragraphs_updates_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 2,
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'paragraphs_item-banner_image-field_poster'.
+  $field_instances['paragraphs_item-banner_image-field_poster'] = array(
+    'bundle' => 'banner_image',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 7,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_poster',
+    'label' => 'Overlay Image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 3,
     ),
   );
 
@@ -226,7 +360,7 @@ function paragraphs_updates_field_default_field_instances() {
     'label' => 'Description',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -236,7 +370,47 @@ function paragraphs_updates_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 1,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'paragraphs_item-banner_image-field_sub_title'.
+  $field_instances['paragraphs_item-banner_image-field_sub_title'] = array(
+    'bundle' => 'banner_image',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_sub_title',
+    'label' => 'Caption',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
@@ -276,7 +450,51 @@ function paragraphs_updates_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 0,
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'paragraphs_item-banner_video-field_background_video'.
+  $field_instances['paragraphs_item-banner_video-field_background_video'] = array(
+    'bundle' => 'banner_video',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_background_video',
+    'label' => 'Background Video',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 5,
     ),
   );
 
@@ -326,7 +544,7 @@ function paragraphs_updates_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -357,7 +575,7 @@ function paragraphs_updates_field_default_field_instances() {
     'label' => 'Description',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -368,6 +586,46 @@ function paragraphs_updates_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'paragraphs_item-banner_video-field_sub_title'.
+  $field_instances['paragraphs_item-banner_video-field_sub_title'] = array(
+    'bundle' => 'banner_video',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_sub_title',
+    'label' => 'Caption',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
@@ -411,8 +669,8 @@ function paragraphs_updates_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'paragraphs_item-banner_video-field_video_path'.
-  $field_instances['paragraphs_item-banner_video-field_video_path'] = array(
+  // Exported field_instance: 'paragraphs_item-banner_video-field_video_file'.
+  $field_instances['paragraphs_item-banner_video-field_video_file'] = array(
     'bundle' => 'banner_video',
     'deleted' => 0,
     'description' => '',
@@ -422,7 +680,7 @@ function paragraphs_updates_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 2,
+        'weight' => 4,
       ),
       'paragraphs_editor_preview' => array(
         'label' => 'above',
@@ -432,9 +690,9 @@ function paragraphs_updates_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_video_path',
+    'field_name' => 'field_video_file',
     'label' => 'Video',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'description_field' => 0,
       'file_directory' => '',
@@ -449,7 +707,7 @@ function paragraphs_updates_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -489,7 +747,7 @@ function paragraphs_updates_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -539,12 +797,69 @@ function paragraphs_updates_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
-  // Exported field_instance: 'paragraphs_item-help_item-field_more_link'.
-  $field_instances['paragraphs_item-help_item-field_more_link'] = array(
+  // Exported field_instance: 'paragraphs_item-help_item-field_learn_more'.
+  $field_instances['paragraphs_item-help_item-field_learn_more'] = array(
+    'bundle' => 'help_item',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 8,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_learn_more',
+    'label' => 'Learn More Link',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 0,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'rel_remove' => 'default',
+      'title' => 'optional',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 0,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'paragraphs_item-help_item-field_sub_title'.
+  $field_instances['paragraphs_item-help_item-field_sub_title'] = array(
     'bundle' => 'help_item',
     'default_value' => NULL,
     'deleted' => 0,
@@ -555,7 +870,7 @@ function paragraphs_updates_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 9,
       ),
       'paragraphs_editor_preview' => array(
         'label' => 'above',
@@ -565,9 +880,9 @@ function paragraphs_updates_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_more_link',
-    'label' => 'Learn More Link',
-    'required' => 1,
+    'field_name' => 'field_sub_title',
+    'label' => 'Number',
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -579,7 +894,7 @@ function paragraphs_updates_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 1,
     ),
   );
 
@@ -713,61 +1028,6 @@ function paragraphs_updates_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'paragraphs_item-news_item-field_date'.
-  $field_instances['paragraphs_item-news_item-field_date'] = array(
-    'bundle' => 'news_item',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'date',
-        'settings' => array(
-          'format_type' => 'long',
-          'fromto' => 'both',
-          'multiple_from' => '',
-          'multiple_number' => '',
-          'multiple_to' => '',
-          'show_remaining_days' => FALSE,
-        ),
-        'type' => 'date_default',
-        'weight' => 7,
-      ),
-      'paragraphs_editor_preview' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_date',
-    'label' => 'Date',
-    'required' => 0,
-    'settings' => array(
-      'default_value' => 'now',
-      'default_value2' => 'same',
-      'default_value_code' => '',
-      'default_value_code2' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'date',
-      'settings' => array(
-        'increment' => 15,
-        'input_format' => 'M j Y - g:i:sa',
-        'input_format_custom' => '',
-        'label_position' => 'above',
-        'no_fieldset' => 0,
-        'text_parts' => array(),
-        'year_range' => '-3:+3',
-      ),
-      'type' => 'date_select',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'paragraphs_item-news_item-field_description'.
   $field_instances['paragraphs_item-news_item-field_description'] = array(
     'bundle' => 'news_item',
@@ -804,7 +1064,7 @@ function paragraphs_updates_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => 5,
     ),
   );
 
@@ -854,23 +1114,23 @@ function paragraphs_updates_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
-  // Exported field_instance: 'paragraphs_item-news_item-field_learn_more_link'.
-  $field_instances['paragraphs_item-news_item-field_learn_more_link'] = array(
+  // Exported field_instance: 'paragraphs_item-news_item-field_office'.
+  $field_instances['paragraphs_item-news_item-field_office'] = array(
     'bundle' => 'news_item',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Provide link path',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 12,
       ),
       'paragraphs_editor_preview' => array(
         'label' => 'above',
@@ -880,9 +1140,9 @@ function paragraphs_updates_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_learn_more_link',
-    'label' => 'Learn More Link',
-    'required' => 1,
+    'field_name' => 'field_office',
+    'label' => 'Location',
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -894,7 +1154,47 @@ function paragraphs_updates_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'paragraphs_item-news_item-field_sub_title'.
+  $field_instances['paragraphs_item-news_item-field_sub_title'] = array(
+    'bundle' => 'news_item',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_sub_title',
+    'label' => 'Number',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
     ),
   );
 
@@ -1234,6 +1534,8 @@ function paragraphs_updates_field_default_field_instances() {
       'add_mode' => 'select',
       'allowed_bundles' => array(
         'banner' => -1,
+        'banner_image' => -1,
+        'banner_video' => -1,
         'help_item' => 'help_item',
         'image' => -1,
         'news_item' => -1,
@@ -1247,6 +1549,8 @@ function paragraphs_updates_field_default_field_instances() {
       ),
       'bundle_weights' => array(
         'banner' => 2,
+        'banner_image' => 15,
+        'banner_video' => 16,
         'help_item' => 3,
         'image' => 4,
         'news_item' => 5,
@@ -1491,6 +1795,64 @@ function paragraphs_updates_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'paragraphs_item-three_columns_card_news-field_link'.
+  $field_instances['paragraphs_item-three_columns_card_news-field_link'] = array(
+    'bundle' => 'three_columns_card_news',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 6,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_link',
+    'label' => 'Link',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'rel_remove' => 'default',
+      'title' => 'optional',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 6,
     ),
   );
 
@@ -2085,7 +2447,48 @@ function paragraphs_updates_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 5,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'paragraphs_item-two_columns_with_image-field_description'.
+  $field_instances['paragraphs_item-two_columns_with_image-field_description'] = array(
+    'bundle' => 'two_columns_with_image',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_description',
+    'label' => 'Main Description',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 1,
     ),
   );
 
@@ -2129,7 +2532,48 @@ function paragraphs_updates_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 4,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'paragraphs_item-two_columns_with_image-field_heading'.
+  $field_instances['paragraphs_item-two_columns_with_image-field_heading'] = array(
+    'bundle' => 'two_columns_with_image',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'paragraphs_item',
+    'field_name' => 'field_heading',
+    'label' => 'Heading',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
@@ -2180,7 +2624,7 @@ function paragraphs_updates_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -2211,7 +2655,7 @@ function paragraphs_updates_field_default_field_instances() {
     'label' => 'Short Description',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2221,7 +2665,7 @@ function paragraphs_updates_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => 5,
     ),
   );
 
@@ -2249,7 +2693,7 @@ function paragraphs_updates_field_default_field_instances() {
     ),
     'entity_type' => 'paragraphs_item',
     'field_name' => 'field_sub_title',
-    'label' => 'Subtitle',
+    'label' => 'Caption',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2262,7 +2706,7 @@ function paragraphs_updates_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => 3,
     ),
   );
 
@@ -2303,7 +2747,7 @@ function paragraphs_updates_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 0,
+      'weight' => 4,
     ),
   );
 
@@ -2511,7 +2955,7 @@ function paragraphs_updates_field_default_field_instances() {
     ),
     'entity_type' => 'paragraphs_item',
     'field_name' => 'field_sub_title',
-    'label' => 'Subtitle',
+    'label' => 'Caption',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2570,8 +3014,8 @@ function paragraphs_updates_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'paragraphs_item-two_columns_with_video-field_video_path'.
-  $field_instances['paragraphs_item-two_columns_with_video-field_video_path'] = array(
+  // 'paragraphs_item-two_columns_with_video-field_video'.
+  $field_instances['paragraphs_item-two_columns_with_video-field_video'] = array(
     'bundle' => 'two_columns_with_video',
     'deleted' => 0,
     'description' => '',
@@ -2581,7 +3025,7 @@ function paragraphs_updates_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 3,
+        'weight' => 7,
       ),
       'paragraphs_editor_preview' => array(
         'label' => 'above',
@@ -2591,7 +3035,7 @@ function paragraphs_updates_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_video_path',
+    'field_name' => 'field_video',
     'label' => 'Video',
     'required' => 0,
     'settings' => array(
@@ -2612,107 +3056,18 @@ function paragraphs_updates_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'paragraphs_item-video-field_poster'.
-  $field_instances['paragraphs_item-video-field_poster'] = array(
-    'bundle' => 'video',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 1,
-      ),
-      'paragraphs_editor_preview' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_poster',
-    'label' => 'Poster',
-    'required' => 0,
-    'settings' => array(
-      'alt_field' => 1,
-      'default_image' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'image',
-      'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'image_image',
-      'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'paragraphs_item-video-field_video_path'.
-  $field_instances['paragraphs_item-video-field_video_path'] = array(
-    'bundle' => 'video',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 0,
-      ),
-      'paragraphs_editor_preview' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'paragraphs_item',
-    'field_name' => 'field_video_path',
-    'label' => 'Video',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'mp4',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 1,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Align  image/video to the right of the container');
   t('Align Right');
   t('Align Video to Right');
   t('Author');
-  t('Date');
+  t('Background Video');
+  t('Caption');
   t('Description');
   t('Display Arrow');
+  t('Display description as overlay');
+  t('Heading');
   t('Help Item 1');
   t('Help Item 2');
   t('Help Item 3');
@@ -2722,16 +3077,19 @@ function paragraphs_updates_field_default_field_instances() {
   t('Item 2');
   t('Item 3');
   t('Learn More Link');
+  t('Link');
+  t('Location');
+  t('Main Description');
   t('Media');
   t('News Item 1');
   t('News Item 2');
   t('News Item 3');
-  t('Poster');
-  t('Provide link path');
+  t('Number');
+  t('Overlay Description Heading');
+  t('Overlay Image');
   t('Select "yes" to display arrow pointer towards the media in the container');
   t('Short Description');
   t('Sub Title');
-  t('Subtitle');
   t('Thumbnail');
   t('Title');
   t('Video');

@@ -69,11 +69,6 @@ function paragraphs_updates_paragraphs_info() {
       'bundle' => 'two_columns_with_video',
       'locked' => '1',
     ),
-    'video' => array(
-      'name' => 'Video',
-      'bundle' => 'video',
-      'locked' => '1',
-    ),
   );
   return $items;
 }
