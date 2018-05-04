@@ -5,34 +5,38 @@
  * @return mixed
  */
 
-function gfa_feed_menu()
-{
-    $items['mnat'] = array(
-        'title' => 'MNAT',
+function gfa_feed_menu() {
+    $items['upload/%'] = array(
+        'title' => 'Upload',
+        'title callback' => 'page_title',
+        'page arguments' => array(1),
         'page callback' => 'gfa_feed_page',
         'access arguments' => array('access content'),
     );
     return $items;
 }
 
+function page_title(){
+    //pass uploader name to page title
+    return strtoupper(arg(1)) . " Upload";
+}
+
 /**
- * Implements hook_theme() *
+ * Implements hook_theme()
  */
-function gfa_feed_theme($existing, $type, $theme, $path)
-{
+function gfa_feed_theme($existing, $type, $theme, $path) {
 
     return array(
-        'mnat' => array(
-            'template' => 'templates/mnat',
+        'default_upload' => array(
+            'template' => 'templates/default-upload',
         ),
     );
 
 }
 
 
-function gfa_feed_page()
-{
-    return theme('mnat');
+function gfa_feed_page() {
+    return theme('default_upload');
 }
 
 /**
@@ -43,8 +47,8 @@ function gfa_feed_page()
  * @param $importer_id
  * @param $fid
  */
-function import_csv($importer_id, $fid)
-{
+function import_csv($importer_id, $fid) {
+
     if(isset($fid)){
         $file = file_load($fid);
         $feedSource = feeds_source($importer_id);
@@ -63,8 +67,7 @@ function import_csv($importer_id, $fid)
  * - Generate a form so that the user can upload their CSV file
  * - It is then passed into the import_csv() function
  */
-function gfa_feed_document_add_form($form, &$form_state)
-{
+function gfa_feed_document_add_form($form, &$form_state) {
     $doc_id = variable_get('document_variable_name');
     $form['doc_file'] = array(
         '#title' => t('Upload the document'),
@@ -91,8 +94,7 @@ function gfa_feed_document_add_form($form, &$form_state)
  * - Save new file into the database
  * - Callback to import_csv() to perform the import
  */
-function gfa_feed_document_submit($form, $form_state)
-{
+function gfa_feed_document_submit($form, $form_state) {
     if (isset($form_state['values']['doc_file'])) {
         //remove existing document while clicking remove button
         if ($form_state['values']['doc_file'] == 0) {
@@ -101,7 +103,7 @@ function gfa_feed_document_submit($form, $form_state)
             $document_exist_file = file_load($document_exist);
             if (!empty($document_exist_file)) {
                 //delete file usage
-                file_usage_delete($document_exist_file, 'gfa_feed', 'TYPE', $document_exist_id);
+                file_usage_delete($document_exist_file, 'gfa_feed', '', $document_exist_id);
                 // The file_delete() function takes a file object and checks to see if
                 // the file is being used by any other modules. If it is the delete
                 // operation is canceled, otherwise the file is deleted.
@@ -116,13 +118,22 @@ function gfa_feed_document_submit($form, $form_state)
                 $file_id = $current_document->fid;
                 //setting file id to its variable
                 variable_set('document_variable_name', $file_id);
-                file_usage_add($current_document, 'gfa_feed', 'TYPE', $file_id);
+                file_usage_add($current_document, 'gfa_feed', '', $file_id);
                 //make file status as permanent
                 $current_document->status = FILE_STATUS_PERMANENT;
+
                 file_save($current_document);
 
                 $fid = $current_document->fid;
-                import_csv('cpa_mnat', $fid);
+                switch(arg(1)){
+                    case "mnat":
+                        $uploader = "cpa_mnat";
+                        break;
+                    case "cparn":
+                        $uploader = "cparn";
+                        break;
+                }
+                import_csv($uploader, $fid);
                 drupal_set_message("Documents uploaded successfully.");
             }
         }

@@ -116,6 +116,8 @@
 
 	<!--Content Start-->
 	<div class="container-fluid main-content sub-page">
+        <h1><?php print $title; ?></h1>
+	<?php print $messages; ?>
 	<?php print render($page['content']) ?>
 	</div>
 	<!--Content End-->
