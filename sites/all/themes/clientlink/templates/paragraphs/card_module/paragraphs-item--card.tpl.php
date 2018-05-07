@@ -31,13 +31,14 @@ $bguri              = isset($content['field_image']['#items'][0]['uri']) ? $cont
 $bgurl              = isset($bguri) ? file_create_url($bguri) : NULL;
 
 
-$activeBg              = isset($content['field_poster']['#items'][0]['uri']) ? $content['field_poster']['#items'][0]['uri'] : NULL;
-$activebgurl           = isset($activeBg) ? file_create_url($activeBg) : NULL;
+//$activeBg              = isset($content['field_poster']['#items'][0]['uri']) ? $content['field_poster']['#items'][0]['uri'] : NULL;
+//$activebgurl           = isset($activeBg) ? file_create_url($activeBg) : NULL;
 
 $title              = isset($content['field_title']) ? render($content['field_title']) : '';
 $sub_title          = isset($content['field_sub_title']) ? render($content['field_sub_title']) : '';
+$date          = isset($content['field_date']) ? render($content['field_date']) : '';
 $description        = isset($content['field_description']) ? render($content['field_description']) : '';
-$number        = isset($content['field_heading']) ? render($content['field_heading']) : '';
+//$number        = isset($content['field_heading']) ? render($content['field_heading']) : '';
 
 $link_items         = isset($content['field_links']) ? $content['field_links'] : '';
 
@@ -65,37 +66,15 @@ $titleIcon = $content['field_background_video'][0]['#markup']? "title-icon" : ""
 
        <div class="row">
        		<div class="col-12">
-
-						<?php if(isset($content['field_from_date'])){ ?>
-						<div class="col-3">
-							<div class="date p-3">
-								<div class="from-date mb-3">
-									<span><?php echo date('F', $from_date); ?></span>
-									<span class="day"><?php echo date('d', $from_date); ?></span>
-									<span><?php echo date('Y', $from_date); ?></span>
-									<span class="date-border mt-3"></span>
-								</div>
-								<div class="end-date">
-									<span><?php echo date('F', $end_date); ?></span>
-									<span class="day"><?php echo date('d', $end_date); ?></span>
-									<span><?php echo date('Y', $end_date); ?></span>
-								</div>
-							</div>
-						</div>
-						<?php } if(isset($content['field_from_date'])){ ?>
-
-							<div class="col-9 p-0">
-						<?php }else{ ?>
 						 	<div class="col-12 p-0">
-						<?php } ?>
 					                             <?php if((isset($content['field_image']) & ($bgimage) & (!($iconAsTitle)))){ ?>
-									<div class="card-block px-4 py-2 card-bg" style="background-image: url('<?php echo $bgurl ?>');">
+									<div class="card-block py-2 p-0 card-bg" style="background-image: url('<?php echo $bgurl ?>');">
 						    <?php } else{?>
-									<div class="card-block px-4 py-2 ">
+									<div class="card-block py-2 p-0 ">
 							<?php } ?>
 
 							<?php if(isset($content['field_sub_title'])){ ?>
-										<p class="caption mb-0"><?php  echo $sub_title; ?></p>
+										<p class="caption"><span class="caption-text"><?php  echo $sub_title; ?></span><span class="date"><?php  echo $date; ?></span></p>
 							<?php } ?>
 
 							<?php if(isset($content['field_title']) && $iconAsTitle ){ ?>

@@ -1,0 +1,332 @@
+@font-face {
+    font-family: mck-icons;
+    src: url(../font/mck-icons.eot);
+    src: url(../font/mck-icons.eot) format('embedded-opentype'), url(../font/mck-icons.woff) format('woff'), url(../font/mck-icons.ttf) format('truetype'), url(../font/mck-icons.svg) format('svg');
+    font-weight: 400;
+    font-style: normal
+}
+
+[class*='mck-icon']:before, [class^=mck-icon]:before {
+    font-family: mck-icons;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+.mck-icon__alert:before {
+    content: "\e60a"
+}
+.mck-icon__arrow-down-left:before {
+    content: "\e60b"
+}
+.mck-icon__arrow-down-right:before {
+    content: "\e60c"
+}
+.mck-icon__arrow-down:before {
+    content: "\e60d"
+}
+.mck-icon__arrow-left:before {
+    content: "\e60e"
+}
+.mck-icon__arrow-right:before {
+    content: "\e60f"
+}
+.mck-icon__arrow-up-left:before {
+    content: "\e610"
+}
+.mck-icon__arrow-up-right:before {
+    content: "\e611"
+}
+.mck-icon__arrow-up:before {
+    content: "\e612"
+}
+.mck-icon__book:before {
+    content: "\e613"
+}
+.mck-icon__bookmark:before {
+    content: "\e614"
+}
+.mck-icon__books:before {
+    content: "\e615"
+}
+.mck-icon__calendar:before {
+    content: "\e616"
+}
+.mck-icon__camera:before {
+    content: "\e617"
+}
+.mck-icon__carrot-down:before {
+    content: "\e618"
+}
+.mck-icon__carrot-left:before {
+    content: "\e619"
+}
+.mck-icon__carrot-right:before {
+    content: "\e61a"
+}
+.mck-icon__carrot-up:before {
+    content: "\e61b"
+}
+.mck-icon__carrot-stack:before {
+    content: "\e61c"
+}
+.mck-icon__chart-line:before {
+    content: "\e61d"
+}
+.mck-icon__chart-pie:before {
+    content: "\e61e"
+}
+.mck-icon__check-circle:before {
+    content: "\e61f"
+}
+.mck-icon__check:before {
+    content: "\e620"
+}
+.mck-icon__clock:before {
+    content: "\e621"
+}
+.mck-icon__cloud-download:before {
+    content: "\e622"
+}
+.mck-icon__cloud-upload:before {
+    content: "\e623"
+}
+.mck-icon__cloud:before {
+    content: "\e624"
+}
+.mck-icon__comment:before {
+    content: "\e625"
+}
+.mck-icon__delicious:before {
+    content: "\e626"
+}
+.mck-icon__download:before {
+    content: "\e627"
+}
+.mck-icon__email:before {
+    content: "\e628"
+}
+.mck-icon__facebook:before {
+    content: "\e629"
+}
+.mck-icon__file:before {
+    content: "\e62a"
+}
+.mck-icon__film:before {
+    content: "\e62b"
+}
+.mck-icon__fullscreen-close:before {
+    content: "\e62c"
+}
+.mck-icon__fullscreen-open:before {
+    content: "\e62d"
+}
+.mck-icon__gear:before {
+    content: "\e62e"
+}
+.mck-icon__googleplus:before {
+    content: "\e62f"
+}
+.mck-icon__grid:before {
+    content: "\e630"
+}
+.mck-icon__headphones:before {
+    content: "\e631"
+}
+.mck-icon__heart-fill:before {
+    content: "\e632"
+}
+.mck-icon__heart:before {
+    content: "\e633"
+}
+.mck-icon__help:before {
+    content: "\e634"
+}
+.mck-icon__home:before {
+    content: "\e635"
+}
+.mck-icon__info:before {
+    content: "\e636"
+}
+.mck-icon__instagram:before {
+    content: "\e637"
+}
+.mck-icon__journey:before {
+    content: "\e638"
+}
+.mck-icon__lightbulb:before {
+    content: "\e639"
+}
+.mck-icon__linkedin:before {
+    content: "\e63a"
+}
+.mck-icon__list:before {
+    content: "\e63b"
+}
+.mck-icon__location:before {
+    content: "\e63c"
+}
+.mck-icon__menu:before {
+    content: "\e63d"
+}
+.mck-icon__minus-circle:before {
+    content: "\e63e"
+}
+.mck-icon__minus:before {
+    content: "\e63f"
+}
+.mck-icon__more:before {
+    content: "\e640"
+}
+.mck-icon__paperclip:before {
+    content: "\e641"
+}
+.mck-icon__pause:before {
+    content: "\e642"
+}
+.mck-icon__pencil:before {
+    content: "\e643"
+}
+.mck-icon__phone-mobile:before {
+    content: "\e644"
+}
+.mck-icon__phone:before {
+    content: "\e645"
+}
+.mck-icon__pinterest:before {
+    content: "\e646"
+}
+.mck-icon__play:before {
+    content: "\e647"
+}
+.mck-icon__plus-circle:before {
+    content: "\e648"
+}
+.mck-icon__plus:before {
+    content: "\e649"
+}
+.mck-icon__pop-out:before {
+    content: "\e64a"
+}
+.mck-icon__print:before {
+    content: "\e64b"
+}
+.mck-icon__profile-group:before {
+    content: "\e64c"
+}
+.mck-icon__profile:before {
+    content: "\e64d"
+}
+.mck-icon__refresh:before {
+    content: "\e64e"
+}
+.mck-icon__rss:before {
+    content: "\e64f"
+}
+.mck-icon__search:before {
+    content: "\e650"
+}
+.mck-icon__share:before {
+    content: "\e651"
+}
+.mck-icon__star:before {
+    content: "\e652"
+}
+.mck-icon__stumble-upon:before {
+    content: "\e653"
+}
+.mck-icon__text-size:before {
+    content: "\e654"
+}
+.mck-icon__tumblr:before {
+    content: "\e655"
+}
+.mck-icon__twitter:before {
+    content: "\e656"
+}
+.mck-icon__upload:before {
+    content: "\e657"
+}
+.mck-icon__vimeo:before {
+    content: "\e658"
+}
+.mck-icon__volume-1:before {
+    content: "\e659"
+}
+.mck-icon__volume-2:before {
+    content: "\e65a"
+}
+.mck-icon__volume-3:before {
+    content: "\e65b"
+}
+.mck-icon__volume-mute:before {
+    content: "\e65c"
+}
+.mck-icon__world:before {
+    content: "\e65d"
+}
+.mck-icon__wrench:before {
+    content: "\e65e"
+}
+.mck-icon__write:before {
+    content: "\e65f"
+}
+.mck-icon__x-circle:before {
+    content: "\e660"
+}
+.mck-icon__x:before {
+    content: "\e661"
+}
+.mck-icon__youtube:before {
+    content: "\e662"
+}
+.mck-icon__zoom-in:before {
+    content: "\e663"
+}
+.mck-icon__zoom-out:before {
+    content: "\e664"
+}
+.mck-icon__clientlink:before {
+    content: "\e600"
+}
+.mck-icon__clientnews:before {
+    content: "\e601"
+}
+.mck-icon__diy-survey:before {
+    content: "\e602"
+}
+.mck-icon__ghd:before {
+    content: "\e603"
+}
+.mck-icon__know:before {
+    content: "\e604"
+}
+.mck-icon__our-partnership:before {
+    content: "\e605"
+}
+.mck-icon__propose-to-win:before {
+    content: "\e606"
+}
+.mck-icon__ter:before {
+    content: "\e607"
+}
+.mck-icon__visual-graphics:before {
+    content: "\e608"
+}
+.mck-icon__wip:before {
+    content: "\e609"
+}
+.mck-icon--blue {
+    color: #0065BD!important
+}
+.mck-icon--bold {
+    font-weight: 700
+}
+.mck-icon--large {
+    font-size: 18px
+}
+.mck-icon--dark {
+    color: #000!important
+}

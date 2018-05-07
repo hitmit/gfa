@@ -27,51 +27,33 @@
  */
 
 $title               = isset($content['field_title']) ? render($content['field_title']) : '';
-$subtitle            = isset($content['field_sub_title']) ? render($content['field_sub_title']) : '';
-$products_link       = isset($content['field_products_link']) ? render($content['field_products_link']) : '#';
-$products_link_label = isset($content['field_products_link_label']) ? render($content['field_products_link_label']) : 'Link To Products';
-
-
 $column_items        = isset($content['field_paragraph']) ? $content['field_paragraph'] : '';
 
-//ddl($content);
-$count = count($content['field_paragraph']['#items']);
-
-if($count == 2){
-	$column_item_class = "col-md-6";
-}else if($count == 3){
-	$column_item_class = "col-md-6 col-lg-4";
-}else if($count == 4){
-	$column_item_class = "col-md-4 col-lg-3";
-}else{
-	$column_item_class = "col-md-12 text-center";
-}
 
 
 ?>
 
-<div class="row py-2 px-0 card-module mt-5">
-	<div class="col-sm-12">
+<div class="row p-0 card-module news-feed mt-5">
+	<div class="col-sm-12 m-0 p-0">
 	<?php if(isset($content['field_title']) || isset($content['field_sub_title']) ){ ?>
-		<div class="row center-block ">
-			<div class="col text-center mt-4 mt-md-0"> 
-				<h2 class="mb-5 pb-3">
+		<div class="row center-block m-0">
+			<div class="col text-center mt-4 mt-md-0 p-0"> 
+				<h2 class="mb-4 pb-3">
 					<?php echo $title ?>
-					<small class="pt-3"><?php echo $subtitle ?></small>
 				</h2>
 			</div>
 		</div>
 		<?php } ?>
-		<div class="row py-1">
+		<div class="row py-1 px-3 m-0">
 		 						<?php foreach($column_items as $key => $item) {
 										if(is_numeric($key)) {
 											$paraItem = $item['entity']['paragraphs_item'];
 											 ?>
-											<div class="<?php echo $column_item_class; ?> col-sm-12 pb-3 content card-item"><?php echo render($paraItem); ?></div>	 
+											<div class=" col-sm-12 pb-3 content card-item m-0"><?php echo render($paraItem); ?></div>	 
 									    <?php } 
 								    } ?>
         </div>   
-            <div class="row center-block ">
+            <div class="row center-block m-0">
             <?php if(isset($content['field_link'])){ ?>
 			<div class="col text-center pt-5 mt-4 mt-md-0"> 
 				<a class="blue-btn view-products" href="<?php  echo render($content['field_link']['#items'][0]['url']); ?>"><?php  echo render($content['field_link']['#items'][0]['title']); ?><span></span></a>	

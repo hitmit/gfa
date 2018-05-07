@@ -11,6 +11,11 @@ body {
     /*font-family: "Chronicle Deck", Georgia, Times, "Times New Roman", serif;*/
 }
 
+
+.front{
+	background: #f1f1f1;
+}
+
 /* Sticky Footer Start */
 
 ul {
@@ -80,7 +85,7 @@ h2 {
 h1,h2,h3,h4,h5,h6
 {
 	font-family: "Chronicle Deck", Georgia, Times, "Times New Roman", serif;
-	color:#00306E
+	color:#000
 }
 
 h1 small,
@@ -302,7 +307,7 @@ h2 small{
 .card .card-text,
 .overlay-description .overlay-content
 {
-	color:#666;
+	color:#7A7A7A;
 	font-size: 18px;
 }
 
@@ -682,7 +687,7 @@ a.blue-btn.view-products {
 	-ms-transition: all 0.3s ease;
 }
 
-.front .banner-img .card h1,
+
 .background-video-wrapper .card  h1{
     background: linear-gradient(left,#009aa6,#63337d);
     background: -webkit-linear-gradient(left,#009aa6,#63337d);
@@ -875,11 +880,8 @@ a.blue-btn.view-products {
 	height: 14px;
 	background-size: contain;
 	background-repeat: no-repeat;
-	margin: 4px 4px 0 0;
-	display: inline-block;
 }
 
-footer .mck-icon__email,
 .promo-bar a span{
 	background-image: url('../images/email-white.png');
 }
@@ -4277,6 +4279,19 @@ video::-webkit-media-text-track-display {
 	color: #fff;
 }
 
+.card-module .card .caption{
+	color: #444444
+}
+
+.card-module .card .caption span.caption-text:after {
+    content: "|";
+    padding: 0 .5em;
+}
+
+.card-module .card .caption span.date{
+	color: #B9B9B9;	
+}
+
 .card-module .title-icon span{
 	float: left;
 	width: 80%;
@@ -4285,8 +4300,10 @@ video::-webkit-media-text-track-display {
 }
 
 .card-module .card{
-	box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
+	/*box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);*/
 	height: 100%;
+	border: 0 none;
+	background: transparent;
 }
 
 .card-module{
@@ -4879,7 +4896,7 @@ video::-webkit-media-text-track-display {
 	clear: both;
 }
 
-.two-col-event .caption, .card .caption{
+.two-col-event .caption{
 	color: #59779D;
 	font-family: 'Whitney SSm', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
 	font-size: 18px;
@@ -5395,3 +5412,93 @@ video::-webkit-media-text-track-display {
 }
 /*
 div#footer { width: 100%; height: 200px; background: #eee; }*/
+
+
+
+
+/* custom css for gfa */
+
+.banner-img .card{
+	width: 86%;
+}
+
+
+.banner-img .card-block{
+	background: rgba(0, 41, 97, .8);
+	max-width: 100%;
+}
+
+.banner-img .card p,
+.banner-img .card h1{
+	color: #fff!important;
+}
+
+
+.banner-img .card p{
+	font-size: 1.4em!important;
+	font-weight: 300;
+	max-width: 100%!important;
+}
+
+
+/* News Feed */
+
+.news-feed{
+	background-color: #fff;
+}
+
+.news-feed .card {
+	background: #f7f5f6;
+}
+
+.news-feed h2{
+	background-color: #00a8ba;
+	color: #fff;
+	padding: 2% 1em;
+}
+
+.news-feed p{
+	font-size: .9em;
+}
+  
+.news-feed .thumbnail-bg{
+	height: 100%;
+}
+
+
+
+#sidebar h5{
+	color: #fff;
+}
+
+#sidebar > div {
+	background-color: #00a8ba;
+	color: #fff;
+	padding: 1em 2em;
+    margin-bottom: 1em;
+}
+
+#sidebar > div a {
+	color: #fff;
+	font-size: .925em;
+}
+
+#sidebar > div a:hover {
+	text-decoration: none;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#sidebar ul > li {
+	padding-bottom: .25em;
+}
+
+#sidebar [class*='mck-icon'], #sidebar [class^=mck-icon] {
+	font-size: 1.25em;
+	padding-right: .75em;
+	vertical-align: middle;
+}
