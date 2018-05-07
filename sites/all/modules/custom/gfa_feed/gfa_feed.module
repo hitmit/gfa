@@ -144,6 +144,9 @@ function gfa_feed_document_submit($form, $form_state) {
                     case "ppa":
                         $uploader = "ppa";
                         break;
+                    case "pppece":
+                        $uploader = "pppece";
+                        break;
                 }
                 import_csv($uploader, $fid);
                 drupal_set_message("Documents uploaded successfully.");
