@@ -138,6 +138,9 @@ function gfa_feed_document_submit($form, $form_state) {
                     case "shbp":
                         $uploader = "shbp";
                         break;
+                    case "cpag":
+                        $uploader = "cpag";
+                        break;
                 }
                 import_csv($uploader, $fid);
                 drupal_set_message("Documents uploaded successfully.");
