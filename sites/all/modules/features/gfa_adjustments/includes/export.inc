@@ -20,13 +20,14 @@ function updateDownloaded($entities) {
  * Export query results to spreadsheet.
  * $arg1 = 'input' or 'output'
  * $arg2 = Adjustment type e.g. 'ppa'
+ * $arg3 = 'all' or 'new'
  */
 function export_spreadsheet($arg1, $arg2, $arg3) {
     if(!isset($arg1) || empty($arg1)) {
         $arg1 = 'output';
     }
     if(!isset($arg2) || empty($arg2)) {
-        $arg2 = 'ppa';
+        $arg2 = 'mnat';
     }
     if(!isset($arg3) || empty($arg3)) {
         $arg3 = 'new';

@@ -23,6 +23,7 @@ stylesheets[all][] = css/bootstrap.min.css
 stylesheets[all][] = css/magnific-popup.css
 stylesheets[all][] = css/slick.css
 stylesheets[all][] = css/animate.css
+stylesheets[all][] = css/mck-icons.css
 stylesheets[all][] = css/main.css
 stylesheets[all][] = css/mobile.css
 scripts[] = js/lib/tether.min.js

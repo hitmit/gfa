@@ -90,28 +90,15 @@ class Adjustments {
                 $arrayData = array();
                 $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
                 $paPeriodRange = isset($paPeriod) ? end($paPeriod) : NULL;
-                if($format == 'input') {
-                    $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
-                    foreach($entities as $entity) {
-                        $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
-                        $charge = isset($entity->field_charge['und'][0]['value']) ? $entity->field_charge['und'][0]['value'] : NULL;
-                        $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
-                        $overtime = isset($entity->field_overtime['und'][0]['value']) ? $entity->field_overtime['und'][0]['value'] : NULL;
-                        $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? $entity->field_perdiem['und'][0]['value'] : NULL;
-                        $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
-                        $arrayData[] = [$paPeriodCode, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
-                    }
-                } elseif($format == 'output') {
-                    $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
-                    foreach($entities as $entity) {
-                        $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
-                        $charge = isset($entity->field_charge['und'][0]['value']) ? $entity->field_charge['und'][0]['value'] : NULL;
-                        $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
-                        $overtime = isset($entity->field_overtime['und'][0]['value']) ? $entity->field_overtime['und'][0]['value'] : NULL;
-                        $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? $entity->field_perdiem['und'][0]['value'] : NULL;
-                        $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
-                        $arrayData[] = [$paPeriodRange, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
-                    }
+                $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
+                foreach($entities as $entity) {
+                    $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
+                    $charge = isset($entity->field_charge['und'][0]['value']) ? $entity->field_charge['und'][0]['value'] : NULL;
+                    $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
+                    $overtime = isset($entity->field_overtime['und'][0]['value']) ? $entity->field_overtime['und'][0]['value'] : NULL;
+                    $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? $entity->field_perdiem['und'][0]['value'] : NULL;
+                    $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
+                    $arrayData[] = [$format == 'input' ? $paPeriodCode : $paPeriodRange, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
                 }
 
                 return $arrayData;
@@ -157,7 +144,7 @@ class Adjustments {
                         $orsCreateTStamp = isset($entity->field_ors_create_tstamp['und'][0]['value']) ? $entity->field_ors_create_tstamp['und'][0]['value'] : NULL;
                         $alternativeCode = isset($entity->field_alternative_code['und'][0]['value']) ? $entity->field_alternative_code['und'][0]['value'] : NULL;
                         $hoursToBeMoved = isset($entity->field_hours_to_be_moved['und'][0]['value']) ? $entity->field_hours_to_be_moved['und'][0]['value'] : NULL;
-                        $otHours = isset($entity->field_ot_hours['und'][0]['value']) ? $entity->field_ot_hours['und'][0]['value'] : NULL;
+                        $otHours = isset($entity->field_o_t_hours['und'][0]['value']) ? $entity->field_o_t_hours['und'][0]['value'] : NULL;
                         $poc = isset($entity->field_poc['und'][0]['value']) ? $entity->field_poc['und'][0]['value'] : NULL;
                         $arrayData[] = [$FMNO, $firstName, $lastName, $positionCode, $PCAT, $laborStatus, $employmentStatus, $complex, $subComplex, $userLocationCode, $userGOCCode, $tsStartDate, $sourceAction, $charge, $chargeGOC, $projectName, $activityCode, $billingSubType, $hours, $overtime, $perdiemLocalCurrency, $effectivePerdiem, $perdiemUSD, $currency, $sourceSystem, $createdBy, $createdDate, $paPeriodCode, $orsCreateTStamp, $alternativeCode, $hoursToBeMoved, $otHours, $poc];
                     }
@@ -172,6 +159,44 @@ class Adjustments {
                         $arrayData[] = [$paPeriodRange, $FMNO, $charge, isset($hoursToBeMoved) ? $hoursToBeMoved * -1 : NULL];
                         $arrayData[] = [$paPeriodRange, $FMNO, $alternativeCode, $hoursToBeMoved];
                     }
+                }
+
+                return $arrayData;
+
+                break;
+
+            case 'cparf':
+                $arrayData = array();
+                $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
+                $paPeriodRange = isset($paPeriod) ? end($paPeriod) : NULL;
+                $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
+                foreach($entities as $entity) {
+                    $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
+                    $charge = isset($entity->field_charge['und'][0]['value']) ? $entity->field_charge['und'][0]['value'] : NULL;
+                    $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
+                    $overtime = isset($entity->field_overtime['und'][0]['value']) ? $entity->field_overtime['und'][0]['value'] : NULL;
+                    $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? $entity->field_perdiem['und'][0]['value'] : NULL;
+                    $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
+                    $arrayData[] = [$paPeriodRange, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
+                }
+
+                return $arrayData;
+
+                break;
+
+            case 'cpag':
+                $arrayData = array();
+                $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
+                $paPeriodRange = isset($paPeriod) ? end($paPeriod) : NULL;
+                $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
+                foreach($entities as $entity) {
+                    $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
+                    $charge = isset($entity->field_charge['und'][0]['value']) ? $entity->field_charge['und'][0]['value'] : NULL;
+                    $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
+                    $overtime = isset($entity->field_overtime['und'][0]['value']) ? $entity->field_overtime['und'][0]['value'] : NULL;
+                    $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? $entity->field_perdiem['und'][0]['value'] : NULL;
+                    $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
+                    $arrayData[] = [$format == 'input' ? $paPeriodCode : $paPeriodRange, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
                 }
 
                 return $arrayData;
@@ -229,7 +254,7 @@ class Adjustments {
                         $projectName = isset($entity->field_project_name['und'][0]['value']) ? $entity->field_project_name['und'][0]['value'] : NULL;
                         $engOff = isset($entity->field_eng_off['und'][0]['value']) ? $entity->field_eng_off['und'][0]['value'] : NULL;
                         $regularHours = isset($entity->field_regular_hours['und'][0]['value']) ? $entity->field_regular_hours['und'][0]['value'] : NULL;
-                        $otHours = isset($entity->field_ot_hours['und'][0]['value']) ? $entity->field_ot_hours['und'][0]['value'] : NULL;
+                        $otHours = isset($entity->field_o_t_hours['und'][0]['value']) ? $entity->field_o_t_hours['und'][0]['value'] : NULL;
                         $ntsAwy = isset($entity->field_nts_awy['und'][0]['value']) ? $entity->field_nts_awy['und'][0]['value'] : NULL;
                         $nts9 = isset($entity->field_nts9['und'][0]['value']) ? $entity->field_nts9['und'][0]['value'] : NULL;
                         $override_pd = isset($entity->field_override_pd['und'][0]['value']) ? $entity->field_override_pd['und'][0]['value'] : NULL;

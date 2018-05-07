@@ -50,7 +50,7 @@ if($count == 2){
 
 ?>
 
-<div class="row py-2 px-4 card-module mt-5">
+<div class="row py-2 px-0 card-module mt-5">
 	<div class="col-sm-12">
 	<?php if(isset($content['field_title']) || isset($content['field_sub_title']) ){ ?>
 		<div class="row center-block ">

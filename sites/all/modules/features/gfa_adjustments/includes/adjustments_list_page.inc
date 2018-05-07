@@ -19,10 +19,12 @@ function adjtype_select_form($form, &$form_state, $arg1, $arg2, $arg3) {
         '#options' => $options
     );
     $options = array(
+        'mnat' => 'CPA - MB2 Net Accrual TV',
+        'cparn' => 'CPA - RADAR Net Accrual TV',
+        'cparf' => 'CPA - RADAR Format GFA',
+        'cpag' => 'Current Period Accruals - GFA',
         'ppa' => 'Prior Period Adjustments',
-        'cparn' => 'CPA - RADAR Net Accrual',
-        'pppece' => 'Prior Period PE to CE',
-        'mnat' => 'CPA - MB2 Net Accrual'
+        'pppece' => 'Prior Period PE to CE'
     );
     $form['adjtype'] = array(
         '#attributes' => array('id' => array('arg2')),
@@ -52,7 +54,7 @@ function adjtype_select_form($form, &$form_state, $arg1, $arg2, $arg3) {
 }
 
 /**
- * PPA select form submit function.
+ * Adjtype select form submit function.
  */
 function adjtype_select_form_submit($form, &$form_state) {
     $adjformat = $form_state['values']['adjformat'];
@@ -67,7 +69,7 @@ function adjustments_list_page($arg1 = FALSE, $arg2 = FALSE, $arg3 = FALSE) {
         $arg1 = 'output';
     }
     if(!isset($arg2) || empty($arg2)) {
-        $arg2 = 'ppa';
+        $arg2 = 'mnat';
     }
     if(!isset($arg3) || empty($arg3)) {
         $arg3 = 'new';

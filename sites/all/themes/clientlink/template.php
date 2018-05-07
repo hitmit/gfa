@@ -3,6 +3,21 @@ function clientlink_preprocess_page(&$vars){
     $search_form = drupal_get_form('search_block_form');
     $vars['search'] = drupal_render($search_form);
 }
+
+
+function clientlink_preprocess_node(array &$vars) {
+  switch ($vars['type']) {
+    case 'page':
+      $alias = drupal_get_path_alias();
+      if (current_path() != $alias) {
+        $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__' . str_replace('-', '_', $alias);
+      }
+
+      break;
+  }
+}
+
+
 function clientlink_links__system_main_menu() {return null;}
 
 /* main ul */
@@ -50,6 +65,7 @@ function clientlink_form_alter(&$form, &$form_state, $form_id) {
    $form['actions']['submit']['#attributes'] = array('class' => array('mck-button', 'mck-th-cyan', 'mck-button--big'));
  }
 }
+
 
 
 

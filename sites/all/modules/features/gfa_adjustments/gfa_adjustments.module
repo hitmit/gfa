@@ -79,10 +79,12 @@ function gfa_adjustments_menu_alter(&$items) {
  */
 function adjustment_select_form($form, &$form_state, $arg1) {
     $options = array(
+        'mnat' => 'CPA - MB2 Net Accrual TV',
+        'cparn' => 'CPA - RADAR Net Accrual TV',
+        'cparf' => 'CPA - RADAR Format GFA',
+        'cpag' => 'Current Period Accruals - GFA',
         'ppa' => 'Prior Period Adjustments',
-        'cparn' => 'CPA - RADAR Net Accrual',
-        'pppece' => 'Prior Period PE to CE',
-        'mnat' => 'CPA - MB2 Net Accrual'
+        'pppece' => 'Prior Period PE to CE'
     );
     $form['adj_select'] = array(
         '#type' => 'select',
@@ -100,7 +102,7 @@ function adjustment_select_form($form, &$form_state, $arg1) {
 }
 
 /**
- * PPA select form submit function.
+ * Adjustment select form submit function.
  */
 function adjustment_select_form_submit($form, &$form_state) {
     $adjForm = $form_state['values']['adj_select'];
@@ -118,6 +120,12 @@ function adj_form($arg1) {
             break;
         case 'cparn':
             $form = node_add('cparn');
+            break;
+        case 'cparf':
+            $form = node_add('cparf');
+            break;
+        case 'cpag':
+            $form = node_add('cpag');
             break;
         case 'pppece':
             $form = node_add('pppece');
@@ -147,7 +155,7 @@ function add_adjustments_page($arg1 = NULL) {
  * Implements hook_node_insert().
  */
 function gfa_adjustments_node_insert($node) {
-    if ($node->type == "ppa" || $node->type == 'cparn' || $node->type == 'pppece' || $node->type == 'mnat') {
+    if ($node->type == "ppa" || $node->type == 'cparn' || $node->type == 'cparf' || $node->type || $node->type == 'pppece' || $node->type == 'mnat') {
         drupal_set_message('You have successfully submitted this adjustment');
         drupal_goto('/add-adjustments');
     }
@@ -172,6 +180,8 @@ function gfa_adjustments_field_multiple_value_form($variables) {
     $draggable = !in_array($element['#field_name'], array(
         'field_ppa',
         'field_cparn',
+        'field_cparf',
+        'field_cpag',
         'field_pppece',
         'field_mnat'
     ));
