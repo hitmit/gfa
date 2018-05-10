@@ -287,6 +287,60 @@ class Adjustments {
                 return $arrayData;
 
                 break;
+
+            case 'shbp':
+                $arrayData = array();
+                $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
+                $paPeriodRange = isset($paPeriod) ? end($paPeriod) : NULL;
+                if($format == 'input') {
+                    $arrayData[] = ['Project Office Code', 'Project Number', 'FMNO', 'FMNO GOC Office', 'First Name', 'Last Name', 'FMNO Dept', 'FMNO Dept Name', 'PCAT Name', 'PCAT', 'Hours', 'Days', 'Transaction Amount LC', 'WIP Per Diem', 'Nominal Per Diem', 'Staffing Office', 'Entry Office', 'Gl Date', 'Timesheet Period', 'Fees At Risk', 'Fees At Risk Recovery', 'NRR by Timesheet Period', 'Timesheet Month', 'Table B Per Diem', 'Firm Member Staffed to Project', 'Firm Member on CER Billing', 'New Per Diem Amount', 'Currency'];
+                    foreach($entities as $key => $entity) {
+                        $projectOfficeCode = isset($entity->field_project_office_code['und'][0]['value']) ? $entity->field_project_office_code['und'][0]['value'] : NULL;
+                        $projectNumber = isset($entity->field_project_number['und'][0]['value']) ? $entity->field_project_number['und'][0]['value'] : NULL;
+                        $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
+                        $fmnoGOCOffice = isset($entity->field_fmno_goc_office['und'][0]['value']) ? $entity->field_fmno_goc_office['und'][0]['value'] : NULL;
+                        $firstName = isset($entity->field_first_name['und'][0]['value']) ? $entity->field_first_name['und'][0]['value'] : NULL;
+                        $lastName = isset($entity->field_last_name['und'][0]['value']) ? $entity->field_last_name['und'][0]['value'] : NULL;
+                        $fmnoDept = isset($entity->field_fmno_dept['und'][0]['value']) ? $entity->field_fmno_dept['und'][0]['value'] : NULL;
+                        $fmnoDeptName = isset($entity->field_fmno_dept_name['und'][0]['value']) ? $entity->field_fmno_dept_name['und'][0]['value'] : NULL;
+                        $pcatName = isset($entity->field_pcat_name['und'][0]['value']) ? $entity->field_pcat_name['und'][0]['value'] : NULL;
+                        $pcat = isset($entity->field_pcat['und'][0]['value']) ? $entity->field_pcat['und'][0]['value'] : NULL;
+                        $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
+                        $days = isset($entity->field_days['und'][0]['value']) ? $entity->field_days['und'][0]['value'] : NULL;
+                        $transactionAmountLC = isset($entity->field_transaction_amount_lc['und'][0]['value']) ? $entity->field_transaction_amount_lc['und'][0]['value'] : NULL;
+                        $wipPerDiem = isset($entity->field_wip_per_diem['und'][0]['value']) ? $entity->field_wip_per_diem['und'][0]['value'] : NULL;
+                        $nominalPerDiem = isset($entity->field_nominal_per_diem['und'][0]['value']) ? $entity->field_nominal_per_diem['und'][0]['value'] : NULL;
+                        $staffingOffice = isset($entity->field_staffing_office['und'][0]['value']) ? $entity->field_staffing_office['und'][0]['value'] : NULL;
+                        $entryOffice = isset($entity->field_entry_office['und'][0]['value']) ? $entity->field_entry_office['und'][0]['value'] : NULL;
+                        $glDate = isset($entity->field_gl_date['und'][0]['value']) ? $entity->field_gl_date['und'][0]['value'] : NULL;
+                        $feesAtRisk = isset($entity->field_fees_at_risk['und'][0]['value']) ? $entity->field_fees_at_risk['und'][0]['value'] : NULL;
+                        $feesAtRiskRecovery = isset($entity->field_fees_at_risk_recovery['und'][0]['value']) ? $entity->field_fees_at_risk_recovery['und'][0]['value'] : NULL;
+                        $nrrByTimesheetPeriod = isset($entity->field_nrr_by_timesheet_period['und'][0]['value']) ? $entity->field_nrr_by_timesheet_period['und'][0]['value'] : NULL;
+                        $timesheetMonth = isset($entity->field_timesheet_month['und'][0]['value']) ? $entity->field_timesheet_month['und'][0]['value'] : NULL;
+                        $tableBPerDiem = isset($entity->field_table_b_per_diem['und'][0]['value']) ? $entity->field_table_b_per_diem['und'][0]['value'] : NULL;
+                        $FMSTP = isset($entity->field_firm_member_staffed_to_pro['und'][0]['value']) ? $entity->field_firm_member_staffed_to_pro['und'][0]['value'] : NULL;
+                        $FMOCBW = isset($entity->field_firm_member_on_cer_billing['und'][0]['value']) ? $entity->field_firm_member_on_cer_billing['und'][0]['value'] : NULL;
+                        $NPDA = isset($entity->field_new_per_diem_amount['und'][0]['value']) ? $entity->field_new_per_diem_amount['und'][0]['value'] : NULL;
+                        $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
+                        $arrayData[] = [$projectOfficeCode, $projectNumber, $FMNO, $fmnoGOCOffice, $firstName, $lastName, $fmnoDept, $fmnoDeptName, $pcatName, $pcat, $hours, $days, $transactionAmountLC, $wipPerDiem, $nominalPerDiem, $staffingOffice, $entryOffice, $glDate, $paPeriodCode, $feesAtRisk, $feesAtRiskRecovery, $nrrByTimesheetPeriod, $timesheetMonth, $tableBPerDiem, $FMSTP, $FMOCBW, $NPDA, $currency];
+                    }
+                } elseif($format == 'output') {
+                    $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
+                    foreach($entities as $entity) {
+                        $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
+                        $projectNumber = isset($entity->field_project_number['und'][0]['value']) ? $entity->field_project_number['und'][0]['value'] : NULL;
+                        $hours = isset($entity->field_hours['und'][0]['value']) ? $entity->field_hours['und'][0]['value'] : NULL;
+                        $wipPerDiem = isset($entity->field_wip_per_diem['und'][0]['value']) ? $entity->field_wip_per_diem['und'][0]['value'] : NULL;
+                        $NPDA = isset($entity->field_new_per_diem_amount['und'][0]['value']) ? $entity->field_new_per_diem_amount['und'][0]['value'] : NULL;
+                        $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
+                        $arrayData[] = [$paPeriodRange, $FMNO, $projectNumber, isset($hours) ? $hours * -1 : NULL, ' ', round($wipPerDiem), $currency];
+                        $arrayData[] = [$paPeriodRange, $FMNO, $projectNumber, $hours, ' ', round($NPDA), $currency]; 
+                    }
+                }
+
+                return $arrayData;
+
+                break;
         }
     }
 }

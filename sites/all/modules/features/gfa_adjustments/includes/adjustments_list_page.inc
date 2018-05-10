@@ -24,7 +24,8 @@ function adjtype_select_form($form, &$form_state, $arg1, $arg2, $arg3) {
         'cparf' => 'CPA - RADAR Format GFA',
         'cpag' => 'Current Period Accruals - GFA',
         'ppa' => 'Prior Period Adjustments',
-        'pppece' => 'Prior Period PE to CE'
+        'pppece' => 'Prior Period PE to CE',
+        'shbp' => 'SHB Perdiem'
     );
     $form['adjtype'] = array(
         '#attributes' => array('id' => array('arg2')),

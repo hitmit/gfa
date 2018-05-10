@@ -8,7 +8,13 @@ include_once 'gfa_adjustments.features.inc';
 
 module_load_include('inc', 'node', 'node.pages');
 // Disable preview button from node add form.
+variable_set('node_preview_' . 'mnat', '0');
+variable_set('node_preview_' . 'cparn', '0');
+variable_set('node_preview_' . 'cparf', '0');
+variable_set('node_preview_' . 'cpag', '0');
 variable_set('node_preview_' . 'ppa', '0');
+variable_set('node_preview_' . 'pppece', '0');
+variable_set('node_preview_' . 'shbp', '0');
 
 /**
  * Implements hook_menu()
@@ -84,7 +90,8 @@ function adjustment_select_form($form, &$form_state, $arg1) {
         'cparf' => 'CPA - RADAR Format GFA',
         'cpag' => 'Current Period Accruals - GFA',
         'ppa' => 'Prior Period Adjustments',
-        'pppece' => 'Prior Period PE to CE'
+        'pppece' => 'Prior Period PE to CE',
+        'shbp' => 'SHB Perdiem'
     );
     $form['adj_select'] = array(
         '#type' => 'select',
@@ -115,8 +122,8 @@ function adjustment_select_form_submit($form, &$form_state) {
 function adj_form($arg1) {
     $form = array();
     switch ($arg1) {
-        case 'ppa':
-            $form = node_add('ppa');
+        case 'mnat':
+            $form = node_add('mnat');
             break;
         case 'cparn':
             $form = node_add('cparn');
@@ -127,11 +134,14 @@ function adj_form($arg1) {
         case 'cpag':
             $form = node_add('cpag');
             break;
+        case 'ppa':
+            $form = node_add('ppa');
+            break;
         case 'pppece':
             $form = node_add('pppece');
             break;
-        case 'mnat':
-            $form = node_add('mnat');
+        case 'shbp':
+            $form = node_add('shbp');
             break;
         default:
             $form = node_add('ppa');
@@ -155,7 +165,7 @@ function add_adjustments_page($arg1 = NULL) {
  * Implements hook_node_insert().
  */
 function gfa_adjustments_node_insert($node) {
-    if ($node->type == "ppa" || $node->type == 'cparn' || $node->type == 'cparf' || $node->type || $node->type == 'pppece' || $node->type == 'mnat') {
+    if ($node->type == "ppa" || $node->type == 'cparn' || $node->type == 'cparf' || $node->type || $node->type == 'pppece' || $node->type == 'mnat' || $node->type == 'shbp') {
         drupal_set_message('You have successfully submitted this adjustment');
         drupal_goto('/add-adjustments');
     }
@@ -183,7 +193,8 @@ function gfa_adjustments_field_multiple_value_form($variables) {
         'field_cparf',
         'field_cpag',
         'field_pppece',
-        'field_mnat'
+        'field_mnat',
+        'field_shbp'
     ));
     if ($element['#cardinality'] > 1 || $element['#cardinality'] == FIELD_CARDINALITY_UNLIMITED) {
         $table_id    = drupal_html_id($element['#field_name'] . '_values');

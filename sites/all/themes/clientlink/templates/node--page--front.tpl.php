@@ -126,22 +126,13 @@
 
 <div class="container">
  <div class="row">
-  <div class="col-md-8 col-sm-12" id="maincontent">
-    <?php echo render($content['field_paragraph']) ?>
-  </div>
-  <div class="col-md-4 col-sm-12 mt-5" id="sidebar">
- <?php $block = module_invoke('module_name', 'block_view', 'block_delta');
-print render($block['content']);?>
-              <div>
-              <h5>Time Sheet Team</h5>
-              <ul>
-                <li><a href="#"><span class="mck-icon__profile"></span><span>Team Member 1</span></a></li>
-                <li><a href="#"><span class="mck-icon__profile"></span><span>Team Member 2</span></a></li>
-              </ul>
-            </div>
-            <div><a href="mailto:#"><span class="mck-icon__email"></span>Contact Us</a>
-            </div>
-  </div>
+    <div class="col-md-8 col-sm-12" id="maincontent">
+      <?php echo render($content['field_paragraph']) ?>
+    </div>
+    <div class="col-md-4 col-sm-12 mt-5" id="sidebar">
+          <?php $block = module_invoke('block', 'block_view', '1');
+          print render($block['content']);?>
+    </div>
   </div>
 </div>
 <?php echo render($messages) ?>

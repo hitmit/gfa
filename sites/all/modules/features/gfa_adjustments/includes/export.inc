@@ -44,7 +44,7 @@ function export_spreadsheet($arg1, $arg2, $arg3) {
 
     if(!empty($arrayData[1])) {
         $library = variable_get('spread_library', 'phpexcel');
-        $filename = $arg1 . '-' . $arg2 . '.xlsx"';
+        $filename = $arg1 . '-' . $arg2 . '_' . date('m-d-Y_hia') . '.xlsx"';
 
         if($library == 'phpexcel') {
             $spreadsheet = new PHPExcel();
@@ -65,7 +65,9 @@ function export_spreadsheet($arg1, $arg2, $arg3) {
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment; filename="' . $filename);
         $writer->save("php://output");
-        updateDownloaded($entities);
+        if($arg1 == 'output' && $arg3 == 'new') {
+            updateDownloaded($entities);
+        }
     } else {
         drupal_set_message('There are no new adjustments of type ' . $arg2 . ' since last download for the pay period.', 'status', FALSE);
         drupal_goto('/prior-period-adjustments');
