@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the GFA Feeds Importer  feature.
+ */
+
+include_once 'gfa_feeds_importer_.features.inc';
