@@ -55,7 +55,7 @@ function gfa_adjustments_field_default_field_bases() {
   // Exported field_base: 'field_adjustment_form_type'.
   $field_bases['field_adjustment_form_type'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_adjustment_form_type',
@@ -396,12 +396,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_effective_perdiem',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
-    'settings' => array(),
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_employment_status'.
@@ -516,16 +522,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_hours',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_hours_reduce_or_add_'.
@@ -535,16 +543,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_hours_reduce_or_add_',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_hours_to_be_moved'.
@@ -554,12 +564,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_hours_to_be_moved',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
-    'settings' => array(),
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_labor_status'.
@@ -721,16 +737,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_o_t_hours',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_office'.
@@ -769,8 +787,8 @@ function gfa_adjustments_field_default_field_bases() {
       'cache_enabled' => 0,
       'granularity' => array(
         'day' => 'day',
-        'hour' => 0,
-        'minute' => 0,
+        'hour' => 'hour',
+        'minute' => 'minute',
         'month' => 'month',
         'second' => 0,
         'year' => 'year',
@@ -783,21 +801,6 @@ function gfa_adjustments_field_default_field_bases() {
     'type' => 'datestamp',
   );
 
-  // Exported field_base: 'field_ot_hours'.
-  $field_bases['field_ot_hours'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_ot_hours',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'number',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'number_integer',
-  );
-
   // Exported field_base: 'field_ot_hours_reduce_or_add_'.
   $field_bases['field_ot_hours_reduce_or_add_'] = array(
     'active' => 1,
@@ -805,16 +808,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_ot_hours_reduce_or_add_',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_override_pd'.
@@ -845,16 +850,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_overtime',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_pa_date_range'.
@@ -969,12 +976,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_pcat',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
-    'settings' => array(),
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_pe_charge_code'.
@@ -998,6 +1011,27 @@ function gfa_adjustments_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_per_diem_local_currency'.
+  $field_bases['field_per_diem_local_currency'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_per_diem_local_currency',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_perdiem'.
   $field_bases['field_perdiem'] = array(
     'active' => 1,
@@ -1005,25 +1039,27 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_perdiem',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
-  // Exported field_base: 'field_perdiem_local_currency'.
-  $field_bases['field_perdiem_local_currency'] = array(
+  // Exported field_base: 'field_perdiem_usd'.
+  $field_bases['field_perdiem_usd'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_perdiem_local_currency',
+    'field_name' => 'field_perdiem_usd',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -1174,6 +1210,35 @@ function gfa_adjustments_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_radar_reporting_period'.
+  $field_bases['field_radar_reporting_period'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_radar_reporting_period',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'date',
+    'settings' => array(
+      'cache_count' => 4,
+      'cache_enabled' => 0,
+      'granularity' => array(
+        'day' => 'day',
+        'hour' => 0,
+        'minute' => 0,
+        'month' => 'month',
+        'second' => 0,
+        'year' => 'year',
+      ),
+      'timezone_db' => '',
+      'todate' => '',
+      'tz_handling' => 'none',
+    ),
+    'translatable' => 0,
+    'type' => 'datetime',
+  );
+
   // Exported field_base: 'field_regular_hours'.
   $field_bases['field_regular_hours'] = array(
     'active' => 1,
@@ -1181,16 +1246,18 @@ function gfa_adjustments_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_regular_hours',
-    'indexes' => array(),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
+    'module' => 'text',
     'settings' => array(
-      'decimal_separator' => '.',
-      'precision' => 10,
-      'scale' => 2,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'number_decimal',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_source_action'.
@@ -1277,33 +1344,25 @@ function gfa_adjustments_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_ts_start_date'.
-  $field_bases['field_ts_start_date'] = array(
+  // Exported field_base: 'field_uid'.
+  $field_bases['field_uid'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_ts_start_date',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'date',
-    'settings' => array(
-      'cache_count' => 4,
-      'cache_enabled' => 0,
-      'granularity' => array(
-        'day' => 'day',
-        'hour' => 0,
-        'minute' => 0,
-        'month' => 'month',
-        'second' => 0,
-        'year' => 'year',
+    'field_name' => 'field_uid',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
       ),
-      'timezone_db' => '',
-      'todate' => '',
-      'tz_handling' => 'none',
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'datetime',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_user_goc_code'.

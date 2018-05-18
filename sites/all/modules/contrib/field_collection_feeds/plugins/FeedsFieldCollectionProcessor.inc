@@ -53,6 +53,13 @@ class FeedsFieldCollectionProcessor extends FeedsProcessor {
    */
   public function entitysave($entity) {
     $values = (array)$entity;
+//    dpm($values);
+//    $fmno = end($values['field_fmno']);
+//    $dept = end($values['field_dept']);
+//
+//    $values['field_fmno'][LANGUAGE_NONE][0]['value'] = $fmno[0]['value'];
+//    $values['field_dept'][LANGUAGE_NONE][0]['value'] = $dept[0]['value'];
+
     $skip_host_save = FALSE;
     $field_collection_item = entity_create('field_collection_item', $values);
     if (!empty($entity->hostEntityId)) {
@@ -155,7 +162,7 @@ class FeedsFieldCollectionProcessor extends FeedsProcessor {
    */
   //public function setTargetElement(FeedsSource $source, $target_item, $target_element, $value, $mapping) {
   public function setTargetElement(FeedsSource $source, $target_item, $target_element, $value) {
-    
+
     switch ($target_element) {
       case 'host_entity_guid':
         $query = new EntityFieldQuery();

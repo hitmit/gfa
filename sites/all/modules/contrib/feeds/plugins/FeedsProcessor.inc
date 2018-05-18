@@ -57,7 +57,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    *
    * Defaults to the entity type for entities that do not define bundles.
    *
-   * @return string|NULL
+   * @return string|null
    *   The bundle type this processor operates on, or NULL if it is undefined.
    */
   public function bundle() {
@@ -267,8 +267,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
   /**
    * Wrap entity_get_info() into a method so that extending classes can override
    * it and more entity information. Allowed additional keys:
-   *
-   * 'label plural' ... the plural label of an entity type.
+   * - 'label plural'
+   *   The plural label of an entity type.
    */
   protected function entityInfo() {
     $info = entity_get_info($this->entityType());
@@ -377,7 +377,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
         // Allow modules to alter the entity before saving.
         module_invoke_all('feeds_presave', $source, $entity, $item, $entity_id);
         if (module_exists('rules')) {
-          rules_invoke_event('feeds_import_'. $source->importer()->id, $entity);
+          rules_invoke_event('feeds_import_' . $source->importer()->id, $entity);
         }
 
         // Enable modules to skip saving at all.
@@ -427,7 +427,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
     $messages = array();
     if ($state->created) {
       $messages[] = array(
-       'message' => format_plural(
+        'message' => format_plural(
           $state->created,
           'Created @number @entity.',
           'Created @number @entities.',
@@ -437,7 +437,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
     }
     if ($state->updated) {
       $messages[] = array(
-       'message' => format_plural(
+        'message' => format_plural(
           $state->updated,
           'Updated @number @entity.',
           'Updated @number @entities.',
@@ -467,7 +467,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
     }
     if ($state->deleted) {
       $messages[] = array(
-       'message' => format_plural(
+        'message' => format_plural(
           $state->deleted,
           'Removed @number @entity.',
           'Removed @number @entities.',
@@ -477,7 +477,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
     }
     if ($state->failed) {
       $messages[] = array(
-       'message' => format_plural(
+        'message' => format_plural(
           $state->failed,
           'Failed importing @number @entity.',
           'Failed importing @number @entities.',
@@ -617,7 +617,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
     }
   }
 
-  /*
+  /**
    * Report number of items that can be processed per call.
    *
    * 0 means 'unlimited'.
@@ -641,7 +641,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    * @param FeedsSource $source
    *   The source to expire entities for.
    *
-   * @param $time
+   * @param int|null $time
    *   (optional) All items produced by this configuration that are older than
    *   REQUEST_TIME - $time should be deleted. If NULL, processor should use
    *   internal configuration. Defaults to NULL.
@@ -714,6 +714,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
   /**
    * Counts the number of items imported by this processor.
+   *
+   * @return int
    */
   public function itemCount(FeedsSource $source) {
     return db_query("SELECT count(*) FROM {feeds_item} WHERE id = :id AND entity_type = :entity_type AND feed_nid = :feed_nid", array(':id' => $this->id, ':entity_type' => $this->entityType(), ':feed_nid' => $source->feed_nid))->fetchField();
@@ -886,6 +888,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
   /**
    * Per default, don't support expiry. If processor supports expiry of imported
    * items, return the time after which items should be removed.
+   *
+   * @return int
    */
   public function expiryTime() {
     return FEEDS_EXPIRE_NEVER;
@@ -893,6 +897,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
   /**
    * Declare default configuration.
+   *
+   * @return array
    */
   public function configDefaults() {
     $info = $this->entityInfo();
@@ -950,6 +956,10 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
   /**
    * Overrides parent::configForm().
+   *
+   * @param array $form_state
+   *
+   * @return array
    */
   public function configForm(&$form_state) {
     $info = $this->entityInfo();
@@ -1058,6 +1068,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
   /**
    * Get mappings.
+   *
+   * @return array
    */
   public function getMappings() {
     $cache = &drupal_static('FeedsProcessor::getMappings', array());
@@ -1099,7 +1111,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    *
    * @ingroup mappingapi
    *
-   * @return
+   * @return array
    *   An array of mapping targets. Keys are paths to targets
    *   separated by ->, values are TRUE if target can be unique,
    *   FALSE otherwise.
@@ -1216,7 +1228,6 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
     return $entity_id;
   }
-
 
   /**
    * Utility function that iterates over a target array and retrieves all
@@ -1424,6 +1435,9 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
 }
 
+/**
+ *
+ */
 class FeedsProcessorBundleNotDefined extends Exception {}
 
 /**
@@ -1432,7 +1446,7 @@ class FeedsProcessorBundleNotDefined extends Exception {}
  * Adds descriptions to options of this field.
  */
 function feeds_processor_config_form_update_existing_after_build($field) {
-  $field[FEEDS_REPLACE_EXISTING]['#description'] =  t('Loads records directly from the database, bypassing the Entity API. Faster, but use with caution.');
-  $field[FEEDS_UPDATE_EXISTING]['#description'] =  t('Loads complete @entities using the Entity API for full integration with other modules. Slower, but most reliable.', $field['#tokens']);
+  $field[FEEDS_REPLACE_EXISTING]['#description'] = t('Loads records directly from the database, bypassing the Entity API. Faster, but use with caution.');
+  $field[FEEDS_UPDATE_EXISTING]['#description'] = t('Loads complete @entities using the Entity API for full integration with other modules. Slower, but most reliable.', $field['#tokens']);
   return $field;
 }
