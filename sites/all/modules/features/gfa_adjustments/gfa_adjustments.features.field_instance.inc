@@ -133,7 +133,7 @@ function gfa_adjustments_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_charge',
     'label' => 'Charge Code',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -351,7 +351,7 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 23,
+        'weight' => 60,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -406,7 +406,7 @@ function gfa_adjustments_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 35,
+      'weight' => 33,
     ),
   );
 
@@ -420,15 +420,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 21,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 56,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -436,17 +431,16 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'Effective Perdiem',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 21,
     ),
   );
@@ -483,6 +477,40 @@ function gfa_adjustments_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_cparn-field_fcuid'.
+  $field_instances['field_collection_item-field_cparn-field_fcuid'] = array(
+    'bundle' => 'field_cparn',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 42,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_fcuid',
+    'label' => 'FCUID',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 34,
     ),
   );
 
@@ -533,13 +561,13 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 53,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_fmno',
     'label' => 'FMNO',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -564,15 +592,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 18,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 54,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -580,17 +603,16 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'Hours',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 18,
     ),
   );
@@ -605,33 +627,27 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 31,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 59,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_hours_to_be_moved',
-    'label' => 'Hours to be moved',
+    'label' => 'Hours to be Moved',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 31,
     ),
   );
@@ -730,7 +746,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ors_create_tstamp',
-    'label' => 'ORS Create tstamp',
+    'label' => 'ORS Create Tstamp',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -757,47 +773,6 @@ function gfa_adjustments_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_cparn-field_ot_hours'.
-  $field_instances['field_collection_item-field_cparn-field_ot_hours'] = array(
-    'bundle' => 'field_cparn',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 35,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_ot_hours',
-    'label' => 'OT Hours',
-    'required' => 0,
-    'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 32,
-    ),
-  );
-
-  // Exported field_instance:
   // 'field_collection_item-field_cparn-field_overtime'.
   $field_instances['field_collection_item-field_cparn-field_overtime'] = array(
     'bundle' => 'field_cparn',
@@ -807,15 +782,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 19,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 55,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -823,17 +793,16 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'Overtime',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 19,
     ),
   );
@@ -851,12 +820,12 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 34,
+        'weight' => 51,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_pa_period_code',
-    'label' => 'RADAR Reporting Period',
+    'label' => 'TS Start Date',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -869,7 +838,7 @@ function gfa_adjustments_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 28,
+      'weight' => 11,
     ),
   );
 
@@ -882,15 +851,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 4,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 58,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -898,64 +862,23 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'PCAT',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 4,
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_cparn-field_perdiem'.
-  $field_instances['field_collection_item-field_cparn-field_perdiem'] = array(
-    'bundle' => 'field_cparn',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 22,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_perdiem',
-    'label' => 'Perdiem USD',
-    'required' => 0,
-    'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 22,
-    ),
-  );
-
   // Exported field_instance:
-  // 'field_collection_item-field_cparn-field_perdiem_local_currency'.
-  $field_instances['field_collection_item-field_cparn-field_perdiem_local_currency'] = array(
+  // 'field_collection_item-field_cparn-field_per_diem_local_currency'.
+  $field_instances['field_collection_item-field_cparn-field_per_diem_local_currency'] = array(
     'bundle' => 'field_cparn',
     'default_value' => NULL,
     'deleted' => 0,
@@ -966,12 +889,12 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 20,
+        'weight' => 47,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_perdiem_local_currency',
-    'label' => 'Perdiem Local Currency',
+    'field_name' => 'field_per_diem_local_currency',
+    'label' => 'Per Diem Local Currency',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -985,6 +908,41 @@ function gfa_adjustments_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 20,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cparn-field_perdiem_usd'.
+  $field_instances['field_collection_item-field_cparn-field_perdiem_usd'] = array(
+    'bundle' => 'field_cparn',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 57,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_perdiem_usd',
+    'label' => 'Perdiem USD',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 22,
     ),
   );
 
@@ -1005,7 +963,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_poc',
-    'label' => 'POC (Local office)',
+    'label' => 'POC(Local Office)',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1018,7 +976,7 @@ function gfa_adjustments_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 32,
     ),
   );
 
@@ -1040,7 +998,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_position_code',
-    'label' => 'Position code',
+    'label' => 'Position Code',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1089,6 +1047,56 @@ function gfa_adjustments_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_cparn-field_radar_reporting_period'.
+  $field_instances['field_collection_item-field_cparn-field_radar_reporting_period'] = array(
+    'bundle' => 'field_cparn',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+          'show_remaining_days' => FALSE,
+        ),
+        'type' => 'date_default',
+        'weight' => 52,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_radar_reporting_period',
+    'label' => 'RADAR Reporting Period',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 1,
+        'input_format' => 'custom',
+        'input_format_custom' => 'n/d/Y',
+        'label_position' => 'above',
+        'no_fieldset' => 0,
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_text',
+      'weight' => 28,
     ),
   );
 
@@ -1194,56 +1202,6 @@ function gfa_adjustments_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_cparn-field_ts_start_date'.
-  $field_instances['field_collection_item-field_cparn-field_ts_start_date'] = array(
-    'bundle' => 'field_cparn',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'date',
-        'settings' => array(
-          'format_type' => 'long',
-          'fromto' => 'both',
-          'multiple_from' => '',
-          'multiple_number' => '',
-          'multiple_to' => '',
-          'show_remaining_days' => FALSE,
-        ),
-        'type' => 'date_default',
-        'weight' => 11,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_ts_start_date',
-    'label' => 'TS Start Date',
-    'required' => 0,
-    'settings' => array(
-      'default_value' => 'now',
-      'default_value2' => 'same',
-      'default_value_code' => '',
-      'default_value_code2' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'date',
-      'settings' => array(
-        'increment' => 15,
-        'input_format' => 'custom',
-        'input_format_custom' => 'n/d/Y',
-        'label_position' => 'above',
-        'no_fieldset' => 0,
-        'text_parts' => array(),
-        'year_range' => '-3:+3',
-      ),
-      'type' => 'date_text',
-      'weight' => 11,
     ),
   );
 
@@ -1369,7 +1327,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_cc_to_be_moved',
-    'label' => 'CC to be moved',
+    'label' => 'Charge Code (to be moved to)',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1398,12 +1356,12 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 38,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_currency',
-    'label' => 'Currency',
+    'label' => 'PD Cur',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1432,7 +1390,7 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 32,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1464,9 +1422,8 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'hidden',
         'weight' => 22,
       ),
     ),
@@ -1551,7 +1508,7 @@ function gfa_adjustments_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 21,
+      'weight' => 23,
     ),
   );
 
@@ -1567,7 +1524,7 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 31,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1599,33 +1556,27 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 16,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 39,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_hours_reduce_or_add_',
-    'label' => 'Hours (Reduce or add)',
+    'label' => 'Hours (to be reduced or added)',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 16,
     ),
   );
@@ -1661,7 +1612,7 @@ function gfa_adjustments_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 20,
+      'weight' => 21,
     ),
   );
 
@@ -1678,12 +1629,12 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 19,
+        'weight' => 41,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_new_pd_override',
-    'label' => 'New PD Override',
+    'label' => 'New PD override',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1696,7 +1647,7 @@ function gfa_adjustments_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 19,
+      'weight' => 20,
     ),
   );
 
@@ -1712,7 +1663,7 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 12,
+        'weight' => 36,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1746,7 +1697,7 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 11,
+        'weight' => 35,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1778,33 +1729,27 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 10,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 34,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_o_t_hours',
-    'label' => 'O/T hours',
+    'label' => 'O/T Hrs',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 10,
     ),
   );
@@ -1826,7 +1771,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_office',
-    'label' => 'Office',
+    'label' => 'Emp GOC Off',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1853,33 +1798,27 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 17,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 40,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ot_hours_reduce_or_add_',
-    'label' => 'OT Hours (Reduce or add)',
+    'label' => 'OT Hours (to be reduced or added)',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 17,
     ),
   );
@@ -1897,12 +1836,12 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 13,
+        'weight' => 37,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_override_pd',
-    'label' => 'Override Pd',
+    'label' => 'Override PD',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1937,7 +1876,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_pa_period_code',
-    'label' => 'PA Period',
+    'label' => 'Timesheet Period(s)',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2034,33 +1973,27 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 9,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 33,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_regular_hours',
-    'label' => 'Regular Hours',
+    'label' => 'Reg Hrs',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 9,
     ),
   );
@@ -2118,7 +2051,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_user_name',
-    'label' => 'User Name',
+    'label' => 'Name',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2139,11 +2072,7 @@ function gfa_adjustments_field_default_field_instances() {
   // 'field_collection_item-field_pa_periods-field_adjustment_form_type'.
   $field_instances['field_collection_item-field_pa_periods-field_adjustment_form_type'] = array(
     'bundle' => 'field_pa_periods',
-    'default_value' => array(
-      0 => array(
-        'tid' => 1,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -2274,7 +2203,7 @@ function gfa_adjustments_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_charge',
     'label' => 'Charge Code',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -2302,7 +2231,7 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 14,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -2338,9 +2267,8 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'hidden',
         'weight' => 7,
       ),
     ),
@@ -2362,6 +2290,40 @@ function gfa_adjustments_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_ppa-field_fcuid'.
+  $field_instances['field_collection_item-field_ppa-field_fcuid'] = array(
+    'bundle' => 'field_ppa',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_fcuid',
+    'label' => 'FCUID',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_ppa-field_fmno'.
   $field_instances['field_collection_item-field_ppa-field_fmno'] = array(
     'bundle' => 'field_ppa',
@@ -2374,13 +2336,13 @@ function gfa_adjustments_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_fmno',
     'label' => 'FMNO',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -2405,15 +2367,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 3,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -2421,17 +2378,16 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'Hours',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 3,
     ),
   );
@@ -2445,15 +2401,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 4,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -2461,17 +2412,16 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'Overtime',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 4,
     ),
   );
@@ -2495,7 +2445,7 @@ function gfa_adjustments_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_pa_period_code',
     'label' => 'PA Period',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -2520,15 +2470,10 @@ function gfa_adjustments_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 2,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_decimal',
-        'weight' => 5,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -2536,17 +2481,16 @@ function gfa_adjustments_field_default_field_instances() {
     'label' => 'Perdiem',
     'required' => 0,
     'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 5,
     ),
   );
@@ -2569,6 +2513,112 @@ function gfa_adjustments_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_charge',
     'label' => 'PE Charge Code',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_pppece-field_downloaded'.
+  $field_instances['field_collection_item-field_pppece-field_downloaded'] = array(
+    'bundle' => 'field_pppece',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_downloaded',
+    'label' => 'Downloaded',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_pppece-field_fcuid'.
+  $field_instances['field_collection_item-field_pppece-field_fcuid'] = array(
+    'bundle' => 'field_pppece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_fcuid',
+    'label' => 'FCUID',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_pppece-field_override_pd'.
+  $field_instances['field_collection_item-field_pppece-field_override_pd'] = array(
+    'bundle' => 'field_pppece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 14,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_override_pd',
+    'label' => 'Override Perdiem',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2616,7 +2666,7 @@ function gfa_adjustments_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 0,
     ),
   );
 
@@ -2650,7 +2700,7 @@ function gfa_adjustments_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_cparn',
     'label' => 'CPARN',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -2660,6 +2710,46 @@ function gfa_adjustments_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => -4,
+    ),
+  );
+
+  // Exported field_instance: 'node-cparn-field_uid'.
+  $field_instances['node-cparn-field_uid'] = array(
+    'bundle' => 'cparn',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_uid',
+    'label' => 'uid',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -2,
     ),
   );
 
@@ -2703,6 +2793,46 @@ function gfa_adjustments_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => -4,
+    ),
+  );
+
+  // Exported field_instance: 'node-mnat-field_uid'.
+  $field_instances['node-mnat-field_uid'] = array(
+    'bundle' => 'mnat',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_uid',
+    'label' => 'uid',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -3,
     ),
   );
 
@@ -2792,6 +2922,46 @@ function gfa_adjustments_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ppa-field_uid'.
+  $field_instances['node-ppa-field_uid'] = array(
+    'bundle' => 'ppa',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_uid',
+    'label' => 'uid',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -1,
+    ),
+  );
+
   // Exported field_instance: 'node-pppece-field_pppece'.
   $field_instances['node-pppece-field_pppece'] = array(
     'bundle' => 'pppece',
@@ -2835,6 +3005,46 @@ function gfa_adjustments_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-pppece-field_uid'.
+  $field_instances['node-pppece-field_uid'] = array(
+    'bundle' => 'pppece',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_uid',
+    'label' => 'uid',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -2,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Act Code');
@@ -2842,9 +3052,9 @@ function gfa_adjustments_field_default_field_instances() {
   t('Adjustment Form Type');
   t('Alternative Code');
   t('Billing Sub Type');
-  t('CC to be moved');
   t('CPARN');
   t('Charge Code');
+  t('Charge Code (to be moved to)');
   t('Charge Code GOC Office');
   t('Complex');
   t('Created By');
@@ -2855,53 +3065,56 @@ function gfa_adjustments_field_default_field_instances() {
   t('Dept');
   t('Downloaded');
   t('Effective Perdiem');
+  t('Emp GOC Off');
   t('Employment Status');
   t('Eng Off');
   t('FCUID');
   t('FMNO');
   t('First Name');
   t('Hours');
-  t('Hours (Reduce or add)');
-  t('Hours to be moved');
+  t('Hours (to be reduced or added)');
+  t('Hours to be Moved');
   t('Labor Status');
   t('Last Name');
   t('NTs9');
+  t('Name');
   t('New PD Currency');
-  t('New PD Override');
+  t('New PD override');
   t('Nts Awy');
-  t('O/T hours');
-  t('ORS Create tstamp');
-  t('OT Hours');
-  t('OT Hours (Reduce or add)');
-  t('Office');
-  t('Override Pd');
+  t('O/T Hrs');
+  t('ORS Create Tstamp');
+  t('OT Hours (to be reduced or added)');
+  t('Override PD');
+  t('Override Perdiem');
   t('Overtime');
   t('PA Date Range');
   t('PA Period');
   t('PA Period Code');
   t('PA Periods');
   t('PCAT');
+  t('PD Cur');
   t('PE Charge Code');
-  t('POC (Local office)');
+  t('POC(Local Office)');
   t('PPA');
+  t('Per Diem Local Currency');
   t('Perdiem');
-  t('Perdiem Local Currency');
   t('Perdiem USD');
-  t('Position code');
+  t('Position Code');
   t('Project Code');
   t('Project Name');
   t('RADAR Reporting Period');
-  t('Regular Hours');
+  t('Reg Hrs');
   t('Source Action');
   t('Source System');
   t('Sub Complex');
   t('TS Start Date');
+  t('Timesheet Period(s)');
   t('Tracking Number');
   t('User GOC Code');
   t('User Location Code');
-  t('User Name');
   t('mnat');
   t('pppece');
+  t('uid');
 
   return $field_instances;
 }

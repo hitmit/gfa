@@ -20,12 +20,12 @@ function gfa_feeds_importer__feeds_importer_default() {
     'fetcher' => array(
       'plugin_key' => 'FeedsFileFetcher',
       'config' => array(
-        'allowed_extensions' => 'txt csv tsv xml opml',
-        'delete_uploaded_file' => FALSE,
-        'direct' => FALSE,
+        'allowed_extensions' => 'txt csv tsv xml opml xls',
+        'delete_uploaded_file' => 0,
+        'direct' => 0,
         'directory' => 'public://feeds',
         'allowed_schemes' => array(
-          0 => 'public',
+          'public' => 'public',
         ),
       ),
     ),
@@ -33,7 +33,7 @@ function gfa_feeds_importer__feeds_importer_default() {
       'plugin_key' => 'FeedsExcelParser',
       'config' => array(
         'all_worksheets' => 0,
-        'max_rows' => '100',
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -70,7 +70,7 @@ function gfa_feeds_importer__feeds_importer_default() {
           ),
           4 => array(
             'source' => 'Timesheet',
-            'target' => 'field_timesheet_period:start',
+            'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -217,11 +217,10 @@ function gfa_feeds_importer__feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'FeedsExcelParser',
       'config' => array(
-        'delimiter' => ',',
-        'encoding' => 'UTF-8',
-        'no_headers' => 0,
+        'all_worksheets' => 0,
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -321,11 +320,10 @@ function gfa_feeds_importer__feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'FeedsExcelParser',
       'config' => array(
-        'delimiter' => ',',
-        'encoding' => 'UTF-8',
-        'no_headers' => 0,
+        'all_worksheets' => 0,
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -380,10 +378,9 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           7 => array(
-            'source' => 'UID',
+            'source' => 'uid',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
-            'language' => 'und',
           ),
         ),
         'insert_new' => '1',
@@ -425,11 +422,10 @@ function gfa_feeds_importer__feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'FeedsExcelParser',
       'config' => array(
-        'delimiter' => ',',
-        'encoding' => 'UTF-8',
-        'no_headers' => 0,
+        'all_worksheets' => 0,
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -563,7 +559,7 @@ function gfa_feeds_importer__feeds_importer_default() {
           ),
           20 => array(
             'source' => 'Perdiem Local Currency',
-            'target' => 'field_perdiem_local_currency',
+            'target' => 'field_per_diem_local_currency',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -575,7 +571,7 @@ function gfa_feeds_importer__feeds_importer_default() {
           ),
           22 => array(
             'source' => 'Perdiem USD',
-            'target' => 'field_perdiem',
+            'target' => 'field_perdiem_usd',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -635,7 +631,7 @@ function gfa_feeds_importer__feeds_importer_default() {
           ),
           32 => array(
             'source' => 'OT Hours',
-            'target' => 'field_ot_hours',
+            'target' => 'field_overtime',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -697,11 +693,10 @@ function gfa_feeds_importer__feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'FeedsExcelParser',
       'config' => array(
-        'delimiter' => ',',
-        'encoding' => 'UTF-8',
-        'no_headers' => 0,
+        'all_worksheets' => 0,
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -801,11 +796,10 @@ function gfa_feeds_importer__feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'FeedsExcelParser',
       'config' => array(
-        'delimiter' => ',',
-        'encoding' => 'UTF-8',
-        'no_headers' => 0,
+        'all_worksheets' => 0,
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -854,18 +848,12 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           6 => array(
-            'source' => 'Perdiem',
-            'target' => 'field_perdiem',
-            'unique' => FALSE,
-            'language' => 'und',
-          ),
-          7 => array(
             'source' => 'Currency',
             'target' => 'field_currency',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          8 => array(
+          7 => array(
             'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
@@ -911,11 +899,10 @@ function gfa_feeds_importer__feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'FeedsExcelParser',
       'config' => array(
-        'delimiter' => ',',
-        'encoding' => 'UTF-8',
-        'no_headers' => 0,
+        'all_worksheets' => 0,
+        'max_rows' => 65535,
       ),
     ),
     'processor' => array(
@@ -946,14 +933,14 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           3 => array(
-            'source' => 'First Name',
-            'target' => 'field_first_name',
+            'source' => 'FMNO',
+            'target' => 'field_fmno',
             'unique' => FALSE,
             'language' => 'und',
           ),
           4 => array(
-            'source' => 'Last Name',
-            'target' => 'field_last_name',
+            'source' => 'Name',
+            'target' => 'field_user_name',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -988,114 +975,108 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           10 => array(
-            'source' => 'Hours',
-            'target' => 'field_hours',
-            'unique' => FALSE,
-            'language' => 'und',
-          ),
-          11 => array(
             'source' => 'Days',
             'target' => 'field_days',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          12 => array(
+          11 => array(
             'source' => 'Transaction Amount LC',
             'target' => 'field_transaction_amount_lc',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          13 => array(
+          12 => array(
             'source' => 'WIP Per Diem',
             'target' => 'field_wip_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          14 => array(
+          13 => array(
             'source' => 'Table Per Diem',
             'target' => 'field_table_b_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          15 => array(
+          14 => array(
             'source' => 'Nominal Per Diem',
             'target' => 'field_nominal_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          16 => array(
+          15 => array(
             'source' => 'Staffing Office',
             'target' => 'field_staffing_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          17 => array(
+          16 => array(
             'source' => 'Entry Office',
             'target' => 'field_entry_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          18 => array(
+          17 => array(
             'source' => 'GL Date',
             'target' => 'field_gl_date',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          19 => array(
+          18 => array(
             'source' => 'Timesheet Period',
             'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          20 => array(
+          19 => array(
             'source' => 'Fees at Risk',
             'target' => 'field_fees_at_risk',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          21 => array(
+          20 => array(
             'source' => 'Fees at Risk Recovery',
             'target' => 'field_fees_at_risk_recovery',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          22 => array(
+          21 => array(
             'source' => 'NRR by Timesheet Period',
             'target' => 'field_nrr_by_timesheet_period',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          23 => array(
+          22 => array(
             'source' => 'Timesheet Month',
-            'target' => 'field_timesheet_month',
+            'target' => 'field_timesheet_month:start',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          24 => array(
+          23 => array(
             'source' => 'Firm Member Staffed Project',
             'target' => 'field_firm_member_staffed_to_pro',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          25 => array(
+          24 => array(
             'source' => 'Firm Member CER Billing',
             'target' => 'field_firm_member_on_cer_billing',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          26 => array(
-            'source' => 'New Per Diem',
-            'target' => 'field_new_per_diem_amount',
+          25 => array(
+            'source' => 'Enter the New Per Diem Amount',
+            'target' => 'field_enter_the_new_per_diem_amo',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          27 => array(
+          26 => array(
             'source' => 'Currency',
             'target' => 'field_currency',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          28 => array(
+          27 => array(
             'source' => 'uid',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
