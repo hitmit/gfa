@@ -194,7 +194,8 @@ function feeds_xls_feeds_set_target_date($source, $entity, $target, $value){
     $date->setTimezone(new DateTimeZone('UTC'));
     $value = $date->format('Y-m-d H:i:s');
   }
-  return date_feeds_set_target($source, $entity, $target, $value);
+  $mapping = array();
+  return date_feeds_set_target($source, $entity, $target, $value, $mapping);
 }
 
 /**
