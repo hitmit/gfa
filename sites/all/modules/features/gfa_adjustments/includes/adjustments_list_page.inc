@@ -18,15 +18,8 @@ function adjtype_select_form($form, &$form_state, $arg1, $arg2, $arg3) {
         '#default_value' => $arg1,
         '#options' => $options
     );
-    $options = array(
-        'mnat' => 'CPA - MB2 Net Accrual TV',
-        'cparn' => 'CPA - RADAR Net Accrual TV',
-        'cparf' => 'CPA - RADAR Format GFA',
-        'cpag' => 'Current Period Accruals - GFA',
-        'ppa' => 'Prior Period Adjustments',
-        'pppece' => 'Prior Period PE to CE',
-        'shbp' => 'SHB Perdiem'
-    );
+    $adj = new adjustments();
+    $options = $adj->getAdjTypeOptions();
     $form['adjtype'] = array(
         '#attributes' => array('id' => array('arg2')),
         '#type' => 'select',
@@ -77,13 +70,12 @@ function adjustments_list_page($arg1 = FALSE, $arg2 = FALSE, $arg3 = FALSE) {
     }
 
     $adj = new adjustments();
-    $paPeriod = $adj->getPAPeriod($arg2);
-    $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
+    $paPeriodCodes = $adj->getPAPeriod($arg2);
 
-    $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCode);
+    $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCodes);
     $entities = entity_load('field_collection_item', $efq);
 
-    $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2, $paPeriod);
+    $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2);
 
     if(!empty($arrayData[1])) {
         $tableHeader = $arrayData[0];

@@ -34,24 +34,23 @@ function export_spreadsheet($arg1, $arg2, $arg3) {
     }
 
     $adj = new adjustments();
-    $paPeriod = $adj->getPAPeriod($arg2);
-    $paPeriodCode = isset($paPeriod) ? reset($paPeriod) : NULL;
+    $paPeriodCodes = $adj->getPAPeriod($arg2);
 
-    $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCode);
+    $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCodes);
     $entities = entity_load('field_collection_item', $efq);
 
-    $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2, $paPeriod);
+    $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2);
 
     if(!empty($arrayData[1])) {
         $library = variable_get('spread_library', 'phpexcel');
-        $filename = $arg1 . '-' . $arg2 . '_' . date('m-d-Y_hia') . '.xlsx"';
+        $filename = $arg1 . '-' . $arg2 . '_' . date('m-d-Y_hia') . '.csv"';
 
         if($library == 'phpexcel') {
             $spreadsheet = new PHPExcel();
-            $writer = new PHPExcel_Writer_Excel2007($spreadsheet);
+            $writer = new PHPExcel_Writer_CSV($spreadsheet);
         } elseif($library == 'phpspreadsheet') {
             $spreadsheet = new Spreadsheet();
-            $writer = new Xlsx($spreadsheet);
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
         }
 
         $sheet = $spreadsheet->getActiveSheet();
@@ -62,7 +61,7 @@ function export_spreadsheet($arg1, $arg2, $arg3) {
                 'A1'         // Top left coordinate of the worksheet range where
             );
 
-        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename);
         $writer->save("php://output");
         if($arg1 == 'output' && $arg3 == 'new') {

@@ -84,15 +84,8 @@ function gfa_adjustments_menu_alter(&$items) {
  * Return adjustment form select list.
  */
 function adjustment_select_form($form, &$form_state, $arg1) {
-    $options = array(
-        'mnat' => 'CPA - MB2 Net Accrual TV',
-        'cparn' => 'CPA - RADAR Net Accrual TV',
-        'cparf' => 'CPA - RADAR Format GFA',
-        'cpag' => 'Current Period Accruals - GFA',
-        'ppa' => 'Prior Period Adjustments',
-        'pppece' => 'Prior Period PE to CE',
-        'shbp' => 'SHB Perdiem'
-    );
+    $adj = new adjustments();
+    $options = $adj->getAdjTypeOptions();
     $form['adj_select'] = array(
         '#type' => 'select',
         '#title' => t('Adjustment Form type'),
