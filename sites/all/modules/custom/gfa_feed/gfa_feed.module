@@ -133,7 +133,9 @@ $size = count($compare);
 
 if($size > 2) {
     drupal_set_message('The following headers do not match, please fix them and re-upload');
-    drupal_set_message($compare);
+    foreach($compare as $c){
+        drupal_set_message($c);
+    }
     return false;
 } else {
     //these are two extra fields that are allowable in the array
