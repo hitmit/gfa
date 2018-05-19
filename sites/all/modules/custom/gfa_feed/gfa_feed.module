@@ -237,31 +237,7 @@ function gfa_feed_document_submit($form, $form_state) {
 //                ddl($check);
                 if($check){
                     file_save($current_document);
-
-                    switch(arg(1)){
-                        case "mnat":
-                            $uploader = "cpa_mnat";
-                            break;
-                        case "cparn":
-                            $uploader = "cparn";
-                            break;
-                        case "cparf":
-                            $uploader = "cparf";
-                            break;
-                        case "shbp":
-                            $uploader = "shbp";
-                            break;
-                        case "cpag":
-                            $uploader = "cpag";
-                            break;
-                        case "ppa":
-                            $uploader = "ppa";
-                            break;
-                        case "pppece":
-                            $uploader = "pppece";
-                            break;
-                    }
-                    import_csv($uploader, $fid);
+                    import_csv(arg(1), $fid);
                     drupal_set_message("Documents uploaded successfully.");
                 } else {
                     form_set_error('error','The file could not be uploaded. Please use the correct template');
