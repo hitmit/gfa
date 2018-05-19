@@ -236,7 +236,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_created_by',
-    'label' => 'Created By',
+    'label' => 'Created_by',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -277,7 +277,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_created_date',
-    'label' => 'Created Date',
+    'label' => 'Created_date',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -635,7 +635,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_hours_to_be_moved',
-    'label' => 'Hours to be Moved',
+    'label' => 'Hours to be moved',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -746,7 +746,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ors_create_tstamp',
-    'label' => 'ORS Create Tstamp',
+    'label' => 'ORS_Create_tstamp',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -2512,7 +2512,7 @@ function gfa_adjustments_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_charge',
-    'label' => 'PE Charge Code',
+    'label' => 'PE charge Code',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -3057,8 +3057,8 @@ function gfa_adjustments_field_default_field_instances() {
   t('Charge Code (to be moved to)');
   t('Charge Code GOC Office');
   t('Complex');
-  t('Created By');
-  t('Created Date');
+  t('Created_by');
+  t('Created_date');
   t('Creator Location');
   t('Currency');
   t('Currency Code');
@@ -3073,7 +3073,7 @@ function gfa_adjustments_field_default_field_instances() {
   t('First Name');
   t('Hours');
   t('Hours (to be reduced or added)');
-  t('Hours to be Moved');
+  t('Hours to be moved');
   t('Labor Status');
   t('Last Name');
   t('NTs9');
@@ -3082,7 +3082,7 @@ function gfa_adjustments_field_default_field_instances() {
   t('New PD override');
   t('Nts Awy');
   t('O/T Hrs');
-  t('ORS Create Tstamp');
+  t('ORS_Create_tstamp');
   t('OT Hours (to be reduced or added)');
   t('Override PD');
   t('Override Perdiem');
@@ -3093,7 +3093,7 @@ function gfa_adjustments_field_default_field_instances() {
   t('PA Periods');
   t('PCAT');
   t('PD Cur');
-  t('PE Charge Code');
+  t('PE charge Code');
   t('POC(Local Office)');
   t('PPA');
   t('Per Diem Local Currency');

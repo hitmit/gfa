@@ -79,6 +79,10 @@ function import_csv($importer_id, $fid) {
  */
 function gfa_feed_document_add_form($form, &$form_state) {
     $doc_id = variable_get('document_variable_name');
+    $form['download'] = array(
+        '#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
+
+    );
     $form['doc_file'] = array(
         '#title' => t('Upload the document'),
         '#type' => 'managed_file',
@@ -89,6 +93,8 @@ function gfa_feed_document_add_form($form, &$form_state) {
             'file_validate_extensions' => array('xls'),
         ),
     );
+
+
 
     $form['document_submit'] = array(
         '#type' => 'submit',

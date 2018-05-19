@@ -11,7 +11,7 @@ function gfa_feeds_importer__feeds_importer_default() {
   $export = array();
 
   $feeds_importer = new stdClass();
-  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->disabled = TRUE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
   $feeds_importer->id = 'cpa_mnat';
   $feeds_importer->config = array(
@@ -63,13 +63,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           3 => array(
-            'source' => 'Office',
+            'source' => 'Emp GOC Off',
             'target' => 'field_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
           4 => array(
-            'source' => 'Timesheet',
+            'source' => 'Timesheet Period(s)',
             'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
@@ -99,13 +99,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           9 => array(
-            'source' => 'Regular Hours',
+            'source' => 'Reg Hrs',
             'target' => 'field_regular_hours',
             'unique' => FALSE,
             'language' => 'und',
           ),
           10 => array(
-            'source' => 'OT Hours',
+            'source' => 'O/T Hrs',
             'target' => 'field_o_t_hours',
             'unique' => FALSE,
             'language' => 'und',
@@ -141,25 +141,25 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           16 => array(
-            'source' => 'Hours Reduced/Add',
+            'source' => 'Hours (to be reduced or added)',
             'target' => 'field_hours_reduce_or_add_',
             'unique' => FALSE,
             'language' => 'und',
           ),
           17 => array(
-            'source' => 'OT Hours Reduced/Add',
+            'source' => 'OT Hours (to be reduced or added)',
             'target' => 'field_ot_hours_reduce_or_add_',
             'unique' => FALSE,
             'language' => 'und',
           ),
           18 => array(
-            'source' => 'CC Moved',
+            'source' => 'Charge Code (to be moved to)',
             'target' => 'field_cc_to_be_moved',
             'unique' => FALSE,
             'language' => 'und',
           ),
           19 => array(
-            'source' => 'New PD Override',
+            'source' => 'New PD override',
             'target' => 'field_new_pd_override',
             'unique' => FALSE,
             'language' => 'und',
@@ -444,7 +444,7 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           1 => array(
-            'source' => 'First name',
+            'source' => 'First Name',
             'target' => 'field_first_name',
             'unique' => FALSE,
             'language' => 'und',
@@ -505,7 +505,7 @@ function gfa_feeds_importer__feeds_importer_default() {
           ),
           11 => array(
             'source' => 'TS Start Date',
-            'target' => 'field_ts_start_date:start',
+            'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -558,7 +558,7 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           20 => array(
-            'source' => 'Perdiem Local Currency',
+            'source' => 'Per Diem Local Currency',
             'target' => 'field_per_diem_local_currency',
             'unique' => FALSE,
             'language' => 'und',
@@ -588,13 +588,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           25 => array(
-            'source' => 'Created By',
+            'source' => 'Created_by',
             'target' => 'field_created_by',
             'unique' => FALSE,
             'language' => 'und',
           ),
           26 => array(
-            'source' => 'Created Date',
+            'source' => 'Created_date',
             'target' => 'field_created_date:start',
             'unique' => FALSE,
             'language' => 'und',
@@ -612,7 +612,7 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           29 => array(
-            'source' => 'ORS Create Tstamp',
+            'source' => 'ORS_Create_tstamp',
             'target' => 'field_ors_create_tstamp:start',
             'unique' => FALSE,
             'language' => 'und',
@@ -624,7 +624,7 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           31 => array(
-            'source' => 'Hours to be Moved',
+            'source' => 'Hours to be moved',
             'target' => 'field_hours_to_be_moved',
             'unique' => FALSE,
             'language' => 'und',
@@ -824,14 +824,14 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           2 => array(
-            'source' => 'Charge Code',
+            'source' => 'PE charge Code',
             'target' => 'field_charge',
             'unique' => FALSE,
             'language' => 'und',
           ),
           3 => array(
-            'source' => 'PE Charge Code',
-            'target' => 'field_charge',
+            'source' => 'CE charge code',
+            'target' => 'field_ce_charge_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -848,12 +848,18 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           6 => array(
+            'source' => 'Override Perdiem',
+            'target' => 'field_override_pd',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          7 => array(
             'source' => 'Currency',
             'target' => 'field_currency',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          7 => array(
+          8 => array(
             'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
@@ -933,150 +939,144 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           3 => array(
-            'source' => 'FMNO',
-            'target' => 'field_fmno',
-            'unique' => FALSE,
-            'language' => 'und',
-          ),
-          4 => array(
             'source' => 'Name',
             'target' => 'field_user_name',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          5 => array(
+          4 => array(
             'source' => 'FMNO GOC',
             'target' => 'field_fmno_goc_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          6 => array(
+          5 => array(
             'source' => 'FMNO Dept',
             'target' => 'field_fmno_dept',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          7 => array(
+          6 => array(
             'source' => 'FMNO Dept Name',
             'target' => 'field_fmno_dept_name',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          8 => array(
+          7 => array(
             'source' => 'PCAT Name',
             'target' => 'field_pcat_name',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          9 => array(
+          8 => array(
             'source' => 'PCAT',
             'target' => 'field_pcat',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          10 => array(
+          9 => array(
             'source' => 'Days',
             'target' => 'field_days',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          11 => array(
+          10 => array(
             'source' => 'Transaction Amount LC',
             'target' => 'field_transaction_amount_lc',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          12 => array(
+          11 => array(
             'source' => 'WIP Per Diem',
             'target' => 'field_wip_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          13 => array(
+          12 => array(
             'source' => 'Table Per Diem',
             'target' => 'field_table_b_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          14 => array(
+          13 => array(
             'source' => 'Nominal Per Diem',
             'target' => 'field_nominal_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          15 => array(
+          14 => array(
             'source' => 'Staffing Office',
             'target' => 'field_staffing_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          16 => array(
+          15 => array(
             'source' => 'Entry Office',
             'target' => 'field_entry_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          17 => array(
+          16 => array(
             'source' => 'GL Date',
             'target' => 'field_gl_date',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          18 => array(
+          17 => array(
             'source' => 'Timesheet Period',
             'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          19 => array(
+          18 => array(
             'source' => 'Fees at Risk',
             'target' => 'field_fees_at_risk',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          20 => array(
+          19 => array(
             'source' => 'Fees at Risk Recovery',
             'target' => 'field_fees_at_risk_recovery',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          21 => array(
+          20 => array(
             'source' => 'NRR by Timesheet Period',
             'target' => 'field_nrr_by_timesheet_period',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          22 => array(
+          21 => array(
             'source' => 'Timesheet Month',
             'target' => 'field_timesheet_month:start',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          23 => array(
+          22 => array(
             'source' => 'Firm Member Staffed Project',
             'target' => 'field_firm_member_staffed_to_pro',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          24 => array(
+          23 => array(
             'source' => 'Firm Member CER Billing',
             'target' => 'field_firm_member_on_cer_billing',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          25 => array(
+          24 => array(
             'source' => 'Enter the New Per Diem Amount',
             'target' => 'field_enter_the_new_per_diem_amo',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          26 => array(
+          25 => array(
             'source' => 'Currency',
             'target' => 'field_currency',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          27 => array(
+          26 => array(
             'source' => 'uid',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
