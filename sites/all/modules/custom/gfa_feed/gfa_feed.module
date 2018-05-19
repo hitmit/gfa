@@ -127,8 +127,9 @@ foreach($info as $field){
 
 
 $xls = read_xls($fid);
-
+dpm($xls);
 $compare = array_diff($arr, $xls['header'][1]);
+dpm($compare);
 $size = count($compare);
 
 if($size > 2) {
@@ -160,8 +161,8 @@ function read_xls($fid){
 
     $docroot = $_SERVER['DOCUMENT_ROOT'];
 
-//    $f = 'F:/Sites/gfa_dev/mnat.xls';
     $f = $docroot . "/media-services/gfa/sites/default/files/csv_files/" . $f->filename;
+dpm($f);
     $check = file_exists($f);
     //if file exists get all headers and put it into an array
     if($check) {
@@ -179,12 +180,12 @@ function read_xls($fid){
             $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
             //header will/should be in row 1 only. of course this can be modified to suit your need.
             if ($row == 1) {
-
                 $header[$row][$column] = rtrim($data_value);
             } else {
                 $arr_data[$row][$column] = rtrim($data_value);
             }
         }
+
         //send the data in an array format
         $data['header'] = $header;
         $data['values'] = $arr_data;
