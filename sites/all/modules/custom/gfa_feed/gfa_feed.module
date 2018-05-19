@@ -132,7 +132,7 @@ $compare = array_diff($arr, $xls['header'][1]);
 $size = count($compare);
 
 if($size > 2) {
-    drupal_set_message('The following headers do not match, please fix them and re-upload');
+    drupal_set_message('<strong>The following headers do not match, please fix them and re-upload</strong>');
     foreach($compare as $c){
         if($c != "Downloaded" || $c != "FCUID")
         drupal_set_message($c);
