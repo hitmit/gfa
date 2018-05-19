@@ -134,6 +134,7 @@ $size = count($compare);
 if($size > 2) {
     drupal_set_message('The following headers do not match, please fix them and re-upload');
     foreach($compare as $c){
+        if($c !== "Downloaded" || $c !== "FCUID")
         drupal_set_message($c);
     }
     return false;
