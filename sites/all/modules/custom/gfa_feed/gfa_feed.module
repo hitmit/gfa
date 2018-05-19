@@ -129,10 +129,13 @@ foreach($info as $field){
 $xls = read_xls($fid);
 //dpm($xls);
 $compare = array_diff($arr, $xls['header'][1]);
-dpm($compare);
+
 $size = count($compare);
 
 if($size > 2) {
+//    dsm("Make sure the headers match")
+        drupal_set_message('The following headers do not match, please fix them and reupload');
+       drupal_set_message()$compare);
     return false;
 } else {
     //these are two extra fields that are allowable in the array
