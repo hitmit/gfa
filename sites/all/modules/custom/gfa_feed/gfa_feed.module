@@ -59,8 +59,7 @@ function import_csv($importer_id, $fid) {
     if(isset($fid)){
 
         $f = file_load($fid);
-        $docroot = $_SERVER['DOCUMENT_ROOT'];
-        $f = $docroot . "/media-services/gfa/sites/default/files/csv_files/" . $f->filename;
+        $f = drupal_realpath($f->uri);
 //        dpm($f);
         $feedSource = feeds_source($importer_id);
         $config = $feedSource->getConfig();
@@ -79,7 +78,8 @@ function import_csv($importer_id, $fid) {
  * - It is then passed into the import_csv() function
  */
 function gfa_feed_document_add_form($form, &$form_state) {
-    $doc_id = variable_get('document_variable_name');
+    global $user;
+    $doc_id = $user->data['gfa'][arg(1)]['file_id'];
     $form['download'] = array(
         '#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
 
@@ -209,12 +209,13 @@ function read_xls($fid){
  * - Callback to import_csv() to perform the import
  */
 function gfa_feed_document_submit($form, $form_state) {
+    global $user;
     if (isset($form_state['values']['doc_file'])) {
         //remove existing document while clicking remove button
         if ($form_state['values']['doc_file'] == 0) {
             //get existing file id to delete
-            $document_exist_id = variable_get('document_variable_name');
-            $document_exist_file = file_load($document_exist);
+            $document_exist_id = $user->data['gfa'][arg(1)]['file_id'];
+            $document_exist_file = file_load($document_exist_id);
             if (!empty($document_exist_file)) {
                 //delete file usage
                 file_usage_delete($document_exist_file, 'gfa_feed', '', $document_exist_id);
@@ -231,7 +232,8 @@ function gfa_feed_document_submit($form, $form_state) {
                 //get currently uploaded file id
                 $file_id = $current_document->fid;
                 //setting file id to its variable
-                variable_set('document_variable_name', $file_id);
+                $user->data['gfa'][arg(1)]['file_id'] = $file_id;
+                user_save($user);
                 file_usage_add($current_document, 'gfa_feed', '', $file_id);
                 //make file status as permanent
                 $current_document->status = FILE_STATUS_PERMANENT;
@@ -326,7 +328,7 @@ function gfa_feed_queryNodes() {
         ->range(0,1);
 
     $results = $efq->execute();
-    
+
     return $results;
 }
 
@@ -365,7 +367,7 @@ function gfa_feed_createNewNode() {
                     $emw_node->field_uid = $uid;
                     // And save it.
                     $emw_node->save();
-                    //dpm("UID updated");                
+                    //dpm("UID updated");
                 }
             }
         }
