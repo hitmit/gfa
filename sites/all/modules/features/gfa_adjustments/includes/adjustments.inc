@@ -113,7 +113,7 @@ class Adjustments {
             ->fieldOrderBy('field_pa_period_code', 'value', 'ASC');
 
         if($range == 'new') {
-            $efq->fieldCondition('field_downloaded', 'value', 0, '=');
+            $efq->fieldCondition('field_downloaded', 'value', '0', '=');
         }
 
         $results = $efq->execute();
@@ -142,7 +142,7 @@ class Adjustments {
                         $field_instance = field_info_instance('field_collection_item', $key2, 'field_' . $adjustmentType);
                         $elements[$key1][$key2] = array(
                             'label' => $field_instance['label'],
-                            'value' => $field['und'][0]['value'],
+                            'value' => isset($field['und'][0]['value']) ? $field['und'][0]['value'] : '',
                             '#weight' => $field_instance['widget']['weight']
                         );
                     }
@@ -284,7 +284,7 @@ class Adjustments {
                         $ceCharge = isset($entity->field_ce_charge_code['und'][0]['value']) ? $entity->field_ce_charge_code['und'][0]['value'] : NULL;
                         $hours = isset($entity->field_hours['und'][0]['value']) ? (float)$entity->field_hours['und'][0]['value'] : NULL;
                         $overtime = isset($entity->field_overtime['und'][0]['value']) ? (float)$entity->field_overtime['und'][0]['value'] : NULL;
-                        $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? (float)$entity->field_perdiem['und'][0]['value'] : NULL;
+                        $perdiem = isset($entity->field_override_pd['und'][0]['value']) ? (float)$entity->field_override_pd['und'][0]['value'] : NULL;
                         $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
                         $arrayData[] = [$paPeriodRange, $FMNO, $charge, isset($hours) ? $hours * -1 : NULL, isset($overtime) ? $overtime * -1 : NULL, $perdiem, $currency];
                         $arrayData[] = [$paPeriodRange, $FMNO, $ceCharge, $hours, $overtime, $perdiem, $currency];
@@ -297,18 +297,18 @@ class Adjustments {
 
             case 'shbp':
                 if($format == 'output') {
-                    $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
+                    $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Perdiem', 'Currency'];
                     foreach($entities as $entity) {
                         $paPeriodCode = isset($entity->field_pa_period_code['und'][0]['value']) ? ($entity->field_pa_period_code['und'][0]['value']) : NULL;
                         $paPeriodRange = $this->getPAPeriodRange($adjustmentType, $paPeriodCode);
                         $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
                         $projectNumber = isset($entity->field_project_number['und'][0]['value']) ? $entity->field_project_number['und'][0]['value'] : NULL;
                         $hours = isset($entity->field_hours['und'][0]['value']) ? (float)$entity->field_hours['und'][0]['value'] : NULL;
-                        $wipPerDiem = isset($entity->field_wip_per_diem['und'][0]['value']) ? $entity->field_wip_per_diem['und'][0]['value'] : NULL;
-                        $NPDA = isset($entity->field_new_per_diem_amount['und'][0]['value']) ? $entity->field_new_per_diem_amount['und'][0]['value'] : NULL;
+                        $wipPerDiem = isset($entity->field_wip_per_diem['und'][0]['value']) ? number_format(round(floatval(str_replace(",","",$entity->field_wip_per_diem['und'][0]['value'])))) : NULL;
+                        $NPDA = isset($entity->field_enter_the_new_per_diem_amo['und'][0]['value']) ? number_format(round(floatval(str_replace(",","",$entity->field_enter_the_new_per_diem_amo['und'][0]['value'])))) : NULL;
                         $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
-                        $arrayData[] = [$paPeriodRange, $FMNO, $projectNumber, isset($hours) ? $hours * -1 : NULL, ' ', round($wipPerDiem), $currency];
-                        $arrayData[] = [$paPeriodRange, $FMNO, $projectNumber, $hours, ' ', round($NPDA), $currency]; 
+                        $arrayData[] = [$paPeriodRange, $FMNO, $projectNumber, isset($hours) ? $hours * -1 : NULL, $wipPerDiem, $currency];
+                        $arrayData[] = [$paPeriodRange, $FMNO, $projectNumber, $hours, $NPDA, $currency]; 
                     }
 
                     return $arrayData;

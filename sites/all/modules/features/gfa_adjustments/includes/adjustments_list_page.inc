@@ -72,50 +72,69 @@ function adjustments_list_page($arg1 = FALSE, $arg2 = FALSE, $arg3 = FALSE) {
     $adj = new adjustments();
     $paPeriodCodes = $adj->getPAPeriod($arg2);
 
-    $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCodes);
-    $entities = entity_load('field_collection_item', $efq);
+    if(!empty($paPeriodCodes)) {
 
-    $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2);
+        $efq = $adj->queryAdjustments($arg2, $arg3, $paPeriodCodes);
+        $entities = entity_load('field_collection_item', $efq);
 
-    if(!empty($arrayData[1])) {
-        $tableHeader = $arrayData[0];
-        $tableRows = array();
-        foreach($arrayData as $key => $value) {
-            if($key !== 0) {
-                $tableRows[] = $value;
+        $arrayData = $adj->createAdjustmentOutput($entities, $arg1, $arg2);
+
+        if(!empty($arrayData[1])) {
+            $tableHeader = $arrayData[0];
+            $tableRows = array();
+            foreach($arrayData as $key => $value) {
+                if($key !== 0) {
+                    $tableRows[] = $value;
+                };
             };
-        };
 
-        $table = array(
-            '#theme' => 'table',
-            '#header' => $tableHeader,
-            '#rows' => $tableRows,
-            '#caption' => $arg1 . ' ' . $arg2 . ' ' . $arg3
-        );
+            $table = array(
+                '#theme' => 'table',
+                '#header' => $tableHeader,
+                '#rows' => $tableRows,
+                '#caption' => $arg1 . ' ' . $arg2 . ' ' . $arg3
+            );
 
-        $link = array(
-            '#type' => 'markup',
-            '#markup' => '<a href="' . base_path() . 'export-spreadsheet/' . $arg1 . '/' . $arg2 . '/' . $arg3 .'">Export</a>'
-        );
+            $link = array(
+                '#type' => 'markup',
+                '#markup' => '<a href="' . base_path() . 'export-spreadsheet/' . $arg1 . '/' . $arg2 . '/' . $arg3 .'">Export</a>'
+            );
 
-        $page = array(
-            'adjtype_select_form' => drupal_get_form('adjtype_select_form', $arg1, $arg2, $arg3),
-            'table' => $table,
-            'link' => $link
-        );
+            $page = array(
+                'adjtype_select_form' => drupal_get_form('adjtype_select_form', $arg1, $arg2, $arg3),
+                'table' => $table,
+                'link' => $link
+            );
 
-        return $page;
-    } else {
-        $message = array(
-            '#type' => 'markup',
-            '#markup' => '<p>There are no new adjustments of type ' . $arg2 . ' since last download for the pay period.</p>'
-        );
+            return $page;
+        } else {
+        	$messageText = '';
+        	if ($arg3 == 'new') {
+        	    $messageText = '<p>There are no new adjustments of type ' . $arg2 . ' since last download for the pay period.</p>';
+        	} else  {
+        		$messageText = '<p>There are no adjustments of type ' . $arg2 . ' for this pay period.</p>';
+        	}
+            $message = array(
+                '#type' => 'markup',
+                '#markup' => $messageText
+            );
 
-        $page = array(
-            'adjtype_select_form' => drupal_get_form('adjtype_select_form', $arg1, $arg2, $arg3),
-            'markup' => $message
-        );
+            $page = array(
+                'adjtype_select_form' => drupal_get_form('adjtype_select_form', $arg1, $arg2, $arg3),
+                'message' => $message
+            );
+        }
+    } else  {
+            $message = array(
+                '#type' => 'markup',
+                '#markup' => '<p>No pay period(s) found matching the requested dates. Please update the list of pay periods.</p>'
+            );
+
+            $page = array(
+                'adjtype_select_form' => drupal_get_form('adjtype_select_form', $arg1, $arg2, $arg3),
+                'message' => $message
+            );
     }
 
-    return $page;
+        return $page;
 }

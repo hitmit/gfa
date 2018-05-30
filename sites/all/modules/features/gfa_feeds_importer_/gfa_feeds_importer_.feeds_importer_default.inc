@@ -171,6 +171,12 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           21 => array(
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          22 => array(
             'source' => 'uid',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
@@ -275,6 +281,12 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           7 => array(
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          8 => array(
             'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
@@ -378,7 +390,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           7 => array(
-            'source' => 'uid',
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          8 => array(
+            'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
           ),
@@ -648,7 +666,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           35 => array(
-            'source' => 'uid',
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          36 => array(
+            'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
             'language' => 'und',
@@ -751,6 +775,12 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           7 => array(
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          8 => array(
             'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
@@ -860,6 +890,12 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           8 => array(
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          9 => array(
             'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
@@ -1077,7 +1113,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           26 => array(
-            'source' => 'uid',
+            'source' => 'Office Code',
+            'target' => 'field_office_code',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          27 => array(
+            'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,
             'language' => 'und',
