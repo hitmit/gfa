@@ -113,7 +113,6 @@ function gfa_feed_document_add_form($form, &$form_state) {
             'file_validate_unique' => array($file),
         ),
     );
-
     $form['document_submit'] = array(
         '#type' => 'submit',
         '#value' => t('Save'),
@@ -568,17 +567,17 @@ function import_header($importer, $fid){
     $compare = array_diff($arr, $xls['header'][1]);
     $size = count($compare);
 
-    if($size > 2) {
+    if($size > 3) {
         drupal_set_message('<strong>The following headers do not match, please fix them and re-upload</strong>');
         foreach($compare as $c){
-            if($c !== "Downloaded" || $c !== "FCUID") {
+            if($c !== "Downloaded" || $c !== "FCUID" || "Office Code") {
                 drupal_set_message($c);
             }
         }
         return false;
     } else {
         // These are two extra fields that are allowable in the array.
-        if(in_array('Downloaded',$compare) || in_array('FCUID',$compare)){
+        if(in_array('Downloaded',$compare) || in_array('FCUID',$compare) || in_array('Office Code',$compare)){
             return true;
         } else {
             return false;
