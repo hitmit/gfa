@@ -221,6 +221,11 @@ function check_file_header_validation($importer, $fid) {
     if ($key = array_search("Office Code", $compare)) {
         unset($compare[$key]);
     }
+    // Username field is allowed in the array.
+    if ($key = array_search("Username", $compare)) {
+        unset($compare[$key]);
+    }
+
     $size = count($compare);
     if($size) {
         $error['error'] = true;
@@ -571,17 +576,17 @@ function import_header($importer, $fid){
     $compare = array_diff($arr, $xls['header'][1]);
     $size = count($compare);
 
-    if($size > 3) {
+    if($size > 4) {
         drupal_set_message('<strong>The following headers do not match, please fix them and re-upload</strong>');
         foreach($compare as $c){
-            if($c !== "Downloaded" || $c !== "FCUID" || $c !== "Office Code") {
+            if($c !== "Downloaded" || $c !== "FCUID" || $c !== "Office Code" || $c !== "Username") {
                 drupal_set_message($c);
             }
         }
         return false;
     } else {
         // These are two extra fields that are allowable in the array.
-        if(in_array('Downloaded',$compare) || in_array('FCUID',$compare) || in_array('Office Code',$compare)){
+        if(in_array('Downloaded',$compare) || in_array('FCUID',$compare) || in_array('Office Code',$compare) || in_array('Username')) {
             return true;
         } else {
             return false;
@@ -778,6 +783,9 @@ function gfa_feed_getNodeUID() {
 }
 
 function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
+    Global $user;
+    $username = $user->name;
+
     foreach($result->items as $key => $row) {
         //ddl($row);
         $row['PROJECT NAME'] = "MY NAME IS HERE";
@@ -786,6 +794,7 @@ function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
     $officeCode = isset($_POST["office_code"]) ? $_POST['office_code'] : NULL;
     foreach($result->items as $key => $row) {
         $result->items[$key]['OFFICE CODE'] = $officeCode;
+        $result->items[$key]['USERNAME'] = $username;
         $result->items[$key]['UID'] = $uid;
     }
     //dpm($result);
