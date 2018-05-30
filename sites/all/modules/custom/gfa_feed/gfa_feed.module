@@ -217,6 +217,10 @@ function check_file_header_validation($importer, $fid) {
     if ($key = array_search("FCUID", $compare)) {
         unset($compare[$key]);
     }
+    // FCUID fieldis allowed in the array.
+    if ($key = array_search("Office Code", $compare)) {
+        unset($compare[$key]);
+    }
     $size = count($compare);
     if($size) {
         $error['error'] = true;
