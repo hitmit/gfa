@@ -42,6 +42,7 @@ function gfa_feed_theme($existing, $type, $theme, $path) {
 
 
 function gfa_feed_page() {
+    gfa_feed_createNewNode();
     return theme('default_upload');
 }
 
@@ -80,17 +81,17 @@ function import_csv($importer_id, $fid) {
 function gfa_feed_document_add_form($form, &$form_state) {
     $doc_id = variable_get('document_variable_name');
     $form['download'] = array(
-        '#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
+        //'#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
 
     );
     $form['doc_file'] = array(
         '#title' => t('Upload the document'),
         '#type' => 'managed_file',
-        '#description' => t('Supports only .xls files'),
+        '#description' => t('Supports only .xls and .xlsx files'),
         '#default_value' => isset($doc_id) ? $doc_id : NULL,
         '#upload_location' => 'public://csv_files/',
         '#upload_validators' => array(
-            'file_validate_extensions' => array('xls'),
+            'file_validate_extensions' => array('xls xlsx'),
         ),
     );
 
@@ -133,9 +134,9 @@ foreach($info as $field){
 
 
 $xls = read_xls($fid);
-dpm($xls);
+//dpm($xls);
 $compare = array_diff($arr, $xls['header'][1]);
-dpm($compare);
+//dpm($compare);
 $size = count($compare);
 
 if($size > 2) {
@@ -168,7 +169,7 @@ function read_xls($fid){
     $docroot = $_SERVER['DOCUMENT_ROOT'];
 
     $f = $docroot . "/media-services/gfa/sites/default/files/csv_files/" . $f->filename;
-dpm($f);
+//dpm($f);
     $check = file_exists($f);
     //if file exists get all headers and put it into an array
     if($check) {
@@ -313,10 +314,106 @@ function gfa_feed_upload_process($element, &$form_state, $form){
 //    ddl($element);
 }
 
+/**
+ * Query db for nodes of the selected form type.
+ */
+function gfa_feed_queryNodes() {
+    $efq = new EntityFieldQuery();
+
+    $efq->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', arg(1))
+        ->propertyOrderBy('created', 'DESC')
+        ->range(0,1);
+
+    $results = $efq->execute();
+    
+    return $results;
+}
+
+/**
+ * Create a new node if the current node has too many entities.
+ */
+function gfa_feed_createNewNode() {
+    Global $user;
+
+    $results = gfa_feed_queryNodes();
+
+    $field = 'field_' . arg(1);
+    $uid = date('mdyHis');
+    if($results['node']) {
+        $first_key = key($results['node']);
+        $nodeObj = node_load($results['node'][$first_key]->nid);
+        foreach($nodeObj->$field as $no) {
+            if(!empty($no) && count($no) >= 100) {
+                // Create an Entity.
+                $node = entity_create('node', array('type' => arg(1)));
+                // Specify the author.
+                $node->uid = $user->uid;
+                // Create a Entity Wrapper of that new Entity.
+                $emw_node = entity_metadata_wrapper('node', $node);
+                // Set a title and some text field value.
+                $emw_node->title = strtoupper(arg(1));
+                $emw_node->field_uid = $uid;
+                // And save it.
+                $emw_node->save();
+                //dpm("New node created.");
+            } else  {
+                if(empty($nodeObj->field_uid)) {
+                    $nid = $nodeObj->nid;
+                    // Create a Entity Wrapper of that new Entity.
+                    $emw_node = entity_metadata_wrapper('node', $nid);
+                    $emw_node->field_uid = $uid;
+                    // And save it.
+                    $emw_node->save();
+                    //dpm("UID updated");                
+                }
+            }
+        }
+
+    } else {
+           // Create an Entity.
+           $node = entity_create('node', array('type' => arg(1)));
+           // Specify the author.
+           $node->uid = $user->uid;
+           // Create a Entity Wrapper of that new Entity.
+           $emw_node = entity_metadata_wrapper('node', $node);
+           // Set a title and some text field value.
+           $emw_node->title = strtoupper(arg(1));
+           $emw_node->field_uid = $uid;
+           // And save it.
+           $emw_node->save();
+           //dpm("New node created.");
+    }
+}
+
+/**
+ * Get the latest UID on the node of the selected form type.
+ */
+function gfa_feed_getNodeUID() {
+    Global $user;
+
+    $results = gfa_feed_queryNodes();
+
+    $field = 'field_' . arg(1);
+    $uid = 1;
+
+    if($results['node']) {
+        $first_key = key($results['node']);
+        $nodeObj = node_load($results['node'][$first_key]->nid);
+        $uid = $nodeObj->field_uid['und'][0]['value'];
+    }
+    return $uid;
+}
+
 function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
     foreach($result->items as $key => $row) {
 //        ddl($row);
         $row['PROJECT NAME'] = "MY NAME IS HERE";
+    }
+    $uid = gfa_feed_getNodeUID();
+    dpm($uid);
+    foreach($result->items as $key => $row) {
+        $result->items[$key]['UID'] = $uid;
     }
 }
 

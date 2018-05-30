@@ -4,7 +4,8 @@
 		margin-left: .5em;
 	}
 	.search_button{
-		float:left;
+		float: right;
+		top: -63px;
 	}
 	.three-col-accordion .card .bg,.three-col-accordion .card .activebg{
 		height:60px;
@@ -25,7 +26,7 @@
 		-webkit-overflow-scrolling: touch;
 	}
 	.banner{
-		max-height:300px
+		max-height:400px
 	}
 	.navbar-nav .dropdown{
 		position: relative;
@@ -162,7 +163,7 @@
 		font-size:1.9rem;
 	}
 	.banner{
-		max-height:600px
+		max-height:400px
 	}
 	.two-col-event .date .from-date .day, .two-col-event .date .end-date .day {
 	    font-size: 2.8rem;
@@ -192,7 +193,7 @@
 		font-size:2.3rem;
 	}
 	.banner-img .card h1, .background-video-wrapper .card h1{
-		max-width: 60%
+		max-width: 100%
 	}
 	.media-player.banner p,
 	.background-video-wrapper .card .description{
@@ -256,8 +257,9 @@
 @media (max-width: 1199px) {
 
 	.banner-img .card h1{
-		width: 74%;
+		width: 100%;
 		font-size: 46px;
+		max-width: 100%;
 	}
 
 
@@ -279,8 +281,12 @@
 		max-width: 100%;
 	}
 
-    .banner-img .card h1{
-        font-size: 2rem !important;
+    .banner-img .card h1{        
+		font-size: 40px !important;
+    }
+
+    .banner-img .card p{        
+		font-size: 16px !important;
     }
 
 }
@@ -340,7 +346,8 @@
 		font-size:5rem;
 	}
 	.banner{
-		max-height:300px
+		max-height:300px;
+		height: 400px;
 	}
 /*	.media-player .bg, .three-col-card .bg, .four-col-card .bg{
 		position: 	relative;	
@@ -370,7 +377,7 @@
 		 line-height: inherit;
 	}
 	.banner-img .card h1, .background-video-wrapper .card h1{
-		max-width:80%
+		max-width:100%;
 	}
 	.media-player.banner p,
 	.background-video-wrapper .card .description{

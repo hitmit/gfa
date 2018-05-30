@@ -41,8 +41,8 @@ $description        = isset($content['field_short_description']) ? render($conte
 			<div class="card">
 					<div class="card-block">
                     <h5><?php  echo render($content['field_sub_title']); ?></h5>
-						<h1><?php echo $title ?></h1>
-                        <small><?php echo $description ?></small>
+						<h1><?php echo $title ?>
+                        <small><?php echo $description ?></small></h1>
 					</div>
 			</div>
 		</div>
