@@ -763,6 +763,8 @@ a.blue-btn.view-products {
 	text-align: left;
 	border: 0 none;
 	width: 98%;
+	max-width: 1280px;
+	margin: 0 auto;
 }
 
 .banner-video .card, .background-video-wrapper .card {
