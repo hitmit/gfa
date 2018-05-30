@@ -570,7 +570,7 @@ function import_header($importer, $fid){
     if($size > 3) {
         drupal_set_message('<strong>The following headers do not match, please fix them and re-upload</strong>');
         foreach($compare as $c){
-            if($c !== "Downloaded" || $c !== "FCUID" || "Office Code") {
+            if($c !== "Downloaded" || $c !== "FCUID" || $c !== "Office Code") {
                 drupal_set_message($c);
             }
         }
