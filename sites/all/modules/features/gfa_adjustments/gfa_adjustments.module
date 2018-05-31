@@ -33,7 +33,7 @@ function gfa_adjustments_menu() {
         'weight' => 10,
     );
 
-    $items['add-adjustments'] = array(
+    /*$items['add-adjustments'] = array(
         'title' => t('Add Adjustments'),
         'page arguments' => array(1),
         'page callback' => 'add_adjustments_page',
@@ -43,7 +43,7 @@ function gfa_adjustments_menu() {
         'access arguments' => array(
             'administer site configuration'
         )
-    );
+    );*/
 
     $items['adjustments'] = array(
         'title' => t('Adjustments'),
@@ -157,12 +157,12 @@ function add_adjustments_page($arg1 = NULL) {
 /**
  * Implements hook_node_insert().
  */
-function gfa_adjustments_node_insert($node) {
+/*function gfa_adjustments_node_insert($node) {
     if ($node->type == "ppa" || $node->type == 'cparn' || $node->type == 'cparf' || $node->type || $node->type == 'pppece' || $node->type == 'mnat' || $node->type == 'shbp') {
         drupal_set_message('You have successfully submitted this adjustment');
         drupal_goto('/add-adjustments');
     }
-}
+}*/
 
 /**
  * Implements hook_theme_registry_alter().

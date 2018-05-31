@@ -7,42 +7,43 @@ require drupal_get_path('module', 'feeds_xls') . '/PHPExcel/Classes/PHPExcel/IOF
  * Implements hook_menu().
  */
 function gfa_feed_menu() {
-  $items['upload/%'] = array(
-    'title' => 'Upload',
-    'title callback' => 'page_title',
-    'page arguments' => array(1),
-    'page callback' => 'gfa_feed_page',
-    'access arguments' => array('access content'),
-    '#process' => array('gfa_feed_upload_process'),
-  );
+    $items['upload/%'] = array(
+        'title' => 'Upload',
+        'title callback' => 'page_title',
+        'page arguments' => array(1),
+        'page callback' => 'gfa_feed_page',
+        'access arguments' => array('access content'),
+        '#process' => array('gfa_feed_upload_process'),
+    );
 
-  return $items;
+    return $items;
 }
 
 /**
  * Page title callback for the upload menu item.
  */
 function page_title(){
-  // Pass uploader name to page title
-  return strtoupper(arg(1)) . " Upload";
+    // Pass uploader name to page title
+    return strtoupper(arg(1)) . " Upload";
 }
 
 /**
  * Implements hook_theme().
  */
 function gfa_feed_theme($existing, $type, $theme, $path) {
-  return array(
-    'default_upload' => array(
-      'template' => 'templates/default-upload',
-    ),
-  );
+    return array(
+        'default_upload' => array(
+            'template' => 'templates/default-upload',
+        ),
+    );
 }
 
 /**
  * Page callback for the upload menu item.
  */
 function gfa_feed_page() {
-  return theme('default_upload');
+    gfa_feed_createNewNode();
+    return theme('default_upload');
 }
 
 /**
@@ -54,19 +55,32 @@ function gfa_feed_page() {
  * @param $fid
  */
 function import_csv($importer_id, $fid) {
+    if(isset($fid)){
+        $f = file_load($fid);
+        $docroot = $_SERVER['DOCUMENT_ROOT'];
+        $f = drupal_realpath($f->uri);
+        $feedSource = feeds_source($importer_id);
+        $config = $feedSource->getConfig();
+        $config['FeedsFileFetcher']['source'] = $f;
+        $feedSource->setConfig($config);
+        $feedSource->save();
+        while (FEEDS_BATCH_COMPLETE != $feedSource->import()) ;
+    }
 
-  if(isset($fid)){
-    $f = file_load($fid);
-    $docroot = $_SERVER['DOCUMENT_ROOT'];
-    $f = drupal_realpath($f->uri);
-    $feedSource = feeds_source($importer_id);
-    $config = $feedSource->getConfig();
-    $config['FeedsFileFetcher']['source'] = $f;
-    $feedSource->setConfig($config);
-    $feedSource->save();
-    while (FEEDS_BATCH_COMPLETE != $feedSource->import()) ;
-  }
+}
 
+/**
+ * Gets a list of office codes from a taxonomy vocabulary.
+ */
+function gfa_feed_getOfficeCodes($vocab) {
+    $vocabulary = taxonomy_vocabulary_machine_name_load($vocab);
+    $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+    $officeCodes = array();
+    foreach($terms as $term) {
+        $officeCodes[$term->name] = $term->name;
+    }
+
+    return $officeCodes;
 }
 
 /**
@@ -75,54 +89,61 @@ function import_csv($importer_id, $fid) {
  * - It is then passed into the import_csv() function
  */
 function gfa_feed_document_add_form($form, &$form_state) {
-  global $user;
-  $doc_id = $user->data['gfa'][arg(1)]['file_id'];
-  $form['download'] = array(
-    '#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
-  );
-  $form['doc_file'] = array(
-    '#title' => t('Upload the document'),
-    '#type' => 'managed_file',
-    '#description' => t('Supports only .xls files'),
-    '#default_value' => isset($doc_id) ? $doc_id : NULL,
-    '#upload_location' => 'public://csv_files/',
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('xls'),
-       'file_validate_unique' => array($file),
-    ),
-  );
-
-  $form['document_submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save'),
-    '#submit' => array('gfa_feed_document_submit'),
-  );
-  return $form;
+    global $user;
+    $doc_id = $user->data['gfa'][arg(1)]['file_id'];
+    $form['download'] = array(
+        '#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
+    );
+    $options = gfa_feed_getOfficeCodes('office_codes');
+    $form['office_code'] = array(
+        '#type' => 'select',
+        '#title' => t('Office Code'),
+        '#description' => t('Office Code.'),
+        '#default_value' => arg(1),
+        '#options' => $options
+    );
+    $form['doc_file'] = array(
+        '#title' => t('Upload the document'),
+        '#type' => 'managed_file',
+        '#description' => t('Supports .xls and .xlsx files'),
+        '#default_value' => isset($doc_id) ? $doc_id : NULL,
+        '#upload_location' => 'public://csv_files/',
+        '#upload_validators' => array(
+            'file_validate_extensions' => array('xls xlsx'),
+            'file_validate_unique' => array($file),
+        ),
+    );
+    $form['document_submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save'),
+        '#submit' => array('gfa_feed_document_submit'),
+    );
+    return $form;
 }
 
 /**
  * Implements hook_form_validate()
  */
 function gfa_feed_document_add_form_validate($form, &$form_state) {
-  if (isset($form_state['values']['doc_file'])) {
-    $fid = $form_state['values']['doc_file'];
-    if ($fid) {
-      $file = file_load($fid);
-      //TODO: rename file to user_migrate.csv
-      $file->status = FILE_STATUS_PERMANENT;
-      $file->replace = FILE_EXISTS_REPLACE;
-      file_save($file);
-      $header = check_file_header_validation(arg(1), $fid);
-      if (!$header['error']) {
-        $body = check_file_body_validation(arg(1), $fid);
-        if ($body['error']) {
-          form_set_error('', $body['message']);
+    if (isset($form_state['values']['doc_file'])) {
+        $fid = $form_state['values']['doc_file'];
+        if ($fid) {
+            $file = file_load($fid);
+            //TODO: rename file to user_migrate.csv
+            $file->status = FILE_STATUS_PERMANENT;
+            $file->replace = FILE_EXISTS_REPLACE;
+            file_save($file);
+            $header = check_file_header_validation(arg(1), $fid);
+            if (!$header['error']) {
+                $body = check_file_body_validation(arg(1), $fid);
+                if ($body['error']) {
+                    form_set_error('', $body['message']);
+                }
+            } else {
+                form_set_error('', $header['message']);
+            }
         }
-      } else {
-        form_set_error('', $header['message']);
-      }
     }
-  }
 }
 
 /**
@@ -132,387 +153,396 @@ function gfa_feed_document_add_form_validate($form, &$form_state) {
  * - Callback to import_csv() to perform the import
  */
 function gfa_feed_document_submit($form, $form_state) {
-  global $user;
-  if (isset($form_state['values']['doc_file'])) {
-    // Remove existing document while clicking remove button
-    if ($form_state['values']['doc_file'] == 0) {
-      // Get existing file id to delete
-      $document_exist_id = $user->data['gfa'][arg(1)]['file_id'];
-      $document_exist_file = file_load($document_exist_id);
-      if (!empty($document_exist_file)) {
-        // Delete file usage
-        file_usage_delete($document_exist_file, 'gfa_feed', '', $document_exist_id);
-        // The file_delete() function takes a file object and checks to see if
-        // the file is being used by any other modules. If it is the delete
-        // operation is canceled, otherwise the file is deleted.
-        file_delete($document_exist_file, TRUE);
-        drupal_set_message(t('Old document removed.'));
-      }
-    } else {
-      // Adding document.
-      $current_document = file_load($form_state['values']['doc_file']);
-      if (!empty($current_document->fid)) {
-        // Get currently uploaded file id.
-        $file_id = $current_document->fid;
-
-        // Setting file id to its user variable.
-        $user->data['gfa'][arg(1)]['file_id'] = $file_id;
-        user_save($user);
-        file_usage_add($current_document, 'gfa_feed', '', $file_id);
-
-        // Make file status as permanent.
-        $current_document->status = FILE_STATUS_PERMANENT;
-        $fid = $current_document->fid;
-
-        // Pass the URL second argument bc its the uploader name and also the field name
-        // we should be checking the header against.
-        $check = import_header(arg(1),$fid);
-        if($check){
-          file_save($current_document);
-          import_csv(arg(1), $fid);
-          drupal_set_message("Documents uploaded successfully.");
+    global $user;
+    if (isset($form_state['values']['doc_file'])) {
+        // Remove existing document while clicking remove button
+        if ($form_state['values']['doc_file'] == 0) {
+            // Get existing file id to delete
+            $document_exist_id = $user->data['gfa'][arg(1)]['file_id'];
+            $document_exist_file = file_load($document_exist_id);
+            if (!empty($document_exist_file)) {
+                // Delete file usage
+                file_usage_delete($document_exist_file, 'gfa_feed', '', $document_exist_id);
+                // The file_delete() function takes a file object and checks to see if
+                // the file is being used by any other modules. If it is the delete
+                // operation is canceled, otherwise the file is deleted.
+                file_delete($document_exist_file, TRUE);
+                drupal_set_message(t('Old document removed.'));
+            }
         } else {
-          form_set_error('error','The file could not be uploaded. Please use the correct template');
+            // Adding document.
+            $current_document = file_load($form_state['values']['doc_file']);
+            if (!empty($current_document->fid)) {
+                // Get currently uploaded file id.
+                $file_id = $current_document->fid;
+
+                // Setting file id to its user variable.
+                $user->data['gfa'][arg(1)]['file_id'] = $file_id;
+                user_save($user);
+                file_usage_add($current_document, 'gfa_feed', '', $file_id);
+
+                // Make file status as permanent.
+                $current_document->status = FILE_STATUS_PERMANENT;
+                $fid = $current_document->fid;
+
+                // Pass the URL second argument bc its the uploader name and also the field name
+                // we should be checking the header against.
+                $check = import_header(arg(1),$fid);
+                if($check){
+                    file_save($current_document);
+                    import_csv(arg(1), $fid);
+                    drupal_set_message("Documents uploaded successfully.");
+                } else {
+                    form_set_error('error','The file could not be uploaded. Please use the correct template');
+                }
+            }
         }
-      }
     }
-  }
 }
 
 function check_file_header_validation($importer, $fid) {
-  $error['error'] = false;
-  $file = check_file_fields($importer, $fid);
-  $xls = $file['xls'];
-  $arr = $file['arr'];
+    $error['error'] = false;
+    $file = check_file_fields($importer, $fid);
+    $xls = $file['xls'];
+    $arr = $file['arr'];
 
-  $compare = array_diff($arr, $xls['header'][1]);
+    $compare = array_diff($arr, $xls['header'][1]);
 
-  // Downloaded fieldis allowed in the array.
-  if ($key = array_search("Downloaded", $compare)) {
-    unset($compare[$key]);
-  }
+    // Downloaded fieldis allowed in the array.
+    if ($key = array_search("Downloaded", $compare)) {
+        unset($compare[$key]);
+    }
 
-  // FCUID fieldis allowed in the array.
-  if ($key = array_search("FCUID", $compare)) {
-    unset($compare[$key]);
-  }
-  $size = count($compare);
-  if($size) {
-    $error['error'] = true;
-    $error['message'] = implode(", ", $compare) . " header fields do not matched, please fix them and re-upload";
-  }
-  return $error;
+    // FCUID fieldis allowed in the array.
+    if ($key = array_search("FCUID", $compare)) {
+        unset($compare[$key]);
+    }
+    // FCUID fieldis allowed in the array.
+    if ($key = array_search("Office Code", $compare)) {
+        unset($compare[$key]);
+    }
+    // Username field is allowed in the array.
+    if ($key = array_search("Username", $compare)) {
+        unset($compare[$key]);
+    }
+
+    $size = count($compare);
+    if($size) {
+        $error['error'] = true;
+        $error['message'] = implode(", ", $compare) . " header fields do not matched, please fix them and re-upload";
+    }
+    return $error;
 }
 
 function check_file_body_validation($importer, $fid) {
-  $error['error'] = false;
-  $file = check_file_fields($importer, $fid);
-  $xls = $file['xls'];
-  foreach ($xls['values'] as $key => $body) {
-    if ($importer == 'ppa') {
-      if (!$body['A']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
+    $error['error'] = false;
+    $file = check_file_fields($importer, $fid);
+    $xls = $file['xls'];
+    foreach ($xls['values'] as $key => $body) {
+        if ($importer == 'ppa') {
+            if (!$body['A']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
 
-      if (!$body['B']) {
-        $error['error'] = true;
-        $error['message'] = 'Column B of Row ' . $key . ' is required';
-        break;
-      }
+            if (!$body['B']) {
+                $error['error'] = true;
+                $error['message'] = 'Column B of Row ' . $key . ' is required';
+                break;
+            }
 
-      if (!$body['C']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
+            if (!$body['C']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
 
-      if (!$body['D']  && !$body['E']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column D and E of Row " . $key . " can't be null.";
-        break;
-      }
+            if (!$body['D']  && !$body['E']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column D and E of Row " . $key . " can't be null.";
+                break;
+            }
 
-      if (!$body['F']  && !$body['G']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-        break;
-      }
+            if (!$body['F']  && !$body['G']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
+                break;
+            }
+        }
+
+        if ($importer == 'mnat') {
+
+            if (!$body['A']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
+            if (!$body['E']) {
+                $error['error'] = true;
+                $error['message'] = 'Column E of Row ' . $key . ' is required';
+                break;
+            }
+            if (!$body['F']) {
+                $error['error'] = true;
+                $error['message'] = 'Column F of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['J']  && !$body['K']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column J and K of Row " . $key . " can't be null.";
+                break;
+            }
+
+            if (!$body['N']  && !$body['O']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column N and O of Row " . $key . " can't be null.";
+                break;
+            }
+
+            if (!$body['Q']  && !$body['R']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column Q and R of Row " . $key . " can't be null.";
+                break;
+            }
+
+            if (!$body['S']) {
+                $error['error'] = true;
+                $error['message'] = 'Column S of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['T']  && !$body['U']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column T and U of Row " . $key . " can't be null.";
+                break;
+            }
+
+        }
+
+        if ($importer == 'cparn') {
+            if (!$body['A']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
+            if (!$body['L']) {
+                $error['error'] = true;
+                $error['message'] = 'Column L of Row ' . $key . ' is required';
+                break;
+            }
+            if (!$body['N']) {
+                $error['error'] = true;
+                $error['message'] = 'Column N of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['S']  && !$body['T']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column S and T of Row " . $key . " can't be null.";
+                break;
+            }
+
+            if (!$body['AE']) {
+                $error['error'] = true;
+                $error['message'] = 'Column N of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['AF']  && !$body['AG']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
+                break;
+            }
+        }
+
+        if ($importer == 'cparf') {
+            if (!$body['A'] || !$body['B'] || !$body['C'] || (!$body['D'] && !$body['E']) || (!$body['F'] && !$body['G'])) {
+
+                if (!$body['A']) {
+                    $error['error'] = true;
+                    $error['message'] = 'Column A of Row ' . $key . ' is required';
+                    break;
+                }
+
+                if (!$body['B']) {
+                    $error['error'] = true;
+                    $error['message'] = 'Column B of Row ' . $key . ' is required';
+                    break;
+                }
+
+                if (!$body['C']) {
+                    $error['error'] = true;
+                    $error['message'] = 'Column A of Row ' . $key . ' is required';
+                    break;
+                }
+
+                if (!$body['D']  && !$body['E']) {
+                    $error['error'] = true;
+                    $error['message'] = "Both Column D and E of Row " . $key . " can't be null.";
+                    break;
+                }
+
+                if (!$body['F']  && !$body['G']) {
+                    $error['error'] = true;
+                    $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
+                    break;
+                }
+                $error['error'] = true;
+                $error['message'] = 'Some required fields are missing to import';
+                break;
+            }
+        }
+
+        if ($importer == 'cpag') {
+            if (!$body['A']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['B']) {
+                $error['error'] = true;
+                $error['message'] = 'Column B of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['C']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!is_numeric($body['D']) && $body['D'] < 0) {
+                $error['error'] = true;
+                $error['message'] = "Column D  of Row " . $key . " can't be less than 0.";
+                break;
+            }
+
+            if (!$body['E']) {
+                $error['error'] = true;
+                $error['message'] = 'Column E of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['F']  && !$body['G']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
+                break;
+            }
+
+        }
+
+        if ($importer == 'pppece') {
+            if (!$body['A']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['B']) {
+                $error['error'] = true;
+                $error['message'] = 'Column B of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['C']) {
+                $error['error'] = true;
+                $error['message'] = 'Column A of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['D']) {
+                $error['error'] = true;
+                $error['message'] = 'Column D of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['E']  && !$body['F']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column E and F of Row " . $key . " can't be null.";
+                break;
+            }
+
+            if (!$body['G']  && !$body['H']) {
+                $error['error'] = true;
+                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
+                break;
+            }
+        }
+
+        if ($importer == 'shbp') {
+            if (!$body['B']) {
+                $error['error'] = true;
+                $error['message'] = 'Column B of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['C']) {
+                $error['error'] = true;
+                $error['message'] = 'Column C of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['J']) {
+                $error['error'] = true;
+                $error['message'] = 'Column J of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['M']) {
+                $error['error'] = true;
+                $error['message'] = 'Column M of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['S']) {
+                $error['error'] = true;
+                $error['message'] = 'Column S of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['Z']) {
+                $error['error'] = true;
+                $error['message'] = 'Column Z of Row ' . $key . ' is required';
+                break;
+            }
+
+            if (!$body['AA']) {
+                $error['error'] = true;
+                $error['message'] = 'Column AA of Row ' . $key . ' is required';
+                break;
+            }
+        }
     }
-
-    if ($importer == 'mnat') {
-
-      if (!$body['A']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-      if (!$body['E']) {
-        $error['error'] = true;
-        $error['message'] = 'Column E of Row ' . $key . ' is required';
-        break;
-      }
-      if (!$body['F']) {
-        $error['error'] = true;
-        $error['message'] = 'Column F of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['J']  && !$body['K']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column J and K of Row " . $key . " can't be null.";
-        break;
-      }
-
-      if (!$body['N']  && !$body['O']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column N and O of Row " . $key . " can't be null.";
-        break;
-      }
-
-      if (!$body['Q']  && !$body['R']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column Q and R of Row " . $key . " can't be null.";
-        break;
-      }
-
-      if (!$body['S']) {
-        $error['error'] = true;
-        $error['message'] = 'Column S of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['T']  && !$body['U']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column T and U of Row " . $key . " can't be null.";
-        break;
-      }
-
-    }
-
-    if ($importer == 'cparn') {
-      if (!$body['A']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-      if (!$body['L']) {
-        $error['error'] = true;
-        $error['message'] = 'Column L of Row ' . $key . ' is required';
-        break;
-      }
-      if (!$body['N']) {
-        $error['error'] = true;
-        $error['message'] = 'Column N of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['S']  && !$body['T']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column S and T of Row " . $key . " can't be null.";
-        break;
-      }
-
-      if (!$body['AE']) {
-        $error['error'] = true;
-        $error['message'] = 'Column N of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['AF']  && !$body['AG']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-        break;
-      }
-    }
-
-    if ($importer == 'cparf') {
-      if (!$body['A'] || !$body['B'] || !$body['C'] || (!$body['D'] && !$body['E']) || (!$body['F'] && !$body['G'])) {
-
-      if (!$body['A']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['B']) {
-        $error['error'] = true;
-        $error['message'] = 'Column B of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['C']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['D']  && !$body['E']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column D and E of Row " . $key . " can't be null.";
-        break;
-      }
-
-      if (!$body['F']  && !$body['G']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-        break;
-      }
-        $error['error'] = true;
-        $error['message'] = 'Some required fields are missing to import';
-        break;
-      }
-    }
-
-    if ($importer == 'cpag') {
-      if (!$body['A']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['B']) {
-        $error['error'] = true;
-        $error['message'] = 'Column B of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['C']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!is_numeric($body['D']) && $body['D'] < 0) {
-        $error['error'] = true;
-        $error['message'] = "Column D  of Row " . $key . " can't be less than 0.";
-        break;
-      }
-
-      if (!$body['E']) {
-        $error['error'] = true;
-        $error['message'] = 'Column E of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['F']  && !$body['G']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-        break;
-      }
-
-    }
-
-    if ($importer == 'pppece') {
-      if (!$body['A']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['B']) {
-        $error['error'] = true;
-        $error['message'] = 'Column B of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['C']) {
-        $error['error'] = true;
-        $error['message'] = 'Column A of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['D']) {
-        $error['error'] = true;
-        $error['message'] = 'Column D of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['E']  && !$body['F']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column E and F of Row " . $key . " can't be null.";
-        break;
-      }
-
-      if (!$body['G']  && !$body['H']) {
-        $error['error'] = true;
-        $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-        break;
-      }
-    }
-
-    if ($importer == 'shbp') {
-      if (!$body['B']) {
-        $error['error'] = true;
-        $error['message'] = 'Column B of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['C']) {
-        $error['error'] = true;
-        $error['message'] = 'Column C of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['J']) {
-        $error['error'] = true;
-        $error['message'] = 'Column J of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['M']) {
-        $error['error'] = true;
-        $error['message'] = 'Column M of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['S']) {
-        $error['error'] = true;
-        $error['message'] = 'Column S of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['Z']) {
-        $error['error'] = true;
-        $error['message'] = 'Column Z of Row ' . $key . ' is required';
-        break;
-      }
-
-      if (!$body['AA']) {
-        $error['error'] = true;
-        $error['message'] = 'Column AA of Row ' . $key . ' is required';
-        break;
-      }
-    }
-  }
-  return $error;
+    return $error;
 }
 
 function check_file_fields($importer, $fid) {
-  // Get the fields listed for an importer.
-  $field = 'field_'.$importer;
-  $info = field_info_instances('field_collection_item', $field);
+    // Get the fields listed for an importer.
+    $field = 'field_'.$importer;
+    $info = field_info_instances('field_collection_item', $field);
 
-  // Sort the fields by their correct weight.
-  uasort($info, function($a, $b) {
-    $a_weight = (is_array($a) && isset($a['widget']['weight'])) ? $a['widget']['weight'] : 0;
-    $b_weight = (is_array($b) && isset($b['widget']['weight'])) ? $b['widget']['weight'] : 0;
+    // Sort the fields by their correct weight.
+    uasort($info, function($a, $b) {
+        $a_weight = (is_array($a) && isset($a['widget']['weight'])) ? $a['widget']['weight'] : 0;
+        $b_weight = (is_array($b) && isset($b['widget']['weight'])) ? $b['widget']['weight'] : 0;
 
-    if ($a_weight == $b_weight) {
-      return 0;
+        if ($a_weight == $b_weight) {
+            return 0;
+        }
+
+        return ($a_weight < $b_weight) ? -1 : 1;
+    });
+
+    // Get all the field header labels and put it into an array for comparison.
+    foreach($info as $field){
+        $arr[] = $field['label'];
     }
 
-    return ($a_weight < $b_weight) ? -1 : 1;
-  });
-
-  // Get all the field header labels and put it into an array for comparison.
-  foreach($info as $field){
-    $arr[] = $field['label'];
-  }
-
-  $xls = read_xls($fid);
-  return ['xls' => $xls, 'arr' => $arr];
+    $xls = read_xls($fid);
+    return ['xls' => $xls, 'arr' => $arr];
 }
 
 /**
@@ -521,88 +551,88 @@ function check_file_fields($importer, $fid) {
  */
 function import_header($importer, $fid){
 
-  // Get the fields listed for an importer.
-  $field = 'field_'.$importer;
-  $info = field_info_instances('field_collection_item', $field);
+    // Get the fields listed for an importer.
+    $field = 'field_'.$importer;
+    $info = field_info_instances('field_collection_item', $field);
 
-  // Sort the fields by their correct weight.
-  uasort($info, function($a, $b) {
-    $a_weight = (is_array($a) && isset($a['widget']['weight'])) ? $a['widget']['weight'] : 0;
-    $b_weight = (is_array($b) && isset($b['widget']['weight'])) ? $b['widget']['weight'] : 0;
+    // Sort the fields by their correct weight.
+    uasort($info, function($a, $b) {
+        $a_weight = (is_array($a) && isset($a['widget']['weight'])) ? $a['widget']['weight'] : 0;
+        $b_weight = (is_array($b) && isset($b['widget']['weight'])) ? $b['widget']['weight'] : 0;
 
-    if ($a_weight == $b_weight) {
-      return 0;
+        if ($a_weight == $b_weight) {
+            return 0;
+        }
+
+        return ($a_weight < $b_weight) ? -1 : 1;
+    });
+
+    // Get all the field header labels and put it into an array for comparison.
+    foreach($info as $field){
+        $arr[] = $field['label'];
     }
 
-    return ($a_weight < $b_weight) ? -1 : 1;
-  });
+    $xls = read_xls($fid);
+    $compare = array_diff($arr, $xls['header'][1]);
+    $size = count($compare);
 
-  // Get all the field header labels and put it into an array for comparison.
-  foreach($info as $field){
-    $arr[] = $field['label'];
-  }
-
-  $xls = read_xls($fid);
-  $compare = array_diff($arr, $xls['header'][1]);
-  $size = count($compare);
-
-  if($size > 2) {
-    drupal_set_message('<strong>The following headers do not match, please fix them and re-upload</strong>');
-    foreach($compare as $c){
-      if($c !== "Downloaded" || $c !== "FCUID") {
-        drupal_set_message($c);
-      }
-    }
-    return false;
-  } else {
-    // These are two extra fields that are allowable in the array.
-    if(in_array('Downloaded',$compare) || in_array('FCUID',$compare)){
-      return true;
+    if($size > 4) {
+        drupal_set_message('<strong>The following headers do not match, please fix them and re-upload</strong>');
+        foreach($compare as $c){
+            if($c !== "Downloaded" || $c !== "FCUID" || $c !== "Office Code" || $c !== "Username") {
+                drupal_set_message($c);
+            }
+        }
+        return false;
     } else {
-      return false;
+        // These are two extra fields that are allowable in the array.
+        if(in_array('Downloaded',$compare) || in_array('FCUID',$compare) || in_array('Office Code',$compare) || in_array('Username')) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 }
 
 function read_xls($fid){
 
-  // Instantiate php reader.
-  $objReader = new PHPExcel_Reader_Excel5();
-  $objReader->setReadDataOnly(true);
-  // Load the file ID of the recently uploaded file
-  $f = file_load($fid);
+    // Instantiate php reader.
+    $objReader = new PHPExcel_Reader_Excel5();
+    $objReader->setReadDataOnly(true);
+    // Load the file ID of the recently uploaded file
+    $f = file_load($fid);
 
-  $docroot = $_SERVER['DOCUMENT_ROOT'];
+    $docroot = $_SERVER['DOCUMENT_ROOT'];
 
-  $f = drupal_realpath($f->uri);
-  $check = file_exists($f);
-  // If file exists get all headers and put it into an array
-  if($check) {
+    $f = drupal_realpath($f->uri);
+    $check = file_exists($f);
+    // If file exists get all headers and put it into an array
+    if($check) {
 
-    $inputFileType = 'Excel5';
-    $inputFileType = PHPExcel_IOFactory::identify($f);
-    $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-    $objPHPExcel = $objReader->load($f);
+        $inputFileType = 'Excel5';
+        $inputFileType = PHPExcel_IOFactory::identify($f);
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $objPHPExcel = $objReader->load($f);
 
-    $cell_collection = $objPHPExcel->getActiveSheet()->getCellCollection();
-    // Extract to a PHP readable array format
-    foreach ($cell_collection as $cell) {
-      $column = $objPHPExcel->getActiveSheet()->getCell($cell)->getColumn();
-      $row = $objPHPExcel->getActiveSheet()->getCell($cell)->getRow();
-      $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
-      // Header will/should be in row 1 only. of course this can be modified to suit your need.
-      if ($row == 1) {
-        $header[$row][$column] = rtrim($data_value);
-      } else {
-        $arr_data[$row][$column] = rtrim($data_value);
-      }
+        $cell_collection = $objPHPExcel->getActiveSheet()->getCellCollection();
+        // Extract to a PHP readable array format
+        foreach ($cell_collection as $cell) {
+            $column = $objPHPExcel->getActiveSheet()->getCell($cell)->getColumn();
+            $row = $objPHPExcel->getActiveSheet()->getCell($cell)->getRow();
+            $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
+            // Header will/should be in row 1 only. of course this can be modified to suit your need.
+            if ($row == 1) {
+                $header[$row][$column] = rtrim($data_value);
+            } else {
+                $arr_data[$row][$column] = rtrim($data_value);
+            }
+        }
+
+        // Send the data in an array format
+        $data['header'] = $header;
+        $data['values'] = $arr_data;
+        return $data;
     }
-
-    // Send the data in an array format
-    $data['header'] = $header;
-    $data['values'] = $arr_data;
-    return $data;
-  }
 }
 
 /**
@@ -610,61 +640,164 @@ function read_xls($fid){
  * Generate a form to switch between upload csv types.
  */
 function adj_select_form($form, &$form_state) {
-  $form = array();
+    $form = array();
 
-  $options = array(
-    'mnat' => 'CPA - MB2 Net Accrual TV',
-    'cparn' => 'CPA - RADAR Net Accrual TV',
-    'cparf' => 'CPA - RADAR Format GFA',
-    'cpag' => 'Current Period Accruals - GFA',
-    'ppa' => 'Prior Period Adjustments',
-    'pppece' => 'Prior Period PE to CE',
-    'shbp' => 'SHB Perdiem'
-  );
-  $form['adjtype'] = array(
-    '#attributes' => array('id' => array('arg2')),
-    '#type' => 'select',
-    '#title' => t('Adjustment type'),
-    '#description' => t('Choose the export form type.'),
-    '#default_value' => arg(1),
-    '#options' => $options
-  );
-  $form['submit']     = array(
-    '#type' => 'submit',
-    '#value' => t('Apply')
-  );
-  return $form;
+    $options = array(
+        'mnat' => 'CPA - MB2 Net Accrual TV',
+        'cparn' => 'CPA - RADAR Net Accrual TV',
+        'cparf' => 'CPA - RADAR Format GFA',
+        'cpag' => 'Current Period Accruals - GFA',
+        'ppa' => 'Prior Period Adjustments',
+        'pppece' => 'Prior Period PE to CE',
+        'shbp' => 'SHB Perdiem'
+    );
+    $form['adjtype'] = array(
+        '#attributes' => array('id' => array('arg2')),
+        '#type' => 'select',
+        '#title' => t('Adjustment type'),
+        '#description' => t('Choose the export form type.'),
+        '#default_value' => arg(1),
+        '#options' => $options
+    );
+    $form['submit']     = array(
+        '#type' => 'submit',
+        '#value' => t('Apply')
+    );
+    return $form;
 }
 
 /**
  * Adjtype select form submit function.
  */
 function adj_select_form_submit($form, &$form_state) {
-  $adjtype = $form_state['values']['adjtype'];
-  drupal_goto('/upload/' . $adjtype);
+    $adjtype = $form_state['values']['adjtype'];
+    drupal_goto('/upload/' . $adjtype);
 }
 
 function gfa_feed_feeds_presave($source, $entity, $item, $entity_id) {
-  // if(empty($entity->field_fmno['und'][0]['value'])){
-  //   drupal_set_message("FMNO field is required");
-  //   $entity->feeds_item->skip = TRUE;
-  //   $entity->field_fcuid['und'][0]['value'] = $entity->feeds_item->hash;
-  // }
+    // if(empty($entity->field_fmno['und'][0]['value'])){
+    //   drupal_set_message("FMNO field is required");
+    //   $entity->feeds_item->skip = TRUE;
+    //   $entity->field_fcuid['und'][0]['value'] = $entity->feeds_item->hash;
+    // }
 
-  // if(empty($item['FMNO'])){
-  //   drupal_set_message("ITEM FMNO REquired");
-  // }
+    // if(empty($item['FMNO'])){
+    //   drupal_set_message("ITEM FMNO REquired");
+    // }
 }
 
 function gfa_feed_upload_process($element, &$form_state, $form){
-  // ddl($form_state);
-  // ddl($element);
+    // ddl($form_state);
+    // ddl($element);
+}
+
+/**
+ * Query db for nodes of the selected form type.
+ */
+function gfa_feed_queryNodes() {
+    $efq = new EntityFieldQuery();
+
+    $efq->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', arg(1))
+        ->propertyOrderBy('created', 'DESC')
+        ->range(0,1);
+
+    $results = $efq->execute();
+
+    return $results;
+}
+
+/**
+ * Create a new node if the current node has too many entities.
+ */
+function gfa_feed_createNewNode() {
+    Global $user;
+
+    $results = gfa_feed_queryNodes();
+
+    $field = 'field_' . arg(1);
+    $uid = date('mdyHis');
+    if($results['node']) {
+        $first_key = key($results['node']);
+        $nodeObj = node_load($results['node'][$first_key]->nid);
+        foreach($nodeObj->$field as $no) {
+            if(!empty($no) && count($no) >= 100) {
+                // Create an Entity.
+                $node = entity_create('node', array('type' => arg(1)));
+                // Specify the author.
+                $node->uid = $user->uid;
+                // Create a Entity Wrapper of that new Entity.
+                $emw_node = entity_metadata_wrapper('node', $node);
+                // Set a title and some text field value.
+                $emw_node->title = strtoupper(arg(1));
+                $emw_node->field_uid = $uid;
+                // And save it.
+                $emw_node->save();
+                //dpm("New node created.");
+            } else  {
+                if(empty($nodeObj->field_uid)) {
+                    $nid = $nodeObj->nid;
+                    // Create a Entity Wrapper of that new Entity.
+                    $emw_node = entity_metadata_wrapper('node', $nid);
+                    $emw_node->field_uid = $uid;
+                    // And save it.
+                    $emw_node->save();
+                    //dpm("UID updated");
+                }
+            }
+        }
+
+    } else {
+        // Create an Entity.
+        $node = entity_create('node', array('type' => arg(1)));
+        // Specify the author.
+        $node->uid = $user->uid;
+        // Create a Entity Wrapper of that new Entity.
+        $emw_node = entity_metadata_wrapper('node', $node);
+        // Set a title and some text field value.
+        $emw_node->title = strtoupper(arg(1));
+        $emw_node->field_uid = $uid;
+        // And save it.
+        $emw_node->save();
+        //dpm("New node created.");
+    }
+}
+
+/**
+ * Get the latest UID on the node of the selected form type.
+ */
+function gfa_feed_getNodeUID() {
+    Global $user;
+
+    $results = gfa_feed_queryNodes();
+
+    $field = 'field_' . arg(1);
+    $uid = 1;
+
+    if($results['node']) {
+        $first_key = key($results['node']);
+        $nodeObj = node_load($results['node'][$first_key]->nid);
+        $uid = $nodeObj->field_uid['und'][0]['value'];
+    }
+    return $uid;
 }
 
 function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
-  foreach($result->items as $key => $row) {
-    $row['PROJECT NAME'] = "MY NAME IS HERE";
-  }
+    Global $user;
+    $username = $user->name;
+
+    foreach($result->items as $key => $row) {
+        //ddl($row);
+        $row['PROJECT NAME'] = "MY NAME IS HERE";
+    }
+    $uid = gfa_feed_getNodeUID();
+    $officeCode = isset($_POST["office_code"]) ? $_POST['office_code'] : NULL;
+    foreach($result->items as $key => $row) {
+        $result->items[$key]['OFFICE CODE'] = $officeCode;
+        $result->items[$key]['USERNAME'] = $username;
+        $result->items[$key]['UID'] = $uid;
+    }
+    //dpm($result);
 }
 
 /**
@@ -672,86 +805,86 @@ function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
  */
 function mymodule_update_8006() {
 
-  $fields = [
-    'field_fmno' => [
-      'table' => 'field_data_field_fmno',
-      'revision_table' => 'field_revision_field_fmno',
-      'format_col' => 'field_fmno_format',
-    ],
-  ];
-
-  $database = \Drupal::database();
-
-  foreach ($fields as $field_name => $f) {
-    $table = $f['table'];
-    $revision_table = $f['revision_table'];
-
-    // Entity type here.
-    $entity_type = 'paragraph';
-
-    // Step 1: Get field storage.
-    $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
-
-    // Check if field not found.
-    if (is_null($field_storage)) {
-      continue;
-    }
-
-    // Step 2: Store data.
-    $rows = NULL;
-    $revision_rows = NULL;
-    if ($database->schema()->tableExists($table)) {
-      // The table data to restore after the update is completed.
-      $rows = $database->select($table, 'n')->fields('n')->execute()->fetchAll();
-      $revision_rows = $database->select($revision_table, 'n')->fields('n')->execute()->fetchAll();
-    }
-
-    // Step 3: Save new field configs & delete existing fields.
-    $new_fields = array();
-    foreach ($field_storage->getBundles() as $bundle => $label) {
-      $field = FieldConfig::loadByName($entity_type, $bundle, $field_name);
-      $new_field = $field->toArray();
-      $new_field['field_type'] = 'text';
-      $new_fields[] = $new_field;
-      // Delete field.
-      $field->delete();
-    }
-
-    // Step 4: Create new storage configs from existing.
-    $new_field_storage = $field_storage->toArray();
-    $new_field_storage['type'] = 'text';
-    $new_field_storage['module'] = 'text';
-    $new_field_storage['settings'] = [
-      'max_length' => 255,
+    $fields = [
+        'field_fmno' => [
+            'table' => 'field_data_field_fmno',
+            'revision_table' => 'field_revision_field_fmno',
+            'format_col' => 'field_fmno_format',
+        ],
     ];
 
-    // Step 5: Purge deleted fields data.
-    // This is required to create new fields.
-    field_purge_batch(250);
+    $database = \Drupal::database();
 
-    // Step 6: Create new fieldstorage.
-    FieldStorageConfig::create($new_field_storage)->save();
+    foreach ($fields as $field_name => $f) {
+        $table = $f['table'];
+        $revision_table = $f['revision_table'];
 
-    // Step 7: Create new fields for all bundles.
-    foreach ($new_fields as $new_field) {
-      $new_field = FieldConfig::create($new_field);
-      $new_field->save();
-    }
+        // Entity type here.
+        $entity_type = 'paragraph';
 
-    // Step 8: Restore existing data in fields & revision tables.
-    if (!is_null($rows)) {
-      foreach ($rows as $row) {
-        $row = (array) $row;
-        $row[$f['format_col']] = 'static_html';
-        $database->insert($table)->fields($row)->execute();
-      }
+        // Step 1: Get field storage.
+        $field_storage = FieldStorageConfig::loadByName($entity_type, $field_name);
+
+        // Check if field not found.
+        if (is_null($field_storage)) {
+            continue;
+        }
+
+        // Step 2: Store data.
+        $rows = NULL;
+        $revision_rows = NULL;
+        if ($database->schema()->tableExists($table)) {
+            // The table data to restore after the update is completed.
+            $rows = $database->select($table, 'n')->fields('n')->execute()->fetchAll();
+            $revision_rows = $database->select($revision_table, 'n')->fields('n')->execute()->fetchAll();
+        }
+
+        // Step 3: Save new field configs & delete existing fields.
+        $new_fields = array();
+        foreach ($field_storage->getBundles() as $bundle => $label) {
+            $field = FieldConfig::loadByName($entity_type, $bundle, $field_name);
+            $new_field = $field->toArray();
+            $new_field['field_type'] = 'text';
+            $new_fields[] = $new_field;
+            // Delete field.
+            $field->delete();
+        }
+
+        // Step 4: Create new storage configs from existing.
+        $new_field_storage = $field_storage->toArray();
+        $new_field_storage['type'] = 'text';
+        $new_field_storage['module'] = 'text';
+        $new_field_storage['settings'] = [
+            'max_length' => 255,
+        ];
+
+        // Step 5: Purge deleted fields data.
+        // This is required to create new fields.
+        field_purge_batch(250);
+
+        // Step 6: Create new fieldstorage.
+        FieldStorageConfig::create($new_field_storage)->save();
+
+        // Step 7: Create new fields for all bundles.
+        foreach ($new_fields as $new_field) {
+            $new_field = FieldConfig::create($new_field);
+            $new_field->save();
+        }
+
+        // Step 8: Restore existing data in fields & revision tables.
+        if (!is_null($rows)) {
+            foreach ($rows as $row) {
+                $row = (array) $row;
+                $row[$f['format_col']] = 'static_html';
+                $database->insert($table)->fields($row)->execute();
+            }
+        }
+        if (!is_null($revision_rows)) {
+            foreach ($revision_rows as $row) {
+                $row = (array) $row;
+                $row[$f['format_col']] = 'static_html';
+                $database->insert($revision_table)->fields($row)->execute();
+            }
+        }
     }
-    if (!is_null($revision_rows)) {
-      foreach ($revision_rows as $row) {
-        $row = (array) $row;
-        $row[$f['format_col']] = 'static_html';
-        $database->insert($revision_table)->fields($row)->execute();
-      }
-    }
-  }
 }
