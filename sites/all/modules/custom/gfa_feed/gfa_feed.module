@@ -551,9 +551,13 @@ function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
     }
     $uid = gfa_feed_getNodeUID();
     $officeCode = isset($_POST["office_code"]) ? $_POST['office_code'] : NULL;
+    $name = $user->name;
+    $email = $user->mail;
+    $peopleAPI = new people_api;
+    $fmno = $peopleAPI->gfa_get_user_fmno($name, $officeCode, $mail);
     foreach($result->items as $key => $row) {
         $result->items[$key]['OFFICE CODE'] = $officeCode;
-        $result->items[$key]['USERNAME'] = $username;
+        $result->items[$key]['USERNAME'] = $username . '/' . $fmno;
         $result->items[$key]['UID'] = $uid;
     }
     //dpm($result);
