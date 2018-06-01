@@ -260,8 +260,7 @@ h2 {
 }
 
 .navbar .navbar-nav .active{
-    color: #00ADEF;
-    border-bottom: solid 8px #00ADEF;
+    font-weight: bold!important;
 }
 
 .nav-item:hover>.dropdown {
@@ -572,7 +571,7 @@ a.blue-btn.view-products {
     margin-right: 1em;
     margin-left: 1em;
     padding-bottom: 12px!important;
-    padding-top: 6px!important;
+    padding-top: 0!important;
     margin-bottom: 0!important;
 
 }
@@ -762,8 +761,6 @@ a.blue-btn.view-products {
 	margin: auto 70px;
 	text-align: left;
 	border: 0 none;
-	width: 98%;
-	max-width: 1280px;
 	margin: 0 auto;
 }
 
@@ -5430,7 +5427,7 @@ div#footer { width: 100%; height: 200px; background: #eee; }*/
     padding: 2em 3em;
     position: absolute;
     left: 2em;
-    bottom: -10em;
+    bottom: -8em;
     clear: both;
 
 }
@@ -5858,8 +5855,178 @@ main {
 
 
 
+nav.navbar {
+	padding: 20px;
+	display: inherit;
+	height: 112px;
+}
+
+nav.navbar a {
+	color: #00306E !important;
+}
+
+nav.navbar .navbar-brand,
+nav.navbar .navbrand-mobile
+ {
+	font-size: 16px!important;
+    font-weight: 600!important;
+    padding: 10px 17px 0 0!important;
+    border-left: 0 none!important;
+    border-right: 1px solid #E5E5E5;
+    margin-right: 20px;
+    margin-top: -10px!important;
+}
+
+.navbrand-mobile{
+	display: none;
+}
+
+nav.navbar .navbar-collapse {
+	padding: 10px 0;
+    z-index: 9;
+    position: absolute;
+    background: #fff;
+    width: 87%;
+    left: 0;
+    top: 54px;
+}
+
+nav.navbar .navbar-collapse .navbar-brand{
+	display: none;
+}
 
 
+nav.navbar .nav-item {
+	padding-left: 21px;
+    padding-top: 10px;
+}
+	
+nav.navbar .nav-item.active a {
+	font-weight: bold;
+}
+
+nav.navbar button.navbar-toggler {
+	border: none;
+}
+
+nav.navbar button.navbar-toggler:focus,
+nav.navbar button.navbar-toggler:hover
+ {
+	outline: none;
+	background:transparent!important;
+}
+
+nav.navbar button.navbar-toggler .navbar-toggler-icon {
+	margin-top: -5px;
+	margin-right: -5px;
+}
+
+nav.navbar button#searchtoggle,
+nav.navbar button#searchtoggle:hover,
+nav.navbar button#searchtoggle:focus
+ {
+	background-color: #1F40E6!important;
+	padding: 0 2em;
+	height: 100%;
+	border-radius: inherit;
+	position: absolute;
+    right: 0;
+    top: 0;
+}
+
+nav.navbar button#searchtoggle .mck-icon__search {
+    color: white;
+}
+
+nav.navbar button#searchtoggle .mck-icon__search:before { 
+    font-size: 2.5em;
+}
+
+#searchform {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	padding: 1%;
+	background: #fff;
+}
+
+#searchform form#search {
+	position: relative;
+    top: 25%;
+    transform: translateY(-50%);
+	padding: 1.2% 5%;
+	-webkit-box-shadow: 4px 4px 2px 0px rgba(156,157,157,1);
+	-moz-box-shadow: 4px 4px 2px 0px rgba(156,157,157,1);
+	box-shadow: 4px 4px 2px 0px rgba(156,157,157,1);
+
+}
+
+#searchform form#search .input-group {
+	width: 100%;
+}
+
+#searchform form#search .mck-icon__search {
+	transform: translateY(25%);
+}
+
+#searchform form#search .mck-icon__search:before {
+	font-size: 1.5em;
+	color: #00306E;
+}
+
+#searchform form#search .mck-icon__x:before {
+	font-size: 1em;
+	font-weight: bold;
+	color: #00306E;	
+}
+
+#searchform form#search input[type=search] {
+	border: none;
+}
+
+#searchform form#search input[type=search]::placeholder {
+	font-family: "Times New Roman", Times, serif;
+	color: #E5E5E5;
+	font-size: 1.25em;
+}
+
+#searchform form#search button.btn,
+#searchform form#search button.btn:hover,
+#searchform form#search button.btn:focus
+ {
+	background: none!important;
+}
+
+#searchform form#search button[type=submit]:focus, #searchform form#search input[type=search]:focus {
+	border-color: inherit;
+ 	-webkit-box-shadow: none;
+ 	box-shadow: none;
+}
+#searchform form#search button[type=submit], #searchform form#search button[type=submit]:hover  {
+	color: #777777!important;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    background-color: transparent;
+    border: 0 none;
+
+}
+
+
+#logo-mck {
+	background: url('../images/logo-main-blue.png') no-repeat;
+	background-size: contain;
+	text-indent: 125%;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
+	height: 22px;
+	width: 197px;
+	margin: 15px 0 0 0;
+}
 
 
 
