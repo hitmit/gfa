@@ -235,288 +235,47 @@ function check_file_header_validation($importer, $fid) {
 }
 
 function check_file_body_validation($importer, $fid) {
-    $error['error'] = false;
-    $file = check_file_fields($importer, $fid);
-    $xls = $file['xls'];
-    foreach ($xls['values'] as $key => $body) {
-        if ($importer == 'ppa') {
-            if (!$body['A']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['B']) {
-                $error['error'] = true;
-                $error['message'] = 'Column B of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['C']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['D']  && !$body['E']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column D and E of Row " . $key . " can't be null.";
-                break;
-            }
-
-            if (!$body['F']  && !$body['G']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-                break;
-            }
-        }
-
-        if ($importer == 'mnat') {
-
-            if (!$body['A']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-            if (!$body['E']) {
-                $error['error'] = true;
-                $error['message'] = 'Column E of Row ' . $key . ' is required';
-                break;
-            }
-            if (!$body['F']) {
-                $error['error'] = true;
-                $error['message'] = 'Column F of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['J']  && !$body['K']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column J and K of Row " . $key . " can't be null.";
-                break;
-            }
-
-            if (!$body['N']  && !$body['O']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column N and O of Row " . $key . " can't be null.";
-                break;
-            }
-
-            if (!$body['Q']  && !$body['R']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column Q and R of Row " . $key . " can't be null.";
-                break;
-            }
-
-            if (!$body['S']) {
-                $error['error'] = true;
-                $error['message'] = 'Column S of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['T']  && !$body['U']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column T and U of Row " . $key . " can't be null.";
-                break;
-            }
-
-        }
-
-        if ($importer == 'cparn') {
-            if (!$body['A']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-            if (!$body['L']) {
-                $error['error'] = true;
-                $error['message'] = 'Column L of Row ' . $key . ' is required';
-                break;
-            }
-            if (!$body['N']) {
-                $error['error'] = true;
-                $error['message'] = 'Column N of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['S']  && !$body['T']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column S and T of Row " . $key . " can't be null.";
-                break;
-            }
-
-            if (!$body['AE']) {
-                $error['error'] = true;
-                $error['message'] = 'Column N of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['AF']  && !$body['AG']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-                break;
-            }
-        }
-
-        if ($importer == 'cparf') {
-            if (!$body['A'] || !$body['B'] || !$body['C'] || (!$body['D'] && !$body['E']) || (!$body['F'] && !$body['G'])) {
-
-                if (!$body['A']) {
-                    $error['error'] = true;
-                    $error['message'] = 'Column A of Row ' . $key . ' is required';
-                    break;
-                }
-
-                if (!$body['B']) {
-                    $error['error'] = true;
-                    $error['message'] = 'Column B of Row ' . $key . ' is required';
-                    break;
-                }
-
-                if (!$body['C']) {
-                    $error['error'] = true;
-                    $error['message'] = 'Column A of Row ' . $key . ' is required';
-                    break;
-                }
-
-                if (!$body['D']  && !$body['E']) {
-                    $error['error'] = true;
-                    $error['message'] = "Both Column D and E of Row " . $key . " can't be null.";
-                    break;
-                }
-
-                if (!$body['F']  && !$body['G']) {
-                    $error['error'] = true;
-                    $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-                    break;
-                }
-                $error['error'] = true;
-                $error['message'] = 'Some required fields are missing to import';
-                break;
-            }
-        }
-
-        if ($importer == 'cpag') {
-            if (!$body['A']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['B']) {
-                $error['error'] = true;
-                $error['message'] = 'Column B of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['C']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!is_numeric($body['D']) && $body['D'] < 0) {
-                $error['error'] = true;
-                $error['message'] = "Column D  of Row " . $key . " can't be less than 0.";
-                break;
-            }
-
-            if (!$body['E']) {
-                $error['error'] = true;
-                $error['message'] = 'Column E of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['F']  && !$body['G']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-                break;
-            }
-
-        }
-
-        if ($importer == 'pppece') {
-            if (!$body['A']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['B']) {
-                $error['error'] = true;
-                $error['message'] = 'Column B of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['C']) {
-                $error['error'] = true;
-                $error['message'] = 'Column A of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['D']) {
-                $error['error'] = true;
-                $error['message'] = 'Column D of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['E']  && !$body['F']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column E and F of Row " . $key . " can't be null.";
-                break;
-            }
-
-            if (!$body['G']  && !$body['H']) {
-                $error['error'] = true;
-                $error['message'] = "Both Column F and G of Row " . $key . " can't be null.";
-                break;
-            }
-        }
-
-        if ($importer == 'shbp') {
-            if (!$body['B']) {
-                $error['error'] = true;
-                $error['message'] = 'Column B of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['C']) {
-                $error['error'] = true;
-                $error['message'] = 'Column C of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['J']) {
-                $error['error'] = true;
-                $error['message'] = 'Column J of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['M']) {
-                $error['error'] = true;
-                $error['message'] = 'Column M of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['S']) {
-                $error['error'] = true;
-                $error['message'] = 'Column S of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['Z']) {
-                $error['error'] = true;
-                $error['message'] = 'Column Z of Row ' . $key . ' is required';
-                break;
-            }
-
-            if (!$body['AA']) {
-                $error['error'] = true;
-                $error['message'] = 'Column AA of Row ' . $key . ' is required';
-                break;
-            }
-        }
+  module_load_include('inc', 'gfa_feed', 'gfa_feed.validation');
+  $error['error'] = false;
+  $file = check_file_fields($importer, $fid);
+  $xls = $file['xls'];
+  foreach ($xls['values'] as $key => $body) {
+    if ($importer == 'mnat') {
+      $error = check_mnat_file_valdation($body);
+      break;
     }
-    return $error;
+
+    if ($importer == 'cparn') {
+      $error = check_cparn_file_valdation($body);
+      break;
+    }
+
+    if ($importer == 'cparf') {
+      $error = check_cparf_file_valdation($body);
+      break;
+    }
+
+    if ($importer == 'cpag') {
+      $error = check_cpag_file_valdation($body);
+      break;
+    }
+
+    if ($importer == 'ppa') {
+      $error = check_ppa_file_valdation($body);
+      break;
+    }
+
+    if ($importer == 'pppece') {
+      $error = check_pppece_file_valdation($body);
+      break;
+    }
+
+    if ($importer == 'shbp') {
+      $error = check_shbp_file_valdation($body);
+      break;
+    }
+  }
+  return $error;
 }
 
 function check_file_fields($importer, $fid) {
