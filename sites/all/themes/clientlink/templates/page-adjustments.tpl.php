@@ -76,43 +76,35 @@
 <div class="wrapper">
 
 	<!-- Header Start-->
-	<header id="header-mck">
-	  <div class="container-fluid" >	
-		<div class="row">
-			<div class="col-sm-12">		
-			    <a href="http://www.mckinsey.com" target="_blank" id="logo-mck"></a>
-			</div>
-		</div>  
-		<div class="row">
-		    <div class="col-sm-12 col-lg-9">
-			   <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">		
-					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<a class="navbar-brand" href="<?php echo url('<front>') ?>">
-					 <?php if ($site_name){ ?><?php print $site_name; ?><?php }?>
-					</a>
-				    <div class="collapse navbar-collapse" id="navbarNav">
-		                <?php print render($page['navigation']); ?>
-		                
-
-		            </div>
-				</nav>
-                <div class="search-box">
-                    <div class="search-box-inner">
-                <?php print $search; ?>
-                    </div>
-                </div>
-			</div>
-			<div class="col-sm-0 col-lg-3">
-	            <!--<a href="#" class="mck-button request-btn float-right">Send a Request</a>-->
-
-                <div class="search_button">Search</div>
-			</div>
-	   </div>
-	</div>
-
-	</header>
+	<nav class="navbar navbar-light navbar-expand-lg" >
+                          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
+                           <a href="http://www.mckinsey.com" target="_blank" id="logo-mck"></a>
+                           <a class="navbar-brand navbrand-mobile" href="<?php echo url('<front>') ?>">
+                                    <?php if ($site_name){ ?><?php print $site_name; ?><?php }?>
+                            </a>
+                           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <a class="navbar-brand" href="<?php echo url('<front>') ?>">
+                                    <?php if ($site_name){ ?><?php print $site_name; ?><?php }?>
+                                </a>
+                              </li>
+                              <?php print render($page['navigation']); ?>
+                            </ul>
+                          </div>
+                          <button class="btn" id="searchtoggle" type="submit"><span class="mck-icon__search"></span></button>
+                          <div id="searchform">
+                            <form class="form-inline" id="search">
+                              <div class="input-group">
+                                <span class="mck-icon__search"></span>
+                                <input class="form-control" type="search" placeholder="Type to search..." aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                <button class="btn" id="searchform_close"><span class="mck-icon__x mck-icon--bold"></span></button>
+                              </div>
+                            </form>
+                          </div>
+                        </nav>
 	<!-- Header End-->
 
     <main role="main" id="upload-adjustments">
