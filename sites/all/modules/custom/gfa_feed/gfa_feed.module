@@ -102,6 +102,10 @@ function gfa_feed_document_add_form($form, &$form_state) {
         '#default_value' => arg(1),
         '#options' => $options
     );
+    $form['username'] = array(
+        '#type' => 'hidden',
+        '#default_value' => $user->name,
+    );
     $form['doc_file'] = array(
         '#title' => t('Upload the document'),
         '#type' => 'managed_file',
@@ -543,7 +547,6 @@ function gfa_feed_getNodeUID() {
 
 function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
     Global $user;
-    $username = $user->name;
 
     foreach($result->items as $key => $row) {
         //ddl($row);
@@ -551,13 +554,13 @@ function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
     }
     $uid = gfa_feed_getNodeUID();
     $officeCode = isset($_POST["office_code"]) ? $_POST['office_code'] : NULL;
-    $name = $user->name;
+    $name = isset($_POST["username"]) ? $_POST['username'] : NULL;
     $email = $user->mail;
     $peopleAPI = new people_api;
     $fmno = $peopleAPI->gfa_get_user_fmno($name, $officeCode, $mail);
     foreach($result->items as $key => $row) {
         $result->items[$key]['OFFICE CODE'] = $officeCode;
-        $result->items[$key]['USERNAME'] = $username . '/' . $fmno;
+        $result->items[$key]['USERNAME'] = $name . '/' . $fmno;
         $result->items[$key]['UID'] = $uid;
     }
     //dpm($result);
