@@ -513,7 +513,7 @@ function check_shbp_file_valdation($key, $body) {
     return $error;
   }
 
-  if ($body['Z'] &&  !dcimal($body['Z'])) {
+  if ($body['Z'] &&  !decimal($body['Z'])) {
     $error['error'] = true;
     $error['message'] = 'Column Z of Row ' . $key . ' should have float value.';
     return $error;
