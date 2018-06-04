@@ -301,7 +301,7 @@ function check_file_fields($importer, $fid) {
 
     // Get all the field header labels and put it into an array for comparison.
     foreach($info as $field){
-        $arr[] = $field['label'];
+        $arr[] = strtolower($field['label']);
     }
 
     $xls = read_xls($fid);
@@ -392,8 +392,8 @@ function read_xls($fid){
         }
 
         // Send the data in an array format
-        $data['header'] = $header;
-        $data['values'] = $arr_data;
+        $data['header'] = strtolower($header);
+        $data['values'] = strtolower($arr_data);
         return $data;
     }
 }
