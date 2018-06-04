@@ -241,37 +241,37 @@ function check_file_body_validation($importer, $fid) {
   $xls = $file['xls'];
   foreach ($xls['values'] as $key => $body) {
     if ($importer == 'mnat') {
-      $error = check_mnat_file_valdation($body);
+      $error = check_mnat_file_valdation($key, $body);
       break;
     }
 
     if ($importer == 'cparn') {
-      $error = check_cparn_file_valdation($body);
+      $error = check_cparn_file_valdation($key, $body);
       break;
     }
 
     if ($importer == 'cparf') {
-      $error = check_cparf_file_valdation($body);
+      $error = check_cparf_file_valdation($key, $body);
       break;
     }
 
     if ($importer == 'cpag') {
-      $error = check_cpag_file_valdation($body);
+      $error = check_cpag_file_valdation($key, $body);
       break;
     }
 
     if ($importer == 'ppa') {
-      $error = check_ppa_file_valdation($body);
+      $error = check_ppa_file_valdation($key, $body);
       break;
     }
 
     if ($importer == 'pppece') {
-      $error = check_pppece_file_valdation($body);
+      $error = check_pppece_file_valdation($key, $body);
       break;
     }
 
     if ($importer == 'shbp') {
-      $error = check_shbp_file_valdation($body);
+      $error = check_shbp_file_valdation($key, $body);
       break;
     }
   }
@@ -650,4 +650,8 @@ function mymodule_update_8006() {
             }
         }
     }
+}
+
+function is_decimal($val) {
+   return is_numeric($val);
 }
