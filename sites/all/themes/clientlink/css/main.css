@@ -5956,9 +5956,9 @@ nav.navbar button#searchtoggle .mck-icon__search:before {
 
 #searchform form#search {
 	position: relative;
-    top: 25%;
+    top: 4%;
     transform: translateY(-50%);
-	padding: 1.2% 5%;
+	padding: 10px 5%;
 	-webkit-box-shadow: 4px 4px 2px 0px rgba(156,157,157,1);
 	-moz-box-shadow: 4px 4px 2px 0px rgba(156,157,157,1);
 	box-shadow: 4px 4px 2px 0px rgba(156,157,157,1);
