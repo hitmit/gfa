@@ -653,5 +653,5 @@ function mymodule_update_8006() {
 }
 
 function is_decimal($val) {
-   return is_numeric($val) && floor($val) != $val;
+   return is_numeric($val);
 }
