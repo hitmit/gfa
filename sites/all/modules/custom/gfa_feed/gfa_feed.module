@@ -332,7 +332,7 @@ function import_header($importer, $fid){
 
     // Get all the field header labels and put it into an array for comparison.
     foreach($info as $field){
-        $arr[] = $field['label'];
+        $arr[] = strtolower($field['label']);
     }
 
     $xls = read_xls($fid);
