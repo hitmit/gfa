@@ -62,6 +62,22 @@ jQuery(document).ready(function ($) {
   });
 
 
+  $( "#searchtoggle" ).click(function() {
+      //$("#searchform").show("slide", { direction: "left" }, 1000);
+      $("#searchform").fadeIn(100);
+      return false;
+  });
+
+
+$('#searchform_close').on("click", function(){
+   //$("#searchform").hide("slide", { direction: "right" }, 1000);
+   $("#searchform").fadeOut(100);
+   return false;
+});
+
+
+
+
   /* Custom Gallery Slider - slick Slider */
 
 

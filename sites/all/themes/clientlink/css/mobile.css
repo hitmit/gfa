@@ -116,12 +116,13 @@
 	.search_button{
 		float:right;
 	}
+
 	
 }
 @media (min-width: 1024px) {
 	.navbar .navbar-nav a, .navbar .navbar-nav a.nav-link, .navbar .navbar-brand{
+		margin: 0;
 		margin-right: .6em;
-		margin-left: .6em;
 	}
 	.three-col-accordion .card .bg,.three-col-accordion .card .activebg{
 		height:80px;
@@ -287,6 +288,66 @@
 
 }
 
+@media(max-width: 991.98px){
+
+
+    #logo-mck{
+     	display: none;
+     }
+
+	nav.navbar .navbrand-mobile{
+		display: inline-block;
+		border: 0 none!important;
+		padding: 10px 17px 10px 13px!important;
+		margin: 0 !important;
+	}
+
+    nav.navbar .navbar-brand{
+    	border-left: 0 none!important;
+    }
+
+	nav.navbar {
+		height: 54px;
+		padding: 12px;
+	}
+
+	nav.navbar .navbar-brand {
+		font-size: 1.65em;
+		padding: .25em 0 .25em .45em;
+		border: 0 none;
+		border-left: 1px solid #E5E5E5!important;
+	}
+	nav.navbar button#searchtoggle,
+    nav.navbar button#searchtoggle:hover,
+    nav.navbar button#searchtoggle:focus
+	{
+	    height: auto;
+	   	padding: .75em .75em .5em .75em;
+	}
+	nav.navbar button#searchtoggle .mck-icon__search:before {
+		font-size: 1.75em;
+	}
+	body.admin-menu {
+   		 margin-top: 60px !important;
+	}
+
+	nav.navbar .navbar-collapse{
+		width: 100%;
+	}
+
+    #searchform form#search{
+    	top: 50%;
+    }
+
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -341,11 +402,11 @@
 	.three-col-card h2.number{
 		font-size:5rem;
 	}
-	.banner{
+	/*	.banner{
 		max-height:300px;
 		height: 400px;
 	}
-/*	.media-player .bg, .three-col-card .bg, .four-col-card .bg{
+.media-player .bg, .three-col-card .bg, .four-col-card .bg{
 		position: 	relative;	
 	}*/
 	.media-player{
@@ -491,13 +552,11 @@
 		width: 100%
 	}
 
+
 }
 
 
 @media (max-width: 480px) {
-	.banner .card-block{
-		padding:0;
-	}
 	.promo-bar .col-8,.promo-bar .col-4{
 		-webkit-box-flex: 0;
 	    -webkit-flex: 0 0 100%;
@@ -528,8 +587,7 @@
 	}
 
 	.banner-img .card h1{
-		width: 80%;
-		font-size: 36px;
+		font-size: 32px!important;
 	}
 
 	.banner-img .card h1 small p{

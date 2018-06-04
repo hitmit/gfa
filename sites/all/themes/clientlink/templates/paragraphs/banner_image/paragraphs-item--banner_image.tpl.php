@@ -38,7 +38,7 @@ $description        = isset($content['field_short_description']) ? render($conte
 
 		<div class="bg" style="background-image: url('<?php echo $bgurl ?>');"></div>
 		<div></div>
-			<div class="card">
+			<div class="card container">
 					<div class="card-block">
                     <h5><?php  echo render($content['field_sub_title']); ?></h5>
 						<h1><?php echo $title ?>
