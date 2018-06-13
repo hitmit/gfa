@@ -432,8 +432,11 @@ function adj_select_form_submit($form, &$form_state) {
 
 function gfa_feed_feeds_presave($source, $entity, $item, $entity_id) {
     if($entity->field_name == "field_cparn") {
+//        ddl($entity);
         $ts_startdate = $entity->field_pa_period_code['und'][0]['value'];
+//        ddl($ts_startdate);
         $stringDate = \PHPExcel_Style_NumberFormat::toFormattedString($ts_startdate, 'MM-DD-YYYY');
+//        ddl($stringDate);
         $entity->field_pa_period_code['und'][0]['value'] = $stringDate;
     }
 
@@ -548,6 +551,8 @@ function gfa_feed_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
         $result->items[$key]['OFFICE CODE'] = $officeCode;
         $result->items[$key]['USERNAME'] = $name . '/' . $fmno;
         $result->items[$key]['UID'] = $uid;
+        $stringDate = \PHPExcel_Style_NumberFormat::toFormattedString($row['TS START DATE'], 'MM-DD-YYYY');
+        $result->items[$key]['TS START DATE'] = $stringDate;
     }
 }
 
