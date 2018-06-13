@@ -360,14 +360,14 @@ function gfa_feeds_importer__feeds_importer_default() {
         'identifier_field_name' => 'field_fcuid',
         'mappings' => array(
           0 => array(
-            'source' => 'FMNO',
-            'target' => 'field_fmno',
+            'source' => 'PA Period',
+            'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
           1 => array(
-            'source' => 'PA Period',
-            'target' => 'field_pa_period_code',
+            'source' => 'FMNO',
+            'target' => 'field_fmno',
             'unique' => FALSE,
             'language' => 'und',
           ),
@@ -666,13 +666,13 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           32 => array(
-            'source' => 'OT Hours',
+            'source' => 'OT hours',
             'target' => 'field_overtime',
             'unique' => FALSE,
             'language' => 'und',
           ),
           33 => array(
-            'source' => 'POC(Local Office)',
+            'source' => 'POC (Local office)',
             'target' => 'field_poc',
             'unique' => FALSE,
             'language' => 'und',
@@ -993,7 +993,7 @@ function gfa_feeds_importer__feeds_importer_default() {
         'identifier_field_name' => '',
         'mappings' => array(
           0 => array(
-            'source' => 'PA Period',
+            'source' => 'Project Office Code',
             'target' => 'field_project_office_code',
             'unique' => FALSE,
             'language' => 'und',
@@ -1002,7 +1002,7 @@ function gfa_feeds_importer__feeds_importer_default() {
             'source' => 'FMNO',
             'target' => 'field_fmno',
             'unique' => FALSE,
-            'language' => 'und',
+            'language' => 'dbplus_undo(relation)',
           ),
           2 => array(
             'source' => 'Project Number',
@@ -1017,7 +1017,7 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           4 => array(
-            'source' => 'FMNO GOC',
+            'source' => 'FMNO GOC Office',
             'target' => 'field_fmno_goc_office',
             'unique' => FALSE,
             'language' => 'und',
@@ -1047,120 +1047,126 @@ function gfa_feeds_importer__feeds_importer_default() {
             'language' => 'und',
           ),
           9 => array(
+            'source' => 'Hours',
+            'target' => 'field_hours',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          10 => array(
             'source' => 'Days',
             'target' => 'field_days',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          10 => array(
+          11 => array(
             'source' => 'Transaction Amount LC',
             'target' => 'field_transaction_amount_lc',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          11 => array(
+          12 => array(
             'source' => 'WIP Per Diem',
             'target' => 'field_wip_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          12 => array(
-            'source' => 'Table Per Diem',
+          13 => array(
+            'source' => 'Table B Per Diem',
             'target' => 'field_table_b_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          13 => array(
+          14 => array(
             'source' => 'Nominal Per Diem',
             'target' => 'field_nominal_per_diem',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          14 => array(
+          15 => array(
             'source' => 'Staffing Office',
             'target' => 'field_staffing_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          15 => array(
+          16 => array(
             'source' => 'Entry Office',
             'target' => 'field_entry_office',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          16 => array(
+          17 => array(
             'source' => 'GL Date',
             'target' => 'field_gl_date',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          17 => array(
+          18 => array(
             'source' => 'Timesheet Period',
             'target' => 'field_pa_period_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          18 => array(
-            'source' => 'Fees at Risk',
+          19 => array(
+            'source' => 'Fees At Risk',
             'target' => 'field_fees_at_risk',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          19 => array(
-            'source' => 'Fees at Risk Recovery',
+          20 => array(
+            'source' => 'Fees At Risk Recovery',
             'target' => 'field_fees_at_risk_recovery',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          20 => array(
+          21 => array(
             'source' => 'NRR by Timesheet Period',
             'target' => 'field_nrr_by_timesheet_period',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          21 => array(
+          22 => array(
             'source' => 'Timesheet Month',
             'target' => 'field_timesheet_month:start',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          22 => array(
-            'source' => 'Firm Member Staffed Project',
+          23 => array(
+            'source' => 'Firm member Staffed to Project',
             'target' => 'field_firm_member_staffed_to_pro',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          23 => array(
-            'source' => 'Firm Member CER Billing',
+          24 => array(
+            'source' => 'Firm member on CER billing worksheet',
             'target' => 'field_firm_member_on_cer_billing',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          24 => array(
-            'source' => 'Enter the New Per Diem Amount',
+          25 => array(
+            'source' => 'Enter the New Per diem amount',
             'target' => 'field_enter_the_new_per_diem_amo',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          25 => array(
+          26 => array(
             'source' => 'Currency',
             'target' => 'field_currency',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          26 => array(
+          27 => array(
             'source' => 'Office Code',
             'target' => 'field_office_code',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          27 => array(
+          28 => array(
             'source' => 'Username',
             'target' => 'field_username',
             'unique' => FALSE,
             'language' => 'und',
           ),
-          28 => array(
+          29 => array(
             'source' => 'UID',
             'target' => 'host_entity_guid',
             'unique' => FALSE,

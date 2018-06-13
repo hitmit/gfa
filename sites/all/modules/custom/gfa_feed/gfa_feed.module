@@ -42,6 +42,8 @@ function gfa_feed_theme($existing, $type, $theme, $path) {
  * Page callback for the upload menu item.
  */
 function gfa_feed_page() {
+        $peopleAPI = new people_api;
+    $fmno = $peopleAPI->gfa_get_user_fmno('Adam Thornton', 'WC', 'Adam_Thornton@mckinsey.com');
     gfa_feed_createNewNode();
     return theme('default_upload');
 }
@@ -70,20 +72,6 @@ function import_csv($importer_id, $fid) {
 }
 
 /**
- * Gets a list of office codes from a taxonomy vocabulary.
- */
-function gfa_feed_getOfficeCodes($vocab) {
-    $vocabulary = taxonomy_vocabulary_machine_name_load($vocab);
-    $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
-    $officeCodes = array();
-    foreach($terms as $term) {
-        $officeCodes[$term->name] = $term->name;
-    }
-
-    return $officeCodes;
-}
-
-/**
  * Implements hook_form()
  * - Generate a form so that the user can upload their CSV file
  * - It is then passed into the import_csv() function
@@ -92,14 +80,16 @@ function gfa_feed_document_add_form($form, &$form_state) {
     global $user;
     $doc_id = $user->data['gfa'][arg(1)]['file_id'];
     $form['download'] = array(
-        '#markup' => '<a href="/import/'.arg(1).'/xlstemplate">Click here to download ' . arg(1) . ' template file.</a>',
+        '#markup' => '<a href="' . base_path() . drupal_get_path('theme', 'mck_know') . '/templates/csv_files/TEMPLATE-' . arg(1) . '.xls">Click here to download ' . arg(1) . ' template file.</a>',
     );
-    $options = gfa_feed_getOfficeCodes('office_codes');
+    $peopleAPI = new people_api;
+    $options = $peopleAPI->gfa_feed_getOfficeCodes('office_codes');
+    $defaultCode = $peopleAPI->gfa_get_user_office($user->name, $user->mail);
     $form['office_code'] = array(
         '#type' => 'select',
         '#title' => t('Office Code'),
         '#description' => t('Office Code.'),
-        '#default_value' => arg(1),
+        '#default_value' => $defaultCode,
         '#options' => $options
     );
     $form['username'] = array(
@@ -484,7 +474,7 @@ function gfa_feed_createNewNode() {
         $first_key = key($results['node']);
         $nodeObj = node_load($results['node'][$first_key]->nid);
         foreach($nodeObj->$field as $no) {
-            if(!empty($no) && count($no) >= 100) {
+            if(!empty($no) && count($no) >= 5000) {
                 // Create an Entity.
                 $node = entity_create('node', array('type' => arg(1)));
                 // Specify the author.

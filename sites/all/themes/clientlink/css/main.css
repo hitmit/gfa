@@ -504,6 +504,8 @@ a.blue-btn.view-products {
 	padding-right: 0;
 }
 
+
+
 .search_button {
 	background-color: #1F40E6;
     padding: 0 2em;
@@ -872,7 +874,7 @@ a.blue-btn.view-products {
 }
 
 .mck-icon__email {
-	background-image: url('../images/email.png');
+/*	background-image: url('../images/email.png');*/
 	width: 24px;
 	height: 14px;
 	background-size: contain;
@@ -884,7 +886,7 @@ a.blue-btn.view-products {
 }
 
 .mck-icon__download{
-	background-image: url('../images/download.png');
+	/*background-image: url('../images/download.png');*/
 	width: 24px;
 	height: 14px;
 	background-size: contain;
@@ -930,6 +932,18 @@ a.blue-btn.view-products {
     max-width: 200px;
     padding: 3px;
 }
+
+#user-login .form-text{
+margin: 0 auto !important;
+max-width: 400px !important;
+width: 400px !important;
+}
+
+
+.not-logged-in .main-content {
+ margin: 40px auto !important;
+ text-align: center !important;}
+
 label {
 	font-weight: normal;
 	color: #3E5B97;
@@ -980,6 +994,7 @@ input.mck-button.mck-th-cyan.mck-button--big.form-submit {
 
 .not-logged-in input.mck-button.mck-th-cyan.mck-button--big.form-submit{
 	width: auto;
+    width:400px !important;
 }
 
 .webform-client-form {
