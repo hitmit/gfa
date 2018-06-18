@@ -54,6 +54,49 @@ class people_api  {
     return json_decode($response->data);
   }
 
+ /**
+  * Gets a list of office codes from a taxonomy vocabulary.
+  */
+  function gfa_feed_getOfficeCodes($vocab) {
+    $vocabulary = taxonomy_vocabulary_machine_name_load($vocab);
+    $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+    $officeCodes = array();
+    foreach($terms as $term) {
+        $officeCodes[$term->name] = $term->name;
+    }
+
+    return $officeCodes;
+  }
+
+  function gfa_get_user_office($name = '', $email = '')  {
+    $people = $this->gfa_person_suggest_query_name($name);
+    $people = $people->response->persons;
+    $offices = $this->gfa_feed_getOfficeCodes('office_codes');
+    $datar = NULL;
+    
+    foreach($people as $person) {
+      $apiOfficeCode = $person->core->gocOfficeCode;
+      $apiOfficeClusterCode = $person->core->gocOfficeClusterCode;
+      $apiFMNO = $person->core->fmno;
+      $apiEmail = $person->contact->emails[0]->emailAddress;
+      if((isset($apiEmail) && !empty($apiEmail)) && (isset($email) && !empty($email))) {
+        if($apiEmail == $email) {
+          if((isset($apiOfficeCode) && !empty($apiOfficeCode)) || (!empty($apiOfficeClusterCode) && (isset($offices) && !empty($offices)))) {
+            if(in_array($apiOfficeCode, $offices)) {
+              $datar = $apiOfficeCode;
+              break;
+            } elseif(in_array($apiOfficeClusterCode, $offices))  {
+              $datar = $apiOfficeClusterCode;
+              break;
+            }            
+          }
+        }
+      }
+    }
+
+    return  $datar;
+  }
+
   function gfa_get_user_fmno($name = '', $officeCode = '', $email = '')  {
     $people = $this->gfa_person_suggest_query_name($name);
     $people = $people->response->persons;
@@ -61,17 +104,22 @@ class people_api  {
     
     foreach($people as $person) {
       $apiOfficeCode = $person->core->gocOfficeCode;
+      $apiOfficeClusterCode = $person->core->gocOfficeClusterCode;
       $apiFMNO = $person->core->fmno;
       $apiEmail = $person->contact->emails[0]->emailAddress;
-      if((isset($apiOfficeCode) && !empty($apiOfficeCode)) && (isset($officeCode) && !empty($officeCode))) {
-        if($apiOfficeCode == $officeCode) {
+      if((isset($apiOfficeCode) && (!empty($apiOfficeCode) || !empty($apiOfficeClusterCode))) && (isset($officeCode) && !empty($officeCode))) {
+        if($apiOfficeCode == $officeCode || $apiOfficeClusterCode == $officeCode) {
           if((isset($apiEmail) && !empty($apiEmail)) && (isset($email) && !empty($email))) {
             if($apiEmail == $email) {
               $datar = $apiFMNO;
               break;
             }
           } else  {
-            $datar = $apiFMNO;
+          	$datar = $apiFMNO;
+          }
+        } else {
+          if(isset($people[0]->core->fmno) && !empty($people[0]->core->fmno)) {
+            $datar = $people[0]->core->fmno;
           }
         }
       }

@@ -24,11 +24,16 @@ class Adjustments {
      */
     function getPAPeriod($adjustmentType) {
         $priorPeriods = array('ppa', 'pppece');
+        
         $now = new DateTime();
 
         $date = $now->format('Y-m-d H:i:s');
 
-        $tid = taxonomy_get_term_by_name($adjustmentType, $vocabulary = 'adjustment_form_types');
+        if($adjustmentType == 'cparf') {
+            $tid = taxonomy_get_term_by_name('ppa', $vocabulary = 'adjustment_form_types');
+        } else  {
+            $tid = taxonomy_get_term_by_name($adjustmentType, $vocabulary = 'adjustment_form_types');
+        }
         $tid = reset($tid)->tid;
 
         $pp = new EntityFieldQuery();
@@ -55,7 +60,18 @@ class Adjustments {
             $paPeriods = entity_load('field_collection_item', $entities);
             $paPeriodCodes = array();
             foreach($paPeriods as $paPeriod) {
-                $paPeriodCodes[] = $paPeriod->field_pa_period_code['und'][0]['value'];
+                if($adjustmentType == 'cparf') {
+                    $date = isset($paPeriod->field_pa_date_range['und'][0]['value']) ? $paPeriod->field_pa_date_range['und'][0]['value'] : NULL;
+                    $paStart = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+                    $paStartFmt = date_format($paStart, 'M d, Y');
+                    $date = isset($paPeriod->field_pa_date_range['und'][0]['value2']) ? $paPeriod->field_pa_date_range['und'][0]['value2'] : NULL;
+                    $paEnd = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+                    $paEndFmt = date_format($paEnd, 'M d, Y');
+                    $paPeriodRange = $paStartFmt . ' - ' . $paEndFmt;
+                    $paPeriodCodes[] = $paPeriodRange;
+                } else {
+                    $paPeriodCodes[] = $paPeriod->field_pa_period_code['und'][0]['value'];
+                }
             }
             return  $paPeriodCodes;
         }
@@ -153,13 +169,15 @@ class Adjustments {
                 foreach($element as $key => $field) {
                     if($first == true) {
                         $tableHeaders[] = $field['label'];
-                        $tableRows[] = $field['value'];
                     }
+                    $tableRows[] = $field['value'];
                 }
                 if($first == true) {
                     $arrayData[] = $tableHeaders;
                 }
                 $arrayData[] = $tableRows;
+                //Empty $tableRows for the start of the next element
+                $tableRows = array();
                 $first = false;
             }
 
@@ -218,14 +236,13 @@ class Adjustments {
                     $arrayData[] = ['PA Period', 'FMNO', 'Charge Code', 'Hours', 'Overtime', 'Perdiem', 'Currency'];
                     foreach($entities as $entity) {
                         $paPeriodCode = isset($entity->field_pa_period_code['und'][0]['value']) ? ($entity->field_pa_period_code['und'][0]['value']) : NULL;
-                        $paPeriodRange = $this->getPAPeriodRange($adjustmentType, $paPeriodCode);
                         $FMNO = isset($entity->field_fmno['und'][0]['value']) ? $entity->field_fmno['und'][0]['value'] : NULL;
                         $charge = isset($entity->field_charge['und'][0]['value']) ? $entity->field_charge['und'][0]['value'] : NULL;
                         $hours = isset($entity->field_hours['und'][0]['value']) ? (float)$entity->field_hours['und'][0]['value'] : NULL;
                         $overtime = isset($entity->field_overtime['und'][0]['value']) ? (float)$entity->field_overtime['und'][0]['value'] : NULL;
                         $perdiem = isset($entity->field_perdiem['und'][0]['value']) ? (float)$entity->field_perdiem['und'][0]['value'] : NULL;
                         $currency = isset($entity->field_currency['und'][0]['value']) ? $entity->field_currency['und'][0]['value'] : NULL;
-                        $arrayData[] = [$paPeriodRange, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
+                        $arrayData[] = [$paPeriodCode, $FMNO, $charge, $hours, $overtime, $perdiem, $currency];
                     }
 
                     return $arrayData;

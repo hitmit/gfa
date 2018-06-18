@@ -61,7 +61,7 @@ function gfa_adjustments_menu() {
         'page callback' => 'export_spreadsheet',
         'type' => MENU_CALLBACK,
         'access arguments' => array(
-            'administer site configuration'
+            'access content'
         ),
         'file' => 'includes/export.inc'
     );
